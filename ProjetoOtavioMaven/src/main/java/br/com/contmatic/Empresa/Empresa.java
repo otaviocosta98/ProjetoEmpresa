@@ -19,7 +19,9 @@ public class Empresa {
     }
 
     public void setNome(String nome) {
-        this.nome = nome;
+        if (nome != null && nome != "") {
+            this.nome = nome;
+        }
     }
 
     public String getRazaoSocial() {
@@ -27,7 +29,9 @@ public class Empresa {
     }
 
     public void setRazaoSocial(String razaoSocial) {
-        this.razaoSocial = razaoSocial;
+        if (razaoSocial != null && razaoSocial != "") {
+            this.razaoSocial = razaoSocial;
+        }
     }
 
     public int getIE() {
@@ -35,7 +39,9 @@ public class Empresa {
     }
 
     public void setIE(int iE) {
-        IE = iE;
+        if (Integer.toString(IE).length() == 12) {
+            IE = iE;
+        }
     }
 
     public int getCNPJ() {
@@ -43,7 +49,9 @@ public class Empresa {
     }
 
     public void setCNPJ(int cNPJ) {
-        CNPJ = cNPJ;
+        if (Integer.toString(cNPJ).length() == 14) {
+            CNPJ = cNPJ;
+        }
     }
 
     public String getEndereco() {
@@ -51,7 +59,9 @@ public class Empresa {
     }
 
     public void setEndereco(String endereco) {
-        this.endereco = endereco;
+        if (endereco != "" && endereco != null) {
+            this.endereco = endereco;
+        }
     }
 
     public int getTelefone() {
@@ -59,7 +69,9 @@ public class Empresa {
     }
 
     public void setTelefone(int telefone) {
-        this.telefone = telefone;
+        if (Integer.toString(telefone).length() == 8) {
+            this.telefone = telefone;
+        }
     }
 
     public String getEmail() {
@@ -67,7 +79,9 @@ public class Empresa {
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        if (email != null && email != "") {
+            this.email = email;
+        }
     }
 
     @Override
@@ -126,7 +140,5 @@ public class Empresa {
             return false;
         return true;
     }
-    
-    
 
 }
