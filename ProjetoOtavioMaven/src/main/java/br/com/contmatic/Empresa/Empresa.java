@@ -4,8 +4,8 @@ public class Empresa {
 
     private String nome;
     private String razaoSocial;
-    private int IE;
-    private int CNPJ;
+    private String IE;
+    private String CNPJ;
     private String endereco;
     private int telefone;
     private String email;
@@ -34,22 +34,22 @@ public class Empresa {
         }
     }
 
-    public int getIE() {
+    public String getIE() {
         return IE;
     }
 
-    public void setIE(int iE) {
-        if (Integer.toString(IE).length() == 12) {
+    public void setIE(String iE) {
+        if (iE.length() == 12 && iE != null && iE != "") {
             IE = iE;
         }
     }
 
-    public int getCNPJ() {
+    public String getCNPJ() {
         return CNPJ;
     }
 
-    public void setCNPJ(int cNPJ) {
-        if (Integer.toString(cNPJ).length() == 14) {
+    public void setCNPJ(String cNPJ) {
+        if (cNPJ.length() == 14 && cNPJ != "" && cNPJ != null) {
             CNPJ = cNPJ;
         }
     }
@@ -93,8 +93,8 @@ public class Empresa {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + CNPJ;
-        result = prime * result + IE;
+        result = prime * result + ((CNPJ == null) ? 0 : CNPJ.hashCode());
+        result = prime * result + ((IE == null) ? 0 : IE.hashCode());
         result = prime * result + ((email == null) ? 0 : email.hashCode());
         result = prime * result + ((endereco == null) ? 0 : endereco.hashCode());
         result = prime * result + ((nome == null) ? 0 : nome.hashCode());
@@ -112,9 +112,15 @@ public class Empresa {
         if (getClass() != obj.getClass())
             return false;
         Empresa other = (Empresa) obj;
-        if (CNPJ != other.CNPJ)
+        if (CNPJ == null) {
+            if (other.CNPJ != null)
+                return false;
+        } else if (!CNPJ.equals(other.CNPJ))
             return false;
-        if (IE != other.IE)
+        if (IE == null) {
+            if (other.IE != null)
+                return false;
+        } else if (!IE.equals(other.IE))
             return false;
         if (email == null) {
             if (other.email != null)
