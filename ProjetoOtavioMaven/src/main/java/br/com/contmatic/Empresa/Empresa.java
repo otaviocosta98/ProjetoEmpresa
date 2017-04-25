@@ -28,7 +28,7 @@ public class Empresa {
         return razaoSocial;
     }
 
-    public void setRazaoSocial(String razaoSocial) {
+    public void setRazaoSocial(String razaoSocial){
         if (razaoSocial != null && razaoSocial != "") {
             this.razaoSocial = razaoSocial;
         }

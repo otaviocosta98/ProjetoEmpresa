@@ -1,9 +1,7 @@
 package br.com.contmatic.Empresa;
 
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -18,49 +16,55 @@ import org.junit.runners.MethodSorters;
 public class EmpresaTest {
 
     Empresa emp;
-    Empresa emp2;
 
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
+        System.out.println("Começo Classe Teste");
     }
 
     @AfterClass
     public static void tearDownAfterClass() throws Exception {
+        System.out.println("Fim Classe teste");
     }
 
     @Before
     public void setUp() throws Exception {
+        emp = new Empresa();
     }
 
     @After
     public void tearDown() throws Exception {
+        System.out.println("Fim Teste");
     }
 
     @Test
-    public void Valida_Nome_Empresatest3() {
-        emp = new Empresa();
-        emp.setNome("Contimatic");
-        assertEquals("Verifica nome", "Contimatic", emp.getNome());
+    public void nome_empresa_nao_deve_ser_nulo() {
+        emp.setNome(null);
+        assertNull(emp.getNome());
     }
 
+    @Test
+    public void nome_empresa_nao_deve_ser_vazio() {
+        emp.setNome("");
+        assertNull(emp.getNome());
+    }
+    
     @Test
     public void Valida_IEtest2() {
-        emp = new Empresa();
         emp.setIE("123456789000");
         assertTrue("Verifica IE", emp.getIE().length() == 12);
     }
 
     @Test
     public void Valida_CNPJtest1() {
-        emp = new Empresa();
         emp.setCNPJ("75315964820490");
         assertThat("75315964820490", equalTo(emp.getCNPJ()));
     }
 
     @Test(expected = NullPointerException.class)
     public void Valida_Razao_Social() {
-        emp = new Empresa();
-        emp.setRazaoSocial(null);
+        emp = null;
+        String rs = emp.getRazaoSocial();
     }
 
     @Test
@@ -69,7 +73,7 @@ public class EmpresaTest {
         System.out.println("Ignore");
     }
 
-    @Test(timeout = 1000)
+    @Test(timeout = 2000)
     public void Timeout_Teste() throws InterruptedException {
         Thread.sleep(1000);
         System.out.println("Timeout");
