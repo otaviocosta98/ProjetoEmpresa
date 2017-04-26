@@ -1,4 +1,4 @@
-package br.com.contmatic.Empresa;
+package br.com.contmatic.empresa;
 
 public class Empresa {
 
@@ -6,8 +6,8 @@ public class Empresa {
     private String razaoSocial;
     private String IE;
     private String CNPJ;
-    private String endereco;
-    private int telefone;
+    private Endereco endereco;
+    private Telefone telefone;
     private String email;
 
     public Empresa() {
@@ -28,8 +28,8 @@ public class Empresa {
         return razaoSocial;
     }
 
-    public void setRazaoSocial(String razaoSocial){
-        if (razaoSocial != null && razaoSocial != "") {
+    public void setRazaoSocial(String razaoSocial) {
+        if (razaoSocial != null && razaoSocial != "" && razaoSocial.matches("[a-zA-Z0-9]")) {
             this.razaoSocial = razaoSocial;
         }
     }
@@ -39,8 +39,10 @@ public class Empresa {
     }
 
     public void setIE(String iE) {
-        if (iE.length() == 12 && iE != null && iE != "") {
-            IE = iE;
+        if (iE != null) {
+            if (iE.length() == 12 && iE != "" && iE.matches("[0-9]+")) {
+                IE = iE;
+            }
         }
     }
 
@@ -49,27 +51,29 @@ public class Empresa {
     }
 
     public void setCNPJ(String cNPJ) {
-        if (cNPJ.length() == 14 && cNPJ != "" && cNPJ != null) {
-            CNPJ = cNPJ;
+        if (cNPJ != null) {
+            if (cNPJ.length() == 14 && cNPJ != "" && cNPJ.matches("[0-9]+")) {
+                CNPJ = cNPJ;
+            }
         }
     }
 
-    public String getEndereco() {
+    public Endereco getEndereco() {
         return endereco;
     }
 
-    public void setEndereco(String endereco) {
-        if (endereco != "" && endereco != null) {
+    public void setEndereco(Endereco endereco) {
+        if (endereco != null) {
             this.endereco = endereco;
         }
     }
 
-    public int getTelefone() {
+    public Telefone getTelefone() {
         return telefone;
     }
 
-    public void setTelefone(int telefone) {
-        if (Integer.toString(telefone).length() == 8) {
+    public void setTelefone(Telefone telefone) {
+        if (telefone != null) {
             this.telefone = telefone;
         }
     }
@@ -80,7 +84,12 @@ public class Empresa {
 
     public void setEmail(String email) {
         if (email != null && email != "") {
-            this.email = email;
+            if (email.split("@").length == 2) {
+                String[] aux = email.split("@");
+                if (!aux[0].equals("") && aux[1].contains(".")) {
+                    this.email = email;
+                }
+            }
         }
     }
 
@@ -99,7 +108,7 @@ public class Empresa {
         result = prime * result + ((endereco == null) ? 0 : endereco.hashCode());
         result = prime * result + ((nome == null) ? 0 : nome.hashCode());
         result = prime * result + ((razaoSocial == null) ? 0 : razaoSocial.hashCode());
-        result = prime * result + telefone;
+        result = prime * result + ((telefone == null) ? 0 : telefone.hashCode());
         return result;
     }
 
