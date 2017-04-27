@@ -9,7 +9,11 @@ public class Operadora {
     }
 
     public void setCodigo(String codigo) {
-        this.codigo = codigo;
+        if(codigo != null){
+            if(codigo != "" && codigo.matches("[0-9]+")){
+                this.codigo = codigo;
+            }
+        }
     }
 
     public String getNome() {
@@ -17,7 +21,9 @@ public class Operadora {
     }
 
     public void setNome(String nome) {
-        this.nome = nome;
+        if(nome != null && nome!= ""){
+            this.nome = nome;
+        }
     }
 
     @Override
