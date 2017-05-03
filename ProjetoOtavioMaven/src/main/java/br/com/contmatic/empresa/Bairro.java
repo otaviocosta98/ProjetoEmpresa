@@ -6,60 +6,75 @@ public class Bairro {
     private String nome;
     private String tipo;
     private String tamanho;
-    private Cidade cidade;
-    private Estado estado;
+    private String populacao;
+
     public String getCodigo() {
         return codigo;
     }
+
     public void setCodigo(String codigo) {
-        this.codigo = codigo;
+        if(codigo != null && codigo != "" && codigo.matches("[0-9]+")){
+            this.codigo = codigo;
+        }
     }
+
     public String getNome() {
         return nome;
     }
+
     public void setNome(String nome) {
-        this.nome = nome;
+        if(nome != null && nome != "" && nome.matches("[^0-9]+")){
+            this.nome = nome;
+        }
     }
+
     public String getTipo() {
         return tipo;
     }
+
     public void setTipo(String tipo) {
-        this.tipo = tipo;
+        if(tipo != null && tipo != "" && tipo.matches("[^0-9]+")){
+            this.tipo = tipo;
+        }
     }
+
     public String getTamanho() {
         return tamanho;
     }
+
     public void setTamanho(String tamanho) {
-        this.tamanho = tamanho;
+        if(tamanho != null && tamanho != "" && tamanho.matches("[0-9]+")){
+            this.tamanho = tamanho;
+        }
     }
-    public Cidade getCidade() {
-        return cidade;
+
+    public String getPopulacao() {
+        return populacao;
     }
-    public void setCidade(Cidade cidade) {
-        this.cidade = cidade;
+
+    public void setPopulacao(String populacao) {
+        if(populacao != null && populacao != "" && populacao.matches("[0-9]+")){
+            this.populacao = populacao;
+        }
     }
-    public Estado getEstado() {
-        return estado;
-    }
-    public void setEstado(Estado estado) {
-        this.estado = estado;
-    }
+
     @Override
     public String toString() {
-        return "Bairro [codigo=" + codigo + ", nome=" + nome + ", tipo=" + tipo + ", tamanho=" + tamanho + ", cidade=" + cidade + ", estado=" + estado + "]";
+        return "Bairro [codigo=" + codigo + ", nome=" + nome + ", populacao=" + populacao + ", tipo=" + tipo + ", tamanho=" + tamanho + "]";
     }
+
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((cidade == null) ? 0 : cidade.hashCode());
         result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
-        result = prime * result + ((estado == null) ? 0 : estado.hashCode());
         result = prime * result + ((nome == null) ? 0 : nome.hashCode());
+        result = prime * result + ((populacao == null) ? 0 : populacao.hashCode());
         result = prime * result + ((tamanho == null) ? 0 : tamanho.hashCode());
         result = prime * result + ((tipo == null) ? 0 : tipo.hashCode());
         return result;
     }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -69,25 +84,20 @@ public class Bairro {
         if (getClass() != obj.getClass())
             return false;
         Bairro other = (Bairro) obj;
-        if (cidade == null) {
-            if (other.cidade != null)
-                return false;
-        } else if (!cidade.equals(other.cidade))
-            return false;
         if (codigo == null) {
             if (other.codigo != null)
                 return false;
         } else if (!codigo.equals(other.codigo))
             return false;
-        if (estado == null) {
-            if (other.estado != null)
-                return false;
-        } else if (!estado.equals(other.estado))
-            return false;
         if (nome == null) {
             if (other.nome != null)
                 return false;
         } else if (!nome.equals(other.nome))
+            return false;
+        if (populacao == null) {
+            if (other.populacao != null)
+                return false;
+        } else if (!populacao.equals(other.populacao))
             return false;
         if (tamanho == null) {
             if (other.tamanho != null)
@@ -101,6 +111,5 @@ public class Bairro {
             return false;
         return true;
     }
-    
-    
+
 }

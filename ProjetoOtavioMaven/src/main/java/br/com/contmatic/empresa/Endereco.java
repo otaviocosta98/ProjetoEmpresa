@@ -4,8 +4,6 @@ public class Endereco {
     private String logradouro;
     private String numero;
     private String complemento;
-    private Bairro bairro;
-    private Cidade cidade;
     private Estado estado;
     private String cep;
 
@@ -14,7 +12,7 @@ public class Endereco {
     }
 
     public void setLogradouro(String logradouro) {
-        if (logradouro != "" && logradouro != null) {
+        if (logradouro != "" && logradouro != null && logradouro.matches("[^0-9]+")) {
             this.logradouro = logradouro;
         }
     }
@@ -24,7 +22,7 @@ public class Endereco {
     }
 
     public void setNumero(String numero) {
-        if (numero != "" && numero != null) {
+        if (numero != "" && numero != null && numero.matches("[0-9a-zA-Z]+")) {
             this.numero = numero;
         }
     }
@@ -34,28 +32,8 @@ public class Endereco {
     }
 
     public void setComplemento(String complemento) {
-        if (complemento != null && complemento != "") {
+        if (complemento != null && complemento != "" && complemento.matches("[0-9a-zA-Z]+")) {
             this.complemento = complemento;
-        }
-    }
-
-    public Bairro getBairro() {
-        return bairro;
-    }
-
-    public void setBairro(Bairro bairro) {
-        if (bairro != null) {
-            this.bairro = bairro;
-        }
-    }
-
-    public Cidade getCidade() {
-        return cidade;
-    }
-
-    public void setCidade(Cidade cidade) {
-        if (cidade != null) {
-            this.cidade = cidade;
         }
     }
 
@@ -74,21 +52,23 @@ public class Endereco {
     }
 
     public void setCep(String cep) {
-        this.cep = cep;
+        if(cep != null && cep != ""){
+            if(cep.matches("[0-9]+") && cep.length() == 8){
+                this.cep = cep;
+            }
+        }
     }
 
     @Override
     public String toString() {
-        return "Endereco [logradouro=" + logradouro + ", numero=" + numero + ", complemento=" + complemento + ", bairro=" + bairro + ", cidade=" + cidade + ", estado=" + estado + ", cep=" + cep + "]";
+        return "Endereco [logradouro=" + logradouro + ", numero=" + numero + ", complemento=" + complemento + ", estado=" + estado + ", cep=" + cep + "]";
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((bairro == null) ? 0 : bairro.hashCode());
         result = prime * result + ((cep == null) ? 0 : cep.hashCode());
-        result = prime * result + ((cidade == null) ? 0 : cidade.hashCode());
         result = prime * result + ((complemento == null) ? 0 : complemento.hashCode());
         result = prime * result + ((estado == null) ? 0 : estado.hashCode());
         result = prime * result + ((logradouro == null) ? 0 : logradouro.hashCode());
@@ -105,20 +85,10 @@ public class Endereco {
         if (getClass() != obj.getClass())
             return false;
         Endereco other = (Endereco) obj;
-        if (bairro == null) {
-            if (other.bairro != null)
-                return false;
-        } else if (!bairro.equals(other.bairro))
-            return false;
         if (cep == null) {
             if (other.cep != null)
                 return false;
         } else if (!cep.equals(other.cep))
-            return false;
-        if (cidade == null) {
-            if (other.cidade != null)
-                return false;
-        } else if (!cidade.equals(other.cidade))
             return false;
         if (complemento == null) {
             if (other.complemento != null)

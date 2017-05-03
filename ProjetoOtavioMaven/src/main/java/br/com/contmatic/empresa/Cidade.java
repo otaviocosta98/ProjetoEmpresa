@@ -5,14 +5,16 @@ public class Cidade {
     private String nome;
     private String tamanho;
     private String populacao;
-    private Estado estado;
+    private Bairro bairro;
 
     public String getCodigo() {
         return codigo;
     }
 
     public void setCodigo(String codigo) {
-        this.codigo = codigo;
+        if (codigo != null && codigo != "" && codigo.matches("[0-9]+")) {
+            this.codigo = codigo;
+        }
     }
 
     public String getNome() {
@@ -20,7 +22,9 @@ public class Cidade {
     }
 
     public void setNome(String nome) {
-        this.nome = nome;
+        if (nome != null && nome != "" && nome.matches("[^0-9]+")) {
+            this.nome = nome;
+        }
     }
 
     public String getTamanho() {
@@ -28,7 +32,9 @@ public class Cidade {
     }
 
     public void setTamanho(String tamanho) {
-        this.tamanho = tamanho;
+        if(tamanho != null && tamanho != "" && tamanho.matches("[0-9]+")){
+            this.tamanho = tamanho;
+        }
     }
 
     public String getPopulacao() {
@@ -36,20 +42,24 @@ public class Cidade {
     }
 
     public void setPopulacao(String populacao) {
-        this.populacao = populacao;
+        if(populacao != null && populacao != "" && populacao.matches("[0-9]+")){
+            this.populacao = populacao;
+        }
     }
 
-    public Estado getEstado() {
-        return estado;
+    public Bairro getBairro() {
+        return bairro;
     }
 
-    public void setEstado(Estado estado) {
-        this.estado = estado;
+    public void setBairro(Bairro bairro) {
+        if(bairro != null){
+            this.bairro = bairro;
+        }
     }
 
     @Override
     public String toString() {
-        return "Cidade [codigo=" + codigo + ", nome=" + nome + ", tamanho=" + tamanho + ", populacao=" + populacao + ", estado=" + estado + "]";
+        return "Cidade [codigo=" + codigo + ", nome=" + nome + ", tamanho=" + tamanho + ", populacao=" + populacao + ", bairro=" + bairro + "]";
     }
 
     @Override
@@ -57,7 +67,7 @@ public class Cidade {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
-        result = prime * result + ((estado == null) ? 0 : estado.hashCode());
+        result = prime * result + ((bairro == null) ? 0 : bairro.hashCode());
         result = prime * result + ((nome == null) ? 0 : nome.hashCode());
         result = prime * result + ((populacao == null) ? 0 : populacao.hashCode());
         result = prime * result + ((tamanho == null) ? 0 : tamanho.hashCode());
@@ -78,10 +88,10 @@ public class Cidade {
                 return false;
         } else if (!codigo.equals(other.codigo))
             return false;
-        if (estado == null) {
-            if (other.estado != null)
+        if (bairro == null) {
+            if (other.bairro != null)
                 return false;
-        } else if (!estado.equals(other.estado))
+        } else if (!bairro.equals(other.bairro))
             return false;
         if (nome == null) {
             if (other.nome != null)

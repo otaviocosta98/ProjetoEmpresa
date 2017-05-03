@@ -1,13 +1,15 @@
 package br.com.contmatic.empresa;
 
+import java.util.Arrays;
+
 public class Empresa {
 
     private String nome;
     private String razaoSocial;
     private String IE;
     private String CNPJ;
-    private Endereco endereco;
-    private Telefone telefone;
+    private Endereco[] endereco;
+    private Telefone[] telefone;
     private String email;
 
     public Empresa() {
@@ -58,21 +60,21 @@ public class Empresa {
         }
     }
 
-    public Endereco getEndereco() {
+    public Endereco[] getEndereco() {
         return endereco;
     }
 
-    public void setEndereco(Endereco endereco) {
+    public void setEndereco(Endereco[] endereco) {
         if (endereco != null) {
             this.endereco = endereco;
         }
     }
 
-    public Telefone getTelefone() {
+    public Telefone[] getTelefone() {
         return telefone;
     }
 
-    public void setTelefone(Telefone telefone) {
+    public void setTelefone(Telefone[] telefone) {
         if (telefone != null) {
             this.telefone = telefone;
         }
@@ -95,7 +97,8 @@ public class Empresa {
 
     @Override
     public String toString() {
-        return "Empresa [nome=" + nome + ", razaoSocial=" + razaoSocial + ", IE=" + IE + ", CNPJ=" + CNPJ + ", endereco=" + endereco + ", telefone=" + telefone + ", email=" + email + "]";
+        return "Empresa [nome=" + nome + ", razaoSocial=" + razaoSocial + ", IE=" + IE + ", CNPJ=" + CNPJ + ", endereco=" + Arrays.toString(endereco) + ", telefone=" + Arrays.toString(telefone) +
+            ", email=" + email + "]";
     }
 
     @Override
@@ -105,10 +108,10 @@ public class Empresa {
         result = prime * result + ((CNPJ == null) ? 0 : CNPJ.hashCode());
         result = prime * result + ((IE == null) ? 0 : IE.hashCode());
         result = prime * result + ((email == null) ? 0 : email.hashCode());
-        result = prime * result + ((endereco == null) ? 0 : endereco.hashCode());
+        result = prime * result + Arrays.hashCode(endereco);
         result = prime * result + ((nome == null) ? 0 : nome.hashCode());
         result = prime * result + ((razaoSocial == null) ? 0 : razaoSocial.hashCode());
-        result = prime * result + ((telefone == null) ? 0 : telefone.hashCode());
+        result = prime * result + Arrays.hashCode(telefone);
         return result;
     }
 
@@ -136,10 +139,7 @@ public class Empresa {
                 return false;
         } else if (!email.equals(other.email))
             return false;
-        if (endereco == null) {
-            if (other.endereco != null)
-                return false;
-        } else if (!endereco.equals(other.endereco))
+        if (!Arrays.equals(endereco, other.endereco))
             return false;
         if (nome == null) {
             if (other.nome != null)
@@ -151,7 +151,7 @@ public class Empresa {
                 return false;
         } else if (!razaoSocial.equals(other.razaoSocial))
             return false;
-        if (telefone != other.telefone)
+        if (!Arrays.equals(telefone, other.telefone))
             return false;
         return true;
     }

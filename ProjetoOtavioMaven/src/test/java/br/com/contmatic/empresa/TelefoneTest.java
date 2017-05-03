@@ -367,14 +367,14 @@ public class TelefoneTest {
     public void deve_ser_valido_equals6() {
         Telefone telefone2 = new Telefone();
         telefone2.setDdd("00");
-        telefone.setDdd("01");
-        assertFalse(telefone.equals(telefone2));
+        telefone.setDdd("00");
+        assertTrue(telefone.equals(telefone2));
     }
     
     @Test
     public void deve_ser_valido_equals7() {
         Telefone telefone2 = new Telefone();
-        telefone.setDdd("00");
+        telefone.setDdd(null);
         telefone2.setDdd(null);
         telefone2.setNumero("12345678");
         telefone.setNumero(null);
@@ -384,8 +384,8 @@ public class TelefoneTest {
     @Test
     public void deve_ser_valido_equals8() {
         Telefone telefone2 = new Telefone();
-        telefone.setDdd("00");
-        telefone2.setDdd("00");
+        telefone.setDdd(null);
+        telefone2.setDdd(null);
         telefone2.setNumero(null);
         telefone.setNumero(null);
         assertTrue(telefone.equals(telefone2));
@@ -394,21 +394,317 @@ public class TelefoneTest {
     @Test
     public void deve_ser_valido_equals9() {
         Telefone telefone2 = new Telefone();
-        telefone.setDdd("00");
+        telefone.setDdd(null);
         telefone2.setDdd(null);
         telefone2.setNumero(null);
-        telefone.setNumero("00");
+        telefone.setNumero("12345678");
         assertFalse(telefone.equals(telefone2));
     }
     
     @Test
     public void deve_ser_valido_equals10() {
         Telefone telefone2 = new Telefone();
-        telefone.setDdd("00");
+        telefone.setDdd(null);
         telefone2.setDdd(null);
-        telefone2.setNumero("00");
-        telefone.setNumero("00");
+        telefone2.setNumero("12345678");
+        telefone.setNumero("12345678");
+        assertTrue(telefone.equals(telefone2));
+    }
+    
+    @Test
+    public void deve_ser_valido_equals11() {
+        Telefone telefone2 = new Telefone();
+        telefone.setDdd(null);
+        telefone2.setDdd(null);
+        telefone2.setNumero(null);
+        telefone.setNumero(null);
+        telefone2.setOperadora(operadora);
+        telefone.setOperadora(null);
         assertFalse(telefone.equals(telefone2));
+    }
+    
+    @Test
+    public void deve_ser_valido_equals12() {
+        Telefone telefone2 = new Telefone();
+        telefone.setDdd(null);
+        telefone2.setDdd(null);
+        telefone2.setNumero(null);
+        telefone.setNumero(null);
+        telefone2.setOperadora(null);
+        telefone.setOperadora(null);
+        assertTrue(telefone.equals(telefone2));
+    }
+    
+    @Test
+    public void deve_ser_valido_equals13() {
+        Telefone telefone2 = new Telefone();
+        telefone.setDdd(null);
+        telefone2.setDdd(null);
+        telefone2.setNumero(null);
+        telefone.setNumero(null);
+        telefone2.setOperadora(null);
+        telefone.setOperadora(operadora);
+        assertFalse(telefone.equals(telefone2));
+    }
+    
+    @Test
+    public void deve_ser_valido_equals14() {
+        Telefone telefone2 = new Telefone();
+        telefone.setDdd(null);
+        telefone2.setDdd(null);
+        telefone2.setNumero(null);
+        telefone.setNumero(null);
+        telefone2.setOperadora(operadora);
+        telefone.setOperadora(operadora);
+        assertTrue(telefone.equals(telefone2));
+    }
+    
+    @Test
+    public void deve_ser_valido_equals15() {
+        Telefone telefone2 = new Telefone();
+        telefone.setDdd(null);
+        telefone2.setDdd(null);
+        telefone2.setNumero(null);
+        telefone.setNumero(null);
+        telefone2.setOperadora(null);
+        telefone.setOperadora(null);
+        telefone2.setRamal("123");
+        telefone.setRamal(null);
+        assertFalse(telefone.equals(telefone2));
+    }
+    
+    @Test
+    public void deve_ser_valido_equals16() {
+        Telefone telefone2 = new Telefone();
+        telefone.setDdd(null);
+        telefone2.setDdd(null);
+        telefone2.setNumero(null);
+        telefone.setNumero(null);
+        telefone2.setOperadora(null);
+        telefone.setOperadora(null);
+        telefone2.setRamal(null);
+        telefone.setRamal(null);;
+        assertTrue(telefone.equals(telefone2));
+    }
+    
+    @Test
+    public void deve_ser_valido_equals17() {
+        Telefone telefone2 = new Telefone();
+        telefone.setDdd(null);
+        telefone2.setDdd(null);
+        telefone2.setNumero(null);
+        telefone.setNumero(null);
+        telefone2.setOperadora(null);
+        telefone.setOperadora(null);
+        telefone2.setRamal(null);
+        telefone.setRamal("123");
+        assertFalse(telefone.equals(telefone2));
+    }
+    
+    @Test
+    public void deve_ser_valido_equals18() {
+        Telefone telefone2 = new Telefone();
+        telefone.setDdd(null);
+        telefone2.setDdd(null);
+        telefone2.setNumero(null);
+        telefone.setNumero(null);
+        telefone2.setOperadora(null);
+        telefone.setOperadora(null);
+        telefone2.setRamal("123");
+        telefone.setRamal("123");
+        assertTrue(telefone.equals(telefone2));
+    }
+    
+    @Test
+    public void deve_ser_valido_equals19() {
+        Telefone telefone2 = new Telefone();
+        telefone.setDdd(null);
+        telefone2.setDdd(null);
+        telefone2.setNumero(null);
+        telefone.setNumero(null);
+        telefone2.setOperadora(null);
+        telefone.setOperadora(null);
+        telefone2.setRamal("123");
+        telefone.setRamal(null);
+        assertFalse(telefone.equals(telefone2));
+    }
+    
+    @Test
+    public void deve_ser_valido_equals20() {
+        Telefone telefone2 = new Telefone();
+        telefone.setDdd(null);
+        telefone2.setDdd(null);
+        telefone2.setNumero(null);
+        telefone.setNumero(null);
+        telefone2.setOperadora(null);
+        telefone.setOperadora(null);
+        telefone2.setRamal(null);
+        telefone.setRamal(null);;
+        assertTrue(telefone.equals(telefone2));
+    }
+    
+    @Test
+    public void deve_ser_valido_equals21() {
+        Telefone telefone2 = new Telefone();
+        telefone.setDdd(null);
+        telefone2.setDdd(null);
+        telefone2.setNumero(null);
+        telefone.setNumero(null);
+        telefone2.setOperadora(null);
+        telefone.setOperadora(null);
+        telefone2.setRamal(null);
+        telefone.setRamal("123");
+        assertFalse(telefone.equals(telefone2));
+    }
+    
+    @Test
+    public void deve_ser_valido_equals22() {
+        Telefone telefone2 = new Telefone();
+        telefone.setDdd(null);
+        telefone2.setDdd(null);
+        telefone2.setNumero(null);
+        telefone.setNumero(null);
+        telefone2.setOperadora(null);
+        telefone.setOperadora(null);
+        telefone2.setRamal("123");
+        telefone.setRamal("123");
+        assertTrue(telefone.equals(telefone2));
+    }
+    
+    @Test
+    public void deve_ser_valido_equals23() {
+        Telefone telefone2 = new Telefone();
+        telefone.setDdd(null);
+        telefone2.setDdd(null);
+        telefone2.setNumero(null);
+        telefone.setNumero(null);
+        telefone2.setOperadora(null);
+        telefone.setOperadora(null);
+        telefone2.setRamal(null);
+        telefone.setRamal(null);
+        telefone2.setResponsavel("Contmatic");
+        telefone.setResponsavel(null);
+        assertFalse(telefone.equals(telefone2));
+    }
+    
+    @Test
+    public void deve_ser_valido_equals24() {
+        Telefone telefone2 = new Telefone();
+        telefone.setDdd(null);
+        telefone2.setDdd(null);
+        telefone2.setNumero(null);
+        telefone.setNumero(null);
+        telefone2.setOperadora(null);
+        telefone.setOperadora(null);
+        telefone2.setRamal(null);
+        telefone.setRamal(null);
+        telefone2.setResponsavel(null);
+        telefone.setResponsavel(null);
+        assertTrue(telefone.equals(telefone2));
+    }
+    
+    @Test
+    public void deve_ser_valido_equals25() {
+        Telefone telefone2 = new Telefone();
+        telefone.setDdd(null);
+        telefone2.setDdd(null);
+        telefone2.setNumero(null);
+        telefone.setNumero(null);
+        telefone2.setOperadora(null);
+        telefone.setOperadora(null);
+        telefone2.setRamal(null);
+        telefone.setRamal(null);
+        telefone2.setResponsavel(null);
+        telefone.setResponsavel("Contmatic");
+        assertFalse(telefone.equals(telefone2));
+    }
+    
+    @Test
+    public void deve_ser_valido_equals26() {
+        Telefone telefone2 = new Telefone();
+        telefone.setDdd(null);
+        telefone2.setDdd(null);
+        telefone2.setNumero(null);
+        telefone.setNumero(null);
+        telefone2.setOperadora(null);
+        telefone.setOperadora(null);
+        telefone2.setRamal(null);
+        telefone.setRamal(null);
+        telefone2.setResponsavel("Contmatic");
+        telefone.setResponsavel("Contmatic");
+        assertTrue(telefone.equals(telefone2));
+    }
+    
+    @Test
+    public void deve_ser_valido_equals27() {
+        Telefone telefone2 = new Telefone();
+        telefone.setDdd(null);
+        telefone2.setDdd(null);
+        telefone2.setNumero(null);
+        telefone.setNumero(null);
+        telefone2.setOperadora(null);
+        telefone.setOperadora(null);
+        telefone2.setRamal(null);
+        telefone.setRamal(null);
+        telefone2.setResponsavel(null);
+        telefone.setResponsavel(null);
+        telefone2.setTipo("Residencial");
+        telefone.setTipo(null);
+        assertFalse(telefone.equals(telefone2));
+    }
+    
+    @Test
+    public void deve_ser_valido_equals28() {
+        Telefone telefone2 = new Telefone();
+        telefone.setDdd(null);
+        telefone2.setDdd(null);
+        telefone2.setNumero(null);
+        telefone.setNumero(null);
+        telefone2.setOperadora(null);
+        telefone.setOperadora(null);
+        telefone2.setRamal(null);
+        telefone.setRamal(null);
+        telefone2.setResponsavel(null);
+        telefone.setResponsavel(null);
+        telefone2.setTipo(null);
+        telefone.setTipo(null);
+        assertTrue(telefone.equals(telefone2));
+    }
+    
+    @Test
+    public void deve_ser_valido_equals29() {
+        Telefone telefone2 = new Telefone();
+        telefone.setDdd(null);
+        telefone2.setDdd(null);
+        telefone2.setNumero(null);
+        telefone.setNumero(null);
+        telefone2.setOperadora(null);
+        telefone.setOperadora(null);
+        telefone2.setRamal(null);
+        telefone.setRamal(null);
+        telefone2.setResponsavel(null);
+        telefone.setResponsavel(null);
+        telefone2.setTipo(null);
+        telefone.setTipo("Residencial");
+        assertFalse(telefone.equals(telefone2));
+    }
+    
+    @Test
+    public void deve_ser_valido_equals30() {
+        Telefone telefone2 = new Telefone();
+        telefone.setDdd(null);
+        telefone2.setDdd(null);
+        telefone2.setNumero(null);
+        telefone.setNumero(null);
+        telefone2.setOperadora(null);
+        telefone.setOperadora(null);
+        telefone2.setRamal(null);
+        telefone.setRamal(null);
+        telefone2.setResponsavel(null);
+        telefone.setResponsavel(null);
+        telefone2.setTipo("Residencial");
+        telefone.setTipo("Residencial");
+        assertTrue(telefone.equals(telefone2));
     }
     
     /* -------------------------------------------------- equals >>> ----------------------------------------------------------- */
