@@ -9,7 +9,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class BairroTest {
-    
+
     Bairro bairro;
 
     /* -------------------------------------------------- SetUps e TearDowns >>> ----------------------------------------------------------- */
@@ -37,10 +37,10 @@ public class BairroTest {
 
     /* -------------------------------------------------- <<< SetUps e TearDowns ----------------------------------------------------------- */
 
-/* -------------------------------------------------- Testes >>> ----------------------------------------------------------- */
-    
+    /* -------------------------------------------------- Testes >>> ----------------------------------------------------------- */
+
     /* -------------------------------------------------- Codigo >>> ----------------------------------------------------------- */
-    
+
     @Test
     public void nao_deve_aceitar_codigo_nulo() {
         bairro.setCodigo(null);
@@ -64,11 +64,11 @@ public class BairroTest {
         bairro.setCodigo("269b");
         assertNull(bairro.getCodigo());
     }
-    
+
     /* -------------------------------------------------- <<< Codigo ----------------------------------------------------------- */
-    
+
     /* -------------------------------------------------- Nome >>> ----------------------------------------------------------- */
-    
+
     @Test
     public void nao_deve_aceitar_nome_nulo() {
         bairro.setNome(null);
@@ -92,11 +92,11 @@ public class BairroTest {
         bairro.setNome("Cohab1");
         assertNull(bairro.getNome());
     }
-    
+
     /* -------------------------------------------------- <<< Nome ----------------------------------------------------------- */
-    
+
     /* -------------------------------------------------- Tamanho >>> ----------------------------------------------------------- */
-    
+
     @Test
     public void nao_deve_aceitar_tamanho_nulo() {
         bairro.setTamanho(null);
@@ -121,11 +121,10 @@ public class BairroTest {
         assertNull(bairro.getTamanho());
     }
 
-    
     /* -------------------------------------------------- <<< Tamanho ----------------------------------------------------------- */
-    
+
     /* -------------------------------------------------- População >>> ----------------------------------------------------------- */
-    
+
     @Test
     public void nao_deve_aceitar_populacao_nulo() {
         bairro.setPopulacao(null);
@@ -149,11 +148,11 @@ public class BairroTest {
         bairro.setPopulacao("123456E");
         assertNull(bairro.getPopulacao());
     }
-    
+
     /* -------------------------------------------------- <<< População ----------------------------------------------------------- */
-    
+
     /* -------------------------------------------------- Tipo >>> ----------------------------------------------------------- */
-    
+
     @Test
     public void nao_deve_aceitar_tipo_nulo() {
         bairro.setTipo(null);
@@ -177,21 +176,21 @@ public class BairroTest {
         bairro.setTipo("Comercial1");
         assertNull(bairro.getTipo());
     }
-    
+
     /* -------------------------------------------------- <<< Tipo ----------------------------------------------------------- */
-    
+
     /* -------------------------------------------------- ToString >>> ----------------------------------------------------------- */
-    
+
     @Test
     public void deve_ser_valido_to_string() {
         Bairro bairro2 = new Bairro();
         assertEquals(bairro.toString(), bairro2.toString());
     }
-    
+
     /* -------------------------------------------------- <<< ToString ----------------------------------------------------------- */
-    
+
     /* -------------------------------------------------- HashCode >>> ----------------------------------------------------------- */
-    
+
     @Test
     public void hash_code1() {
         bairro.setCodigo(null);
@@ -261,11 +260,11 @@ public class BairroTest {
         System.out.println(bairro.hashCode());
         assertEquals(774090644, bairro.hashCode());
     }
-    
+
     /* -------------------------------------------------- <<< HashCode ----------------------------------------------------------- */
-    
+
     /* -------------------------------------------------- Equals >>> ----------------------------------------------------------- */
-    
+
     @Test
     public void deve_ser_valido_equals() {
         assertTrue(bairro.equals(bairro));
@@ -315,7 +314,7 @@ public class BairroTest {
         bairro.setCodigo("00");
         assertTrue(bairro.equals(bairro2));
     }
-    
+
     @Test
     public void deve_ser_valido_equals7() {
         Bairro bairro2 = new Bairro();
@@ -355,7 +354,7 @@ public class BairroTest {
         bairro.setNome("Cohab");
         assertTrue(bairro.equals(bairro2));
     }
-    
+
     @Test
     public void deve_ser_valido_equals11() {
         Bairro bairro2 = new Bairro();
@@ -403,7 +402,7 @@ public class BairroTest {
         bairro.setPopulacao("123456789");
         assertTrue(bairro.equals(bairro2));
     }
-    
+
     @Test
     public void deve_ser_valido_equals15() {
         Bairro bairro2 = new Bairro();
@@ -459,7 +458,7 @@ public class BairroTest {
         bairro.setTamanho("123456789");
         assertTrue(bairro.equals(bairro2));
     }
-    
+
     @Test
     public void deve_ser_valido_equals19() {
         Bairro bairro2 = new Bairro();
@@ -523,9 +522,9 @@ public class BairroTest {
         bairro.setTipo("Comercial");
         assertTrue(bairro.equals(bairro2));
     }
-    
+
     /* -------------------------------------------------- <<< Equals ----------------------------------------------------------- */
-    
+
     /* -------------------------------------------------- <<< Testes ----------------------------------------------------------- */
 
 }

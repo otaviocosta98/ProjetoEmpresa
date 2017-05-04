@@ -31,7 +31,7 @@ public class Empresa {
     }
 
     public void setRazaoSocial(String razaoSocial) {
-        if (razaoSocial != null && razaoSocial != "" && razaoSocial.matches("[a-zA-Z0-9]")) {
+        if (razaoSocial != null && razaoSocial != "" && razaoSocial.matches("[a-zA-Z0-9]+")) {
             this.razaoSocial = razaoSocial;
         }
     }
@@ -41,8 +41,8 @@ public class Empresa {
     }
 
     public void setIE(String iE) {
-        if (iE != null) {
-            if (iE.length() == 12 && iE != "" && iE.matches("[0-9]+")) {
+        if (iE != null && iE != "") {
+            if (iE.length() == 12 && iE.matches("[0-9]+")) {
                 IE = iE;
             }
         }
@@ -53,8 +53,8 @@ public class Empresa {
     }
 
     public void setCNPJ(String cNPJ) {
-        if (cNPJ != null) {
-            if (cNPJ.length() == 14 && cNPJ != "" && cNPJ.matches("[0-9]+")) {
+        if (cNPJ != null && cNPJ != "") {
+            if (cNPJ.length() == 14 && cNPJ.matches("[0-9]+")) {
                 CNPJ = cNPJ;
             }
         }
