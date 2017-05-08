@@ -291,9 +291,9 @@ public class EmpresaTest {
 
     /* -------------------------------------------------- Timeout >>> ----------------------------------------------------------- */
 
-    @Test(timeout = 2000)
+    @Test(timeout = 100)
     public void deve_ter_timeout_de_2_segundos() throws Exception {
-        Thread.sleep(2000);
+        Thread.sleep(100);
         System.out.println("Timeout");
     }
 
