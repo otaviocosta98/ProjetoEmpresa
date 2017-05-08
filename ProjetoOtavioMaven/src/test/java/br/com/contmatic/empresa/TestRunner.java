@@ -14,10 +14,12 @@ public class TestRunner {
 
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
+        System.out.println("Rodando Todos os Testes!");
     }
 
     @AfterClass
     public static void tearDownAfterClass() throws Exception {
+        System.out.println("Finalizado!");
     }
 
     @Before
