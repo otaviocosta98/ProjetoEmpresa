@@ -60,7 +60,7 @@ public class TelefoneTest {
         telefone.setDdd("11");
         assertEquals("11", telefone.getDdd());
     }
-    
+
     @Test
     public void nao_deve_aceitar_letras_no_ddd() {
         telefone.setDdd("11a");
@@ -80,7 +80,7 @@ public class TelefoneTest {
     }
 
     /* -------------------------------------------------- <<< DDD ----------------------------------------------------------- */
-    
+
     /* -------------------------------------------------- Numero >>> ----------------------------------------------------------- */
 
     @Test
@@ -118,11 +118,11 @@ public class TelefoneTest {
         telefone.setNumero("12345678");
         assertEquals("12345678", telefone.getNumero());
     }
-    
+
     /* -------------------------------------------------- <<< Numero ----------------------------------------------------------- */
 
     /* -------------------------------------------------- Ramal >>> ----------------------------------------------------------- */
-    
+
     @Test
     public void nao_deve_aceitar_ramal_nulo() {
         telefone.setRamal(null);
@@ -140,7 +140,7 @@ public class TelefoneTest {
         telefone.setRamal("123c");
         assertNotEquals("123c", telefone.getRamal());
     }
-    
+
     @Test
     public void deve_aceitar_somente_ramal_numerico() {
         telefone.setRamal("123");
@@ -148,9 +148,9 @@ public class TelefoneTest {
     }
 
     /* -------------------------------------------------- <<< Ramal ----------------------------------------------------------- */
-    
+
     /* -------------------------------------------------- Tipo >>> ----------------------------------------------------------- */
-    
+
     @Test
     public void nao_deve_aceitar_tipo_nulo() {
         telefone.setTipo(null);
@@ -168,15 +168,15 @@ public class TelefoneTest {
         telefone.setTipo("residencial");
         assertEquals("residencial", telefone.getTipo());
     }
-    
+
     @Test
     public void nao_deve_aceitar_tipo_com_numero() {
         telefone.setTipo("residencial1");
         assertNotEquals("residencial1", telefone.getTipo());
     }
-    
+
     /* -------------------------------------------------- <<< Tipo ----------------------------------------------------------- */
-    
+
     /* -------------------------------------------------- Responsavel >>> ----------------------------------------------------------- */
 
     @Test
@@ -196,7 +196,7 @@ public class TelefoneTest {
         telefone.setResponsavel("contmatic");
         assertEquals("contmatic", telefone.getResponsavel());
     }
-    
+
     @Test
     public void nao_deve_aceitar_responsavel_com_numero() {
         telefone.setResponsavel("contmatic1");
@@ -204,175 +204,175 @@ public class TelefoneTest {
     }
 
     /* -------------------------------------------------- <<< Responsavel ----------------------------------------------------------- */
-    
+
     /* -------------------------------------------------- Telefone >>> ----------------------------------------------------------- */
-    
+
     @Test
     public void nao_deve_aceitar_operadora_nula() {
         telefone.setOperadora(null);
         assertNull(telefone.getOperadora());
     }
-    
+
     @Test
     public void deve_aceitar_operadora_nao_nula() {
         telefone.setOperadora(operadora);
         assertNotNull(telefone.getOperadora());
     }
-    
+
     /* -------------------------------------------------- <<< Telefone ----------------------------------------------------------- */
-    
+
     /* -------------------------------------------------- <<< ToString ----------------------------------------------------------- */
-    
+
     @Test
     public void deve_ser_valido_to_string() {
         Telefone telefone2 = new Telefone();
         assertEquals(telefone.toString(), telefone2.toString());
     }
-    
+
     /* -------------------------------------------------- ToString >>> ----------------------------------------------------------- */
-    
+
     /* -------------------------------------------------- <<< hashCode ----------------------------------------------------------- */
-    
+
     @Test
-    public void hash_code1() {
+    public void deve_o_hash_code_ser_igual_a_887503681_para_ddd_nulo() {
         telefone.setDdd(null);
         System.out.println(telefone.hashCode());
         assertEquals(887503681, telefone.hashCode());
     }
-    
+
     @Test
-    public void hash_code2() {
+    public void deve_o_hash_code_ser_igual_a_menos_1466627807_para_ddd_nao_nulo() {
         telefone.setDdd("11");
         System.out.println(telefone.hashCode());
         assertEquals(-1466627807, telefone.hashCode());
     }
-    
+
     @Test
-    public void hash_code3() {
+    public void deve_o_hash_code_ser_igual_a_887503681_para_numero_nulo() {
         telefone.setNumero(null);
         System.out.println(telefone.hashCode());
         assertEquals(887503681, telefone.hashCode());
     }
-    
+
     @Test
-    public void hash_code4() {
+    public void deve_o_hash_code_ser_igual_a_menos_1774691899_para_numero_nao_nulo() {
         telefone.setNumero("12345678");
         System.out.println(telefone.hashCode());
         assertEquals(-1774691899, telefone.hashCode());
     }
-    
+
     @Test
-    public void hash_code5() {
+    public void deve_o_hash_code_ser_igual_a_887503681_para_ramal_nulo() {
         telefone.setRamal(null);
         System.out.println(telefone.hashCode());
         assertEquals(887503681, telefone.hashCode());
     }
-    
+
     @Test
-    public void hash_code6() {
+    public void deve_o_hash_code_ser_igual_a_887552692_para_ramal_nao_nulo() {
         telefone.setRamal("3");
         System.out.println(telefone.hashCode());
         assertEquals(887552692, telefone.hashCode());
     }
-    
+
     @Test
-    public void hash_code7() {
+    public void deve_o_hash_code_ser_igual_a_887503681_para_tipo_nulo() {
         telefone.setTipo(null);
         System.out.println(telefone.hashCode());
         assertEquals(887503681, telefone.hashCode());
     }
-    
+
     @Test
-    public void hash_code8() {
+    public void deve_o_hash_code_ser_igual_a_1985349622_para_tipo_nao_nulo() {
         telefone.setTipo("residencial");
         System.out.println(telefone.hashCode());
         assertEquals(1985349622, telefone.hashCode());
     }
-    
+
     @Test
-    public void hash_code9() {
+    public void deve_o_hash_code_ser_igual_a_887503681_para_responsavel_nulo() {
         telefone.setResponsavel(null);
         System.out.println(telefone.hashCode());
         assertEquals(887503681, telefone.hashCode());
     }
-    
+
     @Test
-    public void hash_code10() {
+    public void deve_o_hash_code_ser_igual_a_1369092537_para_responsavel_nao_nulo() {
         telefone.setResponsavel("contmatic");
         System.out.println(telefone.hashCode());
         assertEquals(1369092537, telefone.hashCode());
     }
-    
+
     @Test
-    public void hash_code11() {
+    public void deve_o_hash_code_ser_igual_a_887503681_para_operadora_nula() {
         telefone.setOperadora(null);
         System.out.println(telefone.hashCode());
         assertEquals(887503681, telefone.hashCode());
     }
-    
+
     @Test
-    public void hash_code12() {
+    public void deve_o_hash_code_ser_igual_a_916132832_para_operadora_nao_nula() {
         telefone.setOperadora(operadora);
         System.out.println(telefone.hashCode());
         assertEquals(916132832, telefone.hashCode());
     }
-    
+
     /* -------------------------------------------------- hashCode >>> ----------------------------------------------------------- */
-    
+
     /* -------------------------------------------------- <<< equals ----------------------------------------------------------- */
-    
+
     @Test
-    public void deve_ser_valido_equals() {
+    public void deve_o_equals_retornar_true_comparando_ele_mesmo() {
         assertTrue(telefone.equals(telefone));
     }
-    
+
     @Test
-    public void deve_ser_valido_equals1() {
+    public void deve_o_equals_retornar_false_comparando_outro_telefone_nulo() {
         Telefone telefone2 = new Telefone();
         telefone2 = null;
         assertFalse(telefone.equals(telefone2));
     }
-    
+
     @Test
-    public void deve_ser_valido_equals2() {
+    public void deve_o_equals_retornar_false_comparando_getClass_de_outro_telefone() {
         Telefone telefone2 = new Telefone();
         assertFalse(telefone.equals(telefone2.getClass()));
     }
-    
+
     @Test
-    public void deve_ser_valido_equals3() {
+    public void deve_o_equals_retornar_false_comparando_ddd_nulo_com_ddd_nao_nulo_de_outro_telefone() {
         Telefone telefone2 = new Telefone();
         telefone2.setDdd("11");
         telefone.setDdd(null);
         assertFalse(telefone.equals(telefone2));
     }
-    
+
     @Test
-    public void deve_ser_valido_equals4() {
+    public void deve_o_equals_retornar_true_comparando_ambos_ddds_nulos() {
         Telefone telefone2 = new Telefone();
         telefone2.setDdd(null);
         telefone.setDdd(null);
         assertTrue(telefone.equals(telefone2));
     }
-    
+
     @Test
-    public void deve_ser_valido_equals5() {
+    public void deve_o_equals_retornar_false_comparando_ddd_nao_nulo_com_ddd_nulo_de_outro_telefone() {
         Telefone telefone2 = new Telefone();
         telefone2.setDdd(null);
         telefone.setDdd("00");
         assertFalse(telefone.equals(telefone2));
     }
-    
+
     @Test
-    public void deve_ser_valido_equals6() {
+    public void deve_o_equals_retornar_true_comparando_ambos_ddds_nao_nulos() {
         Telefone telefone2 = new Telefone();
         telefone2.setDdd("00");
         telefone.setDdd("00");
         assertTrue(telefone.equals(telefone2));
     }
-    
+
     @Test
-    public void deve_ser_valido_equals7() {
+    public void deve_o_equals_retornar_false_comparando_numero_nulo_com_numero_nao_nulo_de_outro_telefone() {
         Telefone telefone2 = new Telefone();
         telefone.setDdd(null);
         telefone2.setDdd(null);
@@ -380,9 +380,9 @@ public class TelefoneTest {
         telefone.setNumero(null);
         assertFalse(telefone.equals(telefone2));
     }
-    
+
     @Test
-    public void deve_ser_valido_equals8() {
+    public void deve_o_equals_retornar_true_comparando_ambos_numeros_nulos() {
         Telefone telefone2 = new Telefone();
         telefone.setDdd(null);
         telefone2.setDdd(null);
@@ -390,9 +390,9 @@ public class TelefoneTest {
         telefone.setNumero(null);
         assertTrue(telefone.equals(telefone2));
     }
-    
+
     @Test
-    public void deve_ser_valido_equals9() {
+    public void deve_o_equals_retornar_false_comparando_numero_nao_nulo_com_numero_nulo_de_outro_telefone() {
         Telefone telefone2 = new Telefone();
         telefone.setDdd(null);
         telefone2.setDdd(null);
@@ -400,9 +400,9 @@ public class TelefoneTest {
         telefone.setNumero("12345678");
         assertFalse(telefone.equals(telefone2));
     }
-    
+
     @Test
-    public void deve_ser_valido_equals10() {
+    public void deve_o_equals_retornar_true_comparando_ambos_numeros_nao_nulos() {
         Telefone telefone2 = new Telefone();
         telefone.setDdd(null);
         telefone2.setDdd(null);
@@ -410,9 +410,9 @@ public class TelefoneTest {
         telefone.setNumero("12345678");
         assertTrue(telefone.equals(telefone2));
     }
-    
+
     @Test
-    public void deve_ser_valido_equals11() {
+    public void deve_o_equals_retornar_false_comparando_operadora_nula_com_operadora_nao_nula_de_outro_telefone() {
         Telefone telefone2 = new Telefone();
         telefone.setDdd(null);
         telefone2.setDdd(null);
@@ -422,9 +422,9 @@ public class TelefoneTest {
         telefone.setOperadora(null);
         assertFalse(telefone.equals(telefone2));
     }
-    
+
     @Test
-    public void deve_ser_valido_equals12() {
+    public void deve_o_equals_retornar_true_comparando_ambas_operadoras_nulas() {
         Telefone telefone2 = new Telefone();
         telefone.setDdd(null);
         telefone2.setDdd(null);
@@ -434,9 +434,9 @@ public class TelefoneTest {
         telefone.setOperadora(null);
         assertTrue(telefone.equals(telefone2));
     }
-    
+
     @Test
-    public void deve_ser_valido_equals13() {
+    public void deve_o_equals_retornar_false_comparando_operadora_nao_nula_com_operadora_nula_de_outro_telefone() {
         Telefone telefone2 = new Telefone();
         telefone.setDdd(null);
         telefone2.setDdd(null);
@@ -446,9 +446,9 @@ public class TelefoneTest {
         telefone.setOperadora(operadora);
         assertFalse(telefone.equals(telefone2));
     }
-    
+
     @Test
-    public void deve_ser_valido_equals14() {
+    public void deve_o_equals_retornar_true_comparando_ambas_operadoras_nao_nulas() {
         Telefone telefone2 = new Telefone();
         telefone.setDdd(null);
         telefone2.setDdd(null);
@@ -458,9 +458,9 @@ public class TelefoneTest {
         telefone.setOperadora(operadora);
         assertTrue(telefone.equals(telefone2));
     }
-    
+
     @Test
-    public void deve_ser_valido_equals15() {
+    public void deve_o_equals_retornar_false_comparando_ramal_nulo_com_ramal_nao_nulo_de_outro_telefone() {
         Telefone telefone2 = new Telefone();
         telefone.setDdd(null);
         telefone2.setDdd(null);
@@ -472,9 +472,9 @@ public class TelefoneTest {
         telefone.setRamal(null);
         assertFalse(telefone.equals(telefone2));
     }
-    
+
     @Test
-    public void deve_ser_valido_equals16() {
+    public void deve_o_equals_retornar_true_comparando_ambos_ramais_nulos() {
         Telefone telefone2 = new Telefone();
         telefone.setDdd(null);
         telefone2.setDdd(null);
@@ -483,68 +483,13 @@ public class TelefoneTest {
         telefone2.setOperadora(null);
         telefone.setOperadora(null);
         telefone2.setRamal(null);
-        telefone.setRamal(null);;
-        assertTrue(telefone.equals(telefone2));
-    }
-    
-    @Test
-    public void deve_ser_valido_equals17() {
-        Telefone telefone2 = new Telefone();
-        telefone.setDdd(null);
-        telefone2.setDdd(null);
-        telefone2.setNumero(null);
-        telefone.setNumero(null);
-        telefone2.setOperadora(null);
-        telefone.setOperadora(null);
-        telefone2.setRamal(null);
-        telefone.setRamal("123");
-        assertFalse(telefone.equals(telefone2));
-    }
-    
-    @Test
-    public void deve_ser_valido_equals18() {
-        Telefone telefone2 = new Telefone();
-        telefone.setDdd(null);
-        telefone2.setDdd(null);
-        telefone2.setNumero(null);
-        telefone.setNumero(null);
-        telefone2.setOperadora(null);
-        telefone.setOperadora(null);
-        telefone2.setRamal("123");
-        telefone.setRamal("123");
-        assertTrue(telefone.equals(telefone2));
-    }
-    
-    @Test
-    public void deve_ser_valido_equals19() {
-        Telefone telefone2 = new Telefone();
-        telefone.setDdd(null);
-        telefone2.setDdd(null);
-        telefone2.setNumero(null);
-        telefone.setNumero(null);
-        telefone2.setOperadora(null);
-        telefone.setOperadora(null);
-        telefone2.setRamal("123");
         telefone.setRamal(null);
-        assertFalse(telefone.equals(telefone2));
-    }
-    
-    @Test
-    public void deve_ser_valido_equals20() {
-        Telefone telefone2 = new Telefone();
-        telefone.setDdd(null);
-        telefone2.setDdd(null);
-        telefone2.setNumero(null);
-        telefone.setNumero(null);
-        telefone2.setOperadora(null);
-        telefone.setOperadora(null);
-        telefone2.setRamal(null);
-        telefone.setRamal(null);;
+        ;
         assertTrue(telefone.equals(telefone2));
     }
-    
+
     @Test
-    public void deve_ser_valido_equals21() {
+    public void deve_o_equals_retornar_false_comparando_ramal_nao_nulo_com_ramal_nulo_de_outro_telefone() {
         Telefone telefone2 = new Telefone();
         telefone.setDdd(null);
         telefone2.setDdd(null);
@@ -556,9 +501,9 @@ public class TelefoneTest {
         telefone.setRamal("123");
         assertFalse(telefone.equals(telefone2));
     }
-    
+
     @Test
-    public void deve_ser_valido_equals22() {
+    public void deve_o_equals_retornar_true_comparando_ambos_ramais_nao_nulos() {
         Telefone telefone2 = new Telefone();
         telefone.setDdd(null);
         telefone2.setDdd(null);
@@ -570,9 +515,9 @@ public class TelefoneTest {
         telefone.setRamal("123");
         assertTrue(telefone.equals(telefone2));
     }
-    
+
     @Test
-    public void deve_ser_valido_equals23() {
+    public void deve_o_equals_retornar_false_comparando_responsavel_nulo_com_responsavel_nao_nulo_de_outro_telefone() {
         Telefone telefone2 = new Telefone();
         telefone.setDdd(null);
         telefone2.setDdd(null);
@@ -586,9 +531,9 @@ public class TelefoneTest {
         telefone.setResponsavel(null);
         assertFalse(telefone.equals(telefone2));
     }
-    
+
     @Test
-    public void deve_ser_valido_equals24() {
+    public void deve_o_equals_retornar_true_comparando_ambos_responsaveis_nulos() {
         Telefone telefone2 = new Telefone();
         telefone.setDdd(null);
         telefone2.setDdd(null);
@@ -602,9 +547,9 @@ public class TelefoneTest {
         telefone.setResponsavel(null);
         assertTrue(telefone.equals(telefone2));
     }
-    
+
     @Test
-    public void deve_ser_valido_equals25() {
+    public void deve_o_equals_retornar_false_comparando_responsavel_nao_nulo_com_responsavel_nulo_de_outro_telefone() {
         Telefone telefone2 = new Telefone();
         telefone.setDdd(null);
         telefone2.setDdd(null);
@@ -618,9 +563,9 @@ public class TelefoneTest {
         telefone.setResponsavel("Contmatic");
         assertFalse(telefone.equals(telefone2));
     }
-    
+
     @Test
-    public void deve_ser_valido_equals26() {
+    public void deve_o_equals_retornar_true_comparando_ambos_responsaveis_nao_nulos() {
         Telefone telefone2 = new Telefone();
         telefone.setDdd(null);
         telefone2.setDdd(null);
@@ -634,9 +579,9 @@ public class TelefoneTest {
         telefone.setResponsavel("Contmatic");
         assertTrue(telefone.equals(telefone2));
     }
-    
+
     @Test
-    public void deve_ser_valido_equals27() {
+    public void deve_o_equals_retornar_false_comparando_tipo_nulo_com_tipo_nao_nulo_de_outro_telefone() {
         Telefone telefone2 = new Telefone();
         telefone.setDdd(null);
         telefone2.setDdd(null);
@@ -652,9 +597,9 @@ public class TelefoneTest {
         telefone.setTipo(null);
         assertFalse(telefone.equals(telefone2));
     }
-    
+
     @Test
-    public void deve_ser_valido_equals28() {
+    public void deve_o_equals_retornar_true_comparando_ambos_tipos_nulos() {
         Telefone telefone2 = new Telefone();
         telefone.setDdd(null);
         telefone2.setDdd(null);
@@ -670,9 +615,9 @@ public class TelefoneTest {
         telefone.setTipo(null);
         assertTrue(telefone.equals(telefone2));
     }
-    
+
     @Test
-    public void deve_ser_valido_equals29() {
+    public void deve_o_equals_retornar_false_comparando_tipo_nao_nulo_com_tipo_nulo_de_outro_telefone() {
         Telefone telefone2 = new Telefone();
         telefone.setDdd(null);
         telefone2.setDdd(null);
@@ -688,9 +633,9 @@ public class TelefoneTest {
         telefone.setTipo("Residencial");
         assertFalse(telefone.equals(telefone2));
     }
-    
+
     @Test
-    public void deve_ser_valido_equals30() {
+    public void deve_o_equals_retornar_true_comparando_ambos_tipos_nao_nulos() {
         Telefone telefone2 = new Telefone();
         telefone.setDdd(null);
         telefone2.setDdd(null);
@@ -706,7 +651,7 @@ public class TelefoneTest {
         telefone.setTipo("Residencial");
         assertTrue(telefone.equals(telefone2));
     }
-    
+
     /* -------------------------------------------------- equals >>> ----------------------------------------------------------- */
 
     /* -------------------------------------------------- <<< Testes ----------------------------------------------------------- */

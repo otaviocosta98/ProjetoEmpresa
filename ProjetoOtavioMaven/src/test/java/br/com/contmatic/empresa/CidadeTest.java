@@ -1,5 +1,7 @@
 package br.com.contmatic.empresa;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.*;
 
 import org.junit.After;
@@ -9,9 +11,9 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class CidadeTest {
-    
+
     Cidade cidade;
-    Bairro bairro;
+    Bairro[] bairro;
 
     /* -------------------------------------------------- SetUps e TearDowns >>> ----------------------------------------------------------- */
 
@@ -29,7 +31,7 @@ public class CidadeTest {
     public void setUp() throws Exception {
         System.out.println("!-Começo Teste-!");
         cidade = new Cidade();
-        bairro = new Bairro();
+        bairro = new Bairro[2];
     }
 
     @After
@@ -38,11 +40,11 @@ public class CidadeTest {
     }
 
     /* -------------------------------------------------- <<< SetUps e TearDowns ----------------------------------------------------------- */
-    
+
     /* -------------------------------------------------- Testes >>> ----------------------------------------------------------- */
-    
+
     /* -------------------------------------------------- Codigo >>> ----------------------------------------------------------- */
-    
+
     @Test
     public void nao_deve_aceitar_codigo_nulo() {
         cidade.setCodigo(null);
@@ -52,7 +54,7 @@ public class CidadeTest {
     @Test
     public void nao_deve_aceitar_codigo_vazio() {
         cidade.setCodigo("");
-        assertNull(cidade.getCodigo());
+        assertEquals(null, cidade.getCodigo());
     }
 
     @Test
@@ -64,13 +66,13 @@ public class CidadeTest {
     @Test
     public void nao_deve_aceitar_codigo_alfa_numerico() {
         cidade.setCodigo("269b");
-        assertNull(cidade.getCodigo());
+        assertThat("269b", is(not(cidade.getCodigo())));
     }
-    
+
     /* -------------------------------------------------- <<< Codigo ----------------------------------------------------------- */
-    
+
     /* -------------------------------------------------- Nome >>> ----------------------------------------------------------- */
-    
+
     @Test
     public void nao_deve_aceitar_nome_nulo() {
         cidade.setNome(null);
@@ -86,29 +88,29 @@ public class CidadeTest {
     @Test
     public void deve_aceitar_nome_somente_com_letras() {
         cidade.setNome("Sao Paulo");
-        assertNotNull(cidade.getNome());
+        assertEquals("Sao Paulo", cidade.getNome());
     }
 
     @Test
     public void nao_deve_aceitar_nome_alfa_numerico() {
         cidade.setNome("Sao Paulo2");
-        assertNull(cidade.getNome());
+        assertNotEquals("Sao Paulo2", cidade.getNome());
     }
-    
+
     /* -------------------------------------------------- <<< Nome ----------------------------------------------------------- */
-    
+
     /* -------------------------------------------------- Tamanho >>> ----------------------------------------------------------- */
-    
+
     @Test
     public void nao_deve_aceitar_tamanho_nulo() {
         cidade.setTamanho(null);
-        assertNull(cidade.getTamanho());
+        assertEquals(null, cidade.getTamanho());
     }
 
     @Test
     public void nao_deve_aceitar_tamanho_vazio() {
         cidade.setTamanho("");
-        assertNull(cidade.getTamanho());
+        assertNotEquals("", cidade.getTamanho());
     }
 
     @Test
@@ -123,11 +125,10 @@ public class CidadeTest {
         assertNull(cidade.getTamanho());
     }
 
-    
     /* -------------------------------------------------- <<< Tamanho ----------------------------------------------------------- */
-    
+
     /* -------------------------------------------------- População >>> ----------------------------------------------------------- */
-    
+
     @Test
     public void nao_deve_aceitar_populacao_nulo() {
         cidade.setPopulacao(null);
@@ -143,139 +144,139 @@ public class CidadeTest {
     @Test
     public void deve_aceitar_populacao_somente_numerico() {
         cidade.setPopulacao("123456789");
-        assertNotNull(cidade.getPopulacao());
+        assertEquals("123456789", cidade.getPopulacao());
     }
 
     @Test
     public void nao_deve_aceitar_populacao_alfa_numerico() {
         cidade.setPopulacao("123456E");
-        assertNull(cidade.getPopulacao());
+        assertNotEquals("123456E", cidade.getPopulacao());
     }
-    
+
     /* -------------------------------------------------- <<< População ----------------------------------------------------------- */
-    
+
     /* -------------------------------------------------- Cidade >>> ----------------------------------------------------------- */
-    
+
     @Test
     public void nao_deve_aceitar_cidade_nulo() {
         cidade.setBairro(null);
-        assertNull(cidade.getBairro());
+        assertNotSame(bairro, cidade.getBairro());
     }
 
     @Test
     public void deve_aceitar_cidade_nao_nulo() {
         cidade.setBairro(bairro);
-        assertNotNull(cidade.getBairro());
+        assertSame(bairro, cidade.getBairro());
     }
-    
+
     /* -------------------------------------------------- <<< Cidade ----------------------------------------------------------- */
-    
+
     /* -------------------------------------------------- ToString >>> ----------------------------------------------------------- */
-    
+
     @Test
     public void deve_ser_valido_to_string() {
         Cidade cidade2 = new Cidade();
-        assertEquals(cidade.toString(), cidade2.toString());
+        assertThat(cidade.toString(), is(cidade2.toString()));
     }
-    
+
     /* -------------------------------------------------- <<< ToString ----------------------------------------------------------- */
-    
+
     /* -------------------------------------------------- HashCode >>> ----------------------------------------------------------- */
-    
+
     @Test
-    public void hash_code1() {
+    public void deve_o_hash_code_ser_igual_a_28629151_para_codigo_nulo() {
         cidade.setCodigo(null);
         System.out.println(cidade.hashCode());
         assertEquals(28629151, cidade.hashCode());
     }
 
     @Test
-    public void hash_code2() {
+    public void deve_o_hash_code_ser_igual_a_1479152941_para_codigo_nao_nulo() {
         cidade.setCodigo("123");
         System.out.println(cidade.hashCode());
-        assertEquals(2045193681, cidade.hashCode());
+        assertEquals(1479152941, cidade.hashCode());
     }
 
     @Test
-    public void hash_code3() {
+    public void deve_o_hash_code_ser_igual_a_28629151_para_nome_nulo() {
         cidade.setNome(null);
         System.out.println(cidade.hashCode());
         assertEquals(28629151, cidade.hashCode());
     }
 
     @Test
-    public void hash_code4() {
+    public void deve_o_hash_code_ser_igual_a_1369208455_para_nome_nao_nulo() {
         cidade.setNome("Sao Paulo");
         System.out.println(cidade.hashCode());
         assertEquals(1369208455, cidade.hashCode());
     }
 
     @Test
-    public void hash_code5() {
+    public void deve_o_hash_code_ser_igual_a_28629151_para_bairro_nulo() {
         cidade.setBairro(null);
         System.out.println(cidade.hashCode());
         assertEquals(28629151, cidade.hashCode());
     }
 
     @Test
-    public void hash_code6() {
+    public void deve_o_hash_code_ser_igual_a_916132832_para_bairro_nao_nulo() {
         cidade.setBairro(bairro);
         System.out.println(cidade.hashCode());
-        assertEquals(-1778825312, cidade.hashCode());
+        assertEquals(916132832, cidade.hashCode());
     }
 
     @Test
-    public void hash_code7() {
+    public void deve_o_hash_code_ser_igual_a_28629151_para_tamanho_nulo() {
         cidade.setTamanho(null);
         System.out.println(cidade.hashCode());
         assertEquals(28629151, cidade.hashCode());
     }
 
     @Test
-    public void hash_code8() {
+    public void deve_o_hash_code_ser_igual_a_916132832_para_tamanho_nao_nulo() {
         cidade.setTamanho("123456798");
         System.out.println(cidade.hashCode());
         assertEquals(-1838749454, cidade.hashCode());
     }
 
     @Test
-    public void hash_code9() {
+    public void deve_o_hash_code_ser_igual_a_28629151_para_populacao_nulo() {
         cidade.setPopulacao(null);
         System.out.println(cidade.hashCode());
         assertEquals(28629151, cidade.hashCode());
     }
 
     @Test
-    public void hash_code10() {
+    public void deve_o_hash_code_ser_igual_a_menos_2025533686_para_populacao_nao_nulo() {
         cidade.setPopulacao("123456789");
         System.out.println(cidade.hashCode());
         assertEquals(-2025533686, cidade.hashCode());
     }
-    
+
     /* -------------------------------------------------- <<< HashCode ----------------------------------------------------------- */
-    
+
     /* -------------------------------------------------- Equals >>> ----------------------------------------------------------- */
-    
+
     @Test
-    public void deve_ser_valido_equals() {
+    public void deve_o_equals_retornar_true_comparando_ele_mesmo() {
         assertTrue(cidade.equals(cidade));
     }
 
     @Test
-    public void deve_ser_valido_equals1() {
+    public void deve_o_equals_retornar_false_comparando_outra_cidade_nula() {
         Cidade cidade2 = new Cidade();
         cidade2 = null;
         assertFalse(cidade.equals(cidade2));
     }
 
     @Test
-    public void deve_ser_valido_equals2() {
+    public void deve_o_equals_retornar_false_comparando_getClass_de_outra_cidade() {
         Cidade cidade2 = new Cidade();
         assertFalse(cidade.equals(cidade2.getClass()));
     }
 
     @Test
-    public void deve_ser_valido_equals3() {
+    public void deve_o_equals_retornar_false_comparando_codigo_nulo_com_codigo_nao_nulo_de_outra_cidade() {
         Cidade cidade2 = new Cidade();
         cidade2.setCodigo("11");
         cidade.setCodigo(null);
@@ -283,7 +284,7 @@ public class CidadeTest {
     }
 
     @Test
-    public void deve_ser_valido_equals4() {
+    public void deve_o_equals_retornar_true_comparando_ambos_codigos_nulos() {
         Cidade cidade2 = new Cidade();
         cidade2.setCodigo(null);
         cidade.setCodigo(null);
@@ -291,7 +292,7 @@ public class CidadeTest {
     }
 
     @Test
-    public void deve_ser_valido_equals5() {
+    public void deve_o_equals_retornar_false_comparando_codigo_nao_nulo_com_codigo_nulo_de_outra_cidade() {
         Cidade cidade2 = new Cidade();
         cidade2.setCodigo(null);
         cidade.setCodigo("00");
@@ -299,15 +300,15 @@ public class CidadeTest {
     }
 
     @Test
-    public void deve_ser_valido_equals6() {
+    public void deve_o_equals_retornar_true_comparando_ambos_codigos_nao_nulos() {
         Cidade cidade2 = new Cidade();
         cidade2.setCodigo("00");
         cidade.setCodigo("00");
         assertTrue(cidade.equals(cidade2));
     }
-    
+
     @Test
-    public void deve_ser_valido_equals7() {
+    public void deve_o_equals_retornar_false_comparando_nome_nulo_com_nome_nao_nulo_de_outra_cidade() {
         Cidade cidade2 = new Cidade();
         cidade2.setCodigo(null);
         cidade.setCodigo(null);
@@ -317,7 +318,7 @@ public class CidadeTest {
     }
 
     @Test
-    public void deve_ser_valido_equals8() {
+    public void deve_o_equals_retornar_true_comparando_ambos_nomes_nulos() {
         Cidade cidade2 = new Cidade();
         cidade2.setCodigo(null);
         cidade.setCodigo(null);
@@ -327,7 +328,7 @@ public class CidadeTest {
     }
 
     @Test
-    public void deve_ser_valido_equals9() {
+    public void deve_o_equals_retornar_false_comparando_nome_nao_nulo_com_nome_nulo_de_outra_cidade() {
         Cidade cidade2 = new Cidade();
         cidade2.setCodigo(null);
         cidade.setCodigo(null);
@@ -337,7 +338,7 @@ public class CidadeTest {
     }
 
     @Test
-    public void deve_ser_valido_equals10() {
+    public void deve_o_equals_retornar_true_comparando_ambos_nomes_nao_nulos() {
         Cidade cidade2 = new Cidade();
         cidade2.setCodigo(null);
         cidade.setCodigo(null);
@@ -345,9 +346,9 @@ public class CidadeTest {
         cidade.setNome("São Paulo");
         assertTrue(cidade.equals(cidade2));
     }
-    
+
     @Test
-    public void deve_ser_valido_equals11() {
+    public void deve_o_equals_retornar_false_comparando_bairro_nulo_com_bairro_nao_nulo_de_outra_cidade() {
         Cidade cidade2 = new Cidade();
         cidade2.setCodigo(null);
         cidade.setCodigo(null);
@@ -359,7 +360,7 @@ public class CidadeTest {
     }
 
     @Test
-    public void deve_ser_valido_equals12() {
+    public void deve_o_equals_retornar_true_comparando_ambos_bairros_nulos() {
         Cidade cidade2 = new Cidade();
         cidade2.setCodigo(null);
         cidade.setCodigo(null);
@@ -371,7 +372,7 @@ public class CidadeTest {
     }
 
     @Test
-    public void deve_ser_valido_equals13() {
+    public void deve_o_equals_retornar_false_comparando_bairro_nao_nulo_com_bairro_nulo_de_outra_cidade() {
         Cidade cidade2 = new Cidade();
         cidade2.setCodigo(null);
         cidade.setCodigo(null);
@@ -383,7 +384,7 @@ public class CidadeTest {
     }
 
     @Test
-    public void deve_ser_valido_equals14() {
+    public void deve_o_equals_retornar_true_comparando_ambos_bairros_nao_nulos() {
         Cidade cidade2 = new Cidade();
         cidade2.setCodigo(null);
         cidade.setCodigo(null);
@@ -393,9 +394,9 @@ public class CidadeTest {
         cidade.setBairro(bairro);
         assertTrue(cidade.equals(cidade2));
     }
-    
+
     @Test
-    public void deve_ser_valido_equals15() {
+    public void deve_o_equals_retornar_false_comparando_tamanho_nulo_com_tamanho_nao_nulo_de_outra_cidade() {
         Cidade cidade2 = new Cidade();
         cidade2.setCodigo(null);
         cidade.setCodigo(null);
@@ -409,7 +410,7 @@ public class CidadeTest {
     }
 
     @Test
-    public void deve_ser_valido_equals16() {
+    public void deve_o_equals_retornar_true_comparando_ambos_tamanhos_nulos() {
         Cidade cidade2 = new Cidade();
         cidade2.setCodigo(null);
         cidade.setCodigo(null);
@@ -423,7 +424,7 @@ public class CidadeTest {
     }
 
     @Test
-    public void deve_ser_valido_equals17() {
+    public void deve_o_equals_retornar_false_comparando_tamanho_nao_nulo_com_tamanho_nulo_de_outra_cidade() {
         Cidade cidade2 = new Cidade();
         cidade2.setCodigo(null);
         cidade.setCodigo(null);
@@ -437,7 +438,7 @@ public class CidadeTest {
     }
 
     @Test
-    public void deve_ser_valido_equals18() {
+    public void deve_o_equals_retornar_true_comparando_ambos_tamanhos_nao_nulos() {
         Cidade cidade2 = new Cidade();
         cidade2.setCodigo(null);
         cidade.setCodigo(null);
@@ -449,9 +450,9 @@ public class CidadeTest {
         cidade.setTamanho("123456789");
         assertTrue(cidade.equals(cidade2));
     }
-    
+
     @Test
-    public void deve_ser_valido_equals19() {
+    public void deve_o_equals_retornar_false_comparando_populacao_nula_com_populacao_nao_nula_de_outra_cidade() {
         Cidade cidade2 = new Cidade();
         cidade2.setCodigo(null);
         cidade.setCodigo(null);
@@ -467,7 +468,7 @@ public class CidadeTest {
     }
 
     @Test
-    public void deve_ser_valido_equals20() {
+    public void deve_o_equals_retornar_true_comparando_ambas_populacoes_nulas() {
         Cidade cidade2 = new Cidade();
         cidade2.setCodigo(null);
         cidade.setCodigo(null);
@@ -483,7 +484,7 @@ public class CidadeTest {
     }
 
     @Test
-    public void deve_ser_valido_equals21() {
+    public void deve_o_equals_retornar_false_comparando_populacao_nao_nula_com_populacao_nula_de_outra_cidade() {
         Cidade cidade2 = new Cidade();
         cidade2.setCodigo(null);
         cidade.setCodigo(null);
@@ -499,7 +500,7 @@ public class CidadeTest {
     }
 
     @Test
-    public void deve_ser_valido_equals22() {
+    public void deve_o_equals_retornar_true_comparando_ambas_populacoes_nao_nulas() {
         Cidade cidade2 = new Cidade();
         cidade2.setCodigo(null);
         cidade.setCodigo(null);
@@ -513,9 +514,9 @@ public class CidadeTest {
         cidade.setPopulacao("123456789");
         assertTrue(cidade.equals(cidade2));
     }
-    
+
     /* -------------------------------------------------- <<< Equals ----------------------------------------------------------- */
-    
+
     /* -------------------------------------------------- <<< Testes ----------------------------------------------------------- */
 
 }

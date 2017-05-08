@@ -52,8 +52,8 @@ public class Endereco {
     }
 
     public void setCep(String cep) {
-        if(cep != null && cep != ""){
-            if(cep.matches("[0-9]+") && cep.length() == 8){
+        if (cep != null && cep != "") {
+            if (cep.matches("[0-9]+") && cep.length() == 8) {
                 this.cep = cep;
             }
         }

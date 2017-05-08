@@ -1,11 +1,13 @@
 package br.com.contmatic.empresa;
 
+import java.util.Arrays;
+
 public class Cidade {
     private String codigo;
     private String nome;
     private String tamanho;
     private String populacao;
-    private Bairro bairro;
+    private Bairro[] bairro;
 
     public String getCodigo() {
         return codigo;
@@ -32,7 +34,7 @@ public class Cidade {
     }
 
     public void setTamanho(String tamanho) {
-        if(tamanho != null && tamanho != "" && tamanho.matches("[0-9]+")){
+        if (tamanho != null && tamanho != "" && tamanho.matches("[0-9]+")) {
             this.tamanho = tamanho;
         }
     }
@@ -42,32 +44,32 @@ public class Cidade {
     }
 
     public void setPopulacao(String populacao) {
-        if(populacao != null && populacao != "" && populacao.matches("[0-9]+")){
+        if (populacao != null && populacao != "" && populacao.matches("[0-9]+")) {
             this.populacao = populacao;
         }
     }
 
-    public Bairro getBairro() {
+    public Bairro[] getBairro() {
         return bairro;
     }
 
-    public void setBairro(Bairro bairro) {
-        if(bairro != null){
+    public void setBairro(Bairro[] bairro) {
+        if (bairro != null) {
             this.bairro = bairro;
         }
     }
 
     @Override
     public String toString() {
-        return "Cidade [codigo=" + codigo + ", nome=" + nome + ", tamanho=" + tamanho + ", populacao=" + populacao + ", bairro=" + bairro + "]";
+        return "Cidade [codigo=" + codigo + ", nome=" + nome + ", tamanho=" + tamanho + ", populacao=" + populacao + ", bairro=" + Arrays.toString(bairro) + "]";
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
+        result = prime * result + Arrays.hashCode(bairro);
         result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
-        result = prime * result + ((bairro == null) ? 0 : bairro.hashCode());
         result = prime * result + ((nome == null) ? 0 : nome.hashCode());
         result = prime * result + ((populacao == null) ? 0 : populacao.hashCode());
         result = prime * result + ((tamanho == null) ? 0 : tamanho.hashCode());
@@ -83,15 +85,12 @@ public class Cidade {
         if (getClass() != obj.getClass())
             return false;
         Cidade other = (Cidade) obj;
+        if (!Arrays.equals(bairro, other.bairro))
+            return false;
         if (codigo == null) {
             if (other.codigo != null)
                 return false;
         } else if (!codigo.equals(other.codigo))
-            return false;
-        if (bairro == null) {
-            if (other.bairro != null)
-                return false;
-        } else if (!bairro.equals(other.bairro))
             return false;
         if (nome == null) {
             if (other.nome != null)

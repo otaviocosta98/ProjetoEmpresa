@@ -1,19 +1,21 @@
 package br.com.contmatic.empresa;
 
+import java.util.Arrays;
+
 public class Estado {
     private String codigo;
     private String nome;
     private String uf;
     private String tamanho;
     private String populacao;
-    private Cidade cidade;
+    private Cidade[] cidade;
 
     public String getCodigo() {
         return codigo;
     }
 
     public void setCodigo(String codigo) {
-        if(codigo != null && codigo != "" && codigo.matches("[0-9]+")){
+        if (codigo != null && codigo != "" && codigo.matches("[0-9]+")) {
             this.codigo = codigo;
         }
     }
@@ -23,7 +25,7 @@ public class Estado {
     }
 
     public void setNome(String nome) {
-        if(nome != null && nome != "" && nome.matches("[^0-9]+")){
+        if (nome != null && nome != "" && nome.matches("[^0-9]+")) {
             this.nome = nome;
         }
     }
@@ -33,8 +35,8 @@ public class Estado {
     }
 
     public void setUf(String uf) {
-        if(uf != null && uf != ""){
-            if(uf.matches("[A-Z]+") && uf.length() == 2){
+        if (uf != null && uf != "") {
+            if (uf.matches("[A-Z]+") && uf.length() == 2) {
                 this.uf = uf;
             }
         }
@@ -45,7 +47,7 @@ public class Estado {
     }
 
     public void setTamanho(String tamanho) {
-        if(tamanho != null && tamanho != "" && tamanho.matches("[0-9]+")){
+        if (tamanho != null && tamanho != "" && tamanho.matches("[0-9]+")) {
             this.tamanho = tamanho;
         }
     }
@@ -55,29 +57,29 @@ public class Estado {
     }
 
     public void setPopulacao(String populacao) {
-        if(populacao != null && populacao != "" && populacao.matches("[0-9]+")){
+        if (populacao != null && populacao != "" && populacao.matches("[0-9]+")) {
             this.populacao = populacao;
         }
     }
-    
-    public Cidade getCidade() {
+
+    public Cidade[] getCidade() {
         return cidade;
     }
 
-    public void setCidade(Cidade cidade) {
+    public void setCidade(Cidade[] cidade) {
         this.cidade = cidade;
     }
 
     @Override
     public String toString() {
-        return "Estado [codigo=" + codigo + ", nome=" + nome + ", uf=" + uf + ", tamanho=" + tamanho + ", populacao=" + populacao + ", cidade=" + cidade + "]";
+        return "Estado [codigo=" + codigo + ", nome=" + nome + ", uf=" + uf + ", tamanho=" + tamanho + ", populacao=" + populacao + ", cidade=" + Arrays.toString(cidade) + "]";
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((cidade == null) ? 0 : cidade.hashCode());
+        result = prime * result + Arrays.hashCode(cidade);
         result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
         result = prime * result + ((nome == null) ? 0 : nome.hashCode());
         result = prime * result + ((populacao == null) ? 0 : populacao.hashCode());
@@ -95,10 +97,7 @@ public class Estado {
         if (getClass() != obj.getClass())
             return false;
         Estado other = (Estado) obj;
-        if (cidade == null) {
-            if (other.cidade != null)
-                return false;
-        } else if (!cidade.equals(other.cidade))
+        if (!Arrays.equals(cidade, other.cidade))
             return false;
         if (codigo == null) {
             if (other.codigo != null)

@@ -9,8 +9,8 @@ public class Operadora {
     }
 
     public void setCodigo(String codigo) {
-        if(codigo != null){
-            if(codigo != "" && codigo.matches("[0-9]+")){
+        if (codigo != null) {
+            if (codigo != "" && codigo.matches("[0-9]+")) {
                 this.codigo = codigo;
             }
         }
@@ -21,7 +21,7 @@ public class Operadora {
     }
 
     public void setNome(String nome) {
-        if(nome != null && nome!= ""){
+        if (nome != null && nome != "") {
             this.nome = nome;
         }
     }

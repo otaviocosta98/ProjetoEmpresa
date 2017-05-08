@@ -13,7 +13,7 @@ public class Bairro {
     }
 
     public void setCodigo(String codigo) {
-        if(codigo != null && codigo != "" && codigo.matches("[0-9]+")){
+        if (codigo != null && codigo != "" && codigo.matches("[0-9]+")) {
             this.codigo = codigo;
         }
     }
@@ -23,7 +23,7 @@ public class Bairro {
     }
 
     public void setNome(String nome) {
-        if(nome != null && nome != "" && nome.matches("[^0-9]+")){
+        if (nome != null && nome != "" && nome.matches("[^0-9]+")) {
             this.nome = nome;
         }
     }
@@ -33,7 +33,7 @@ public class Bairro {
     }
 
     public void setTipo(String tipo) {
-        if(tipo != null && tipo != "" && tipo.matches("[^0-9]+")){
+        if (tipo != null && tipo != "" && tipo.matches("[^0-9]+")) {
             this.tipo = tipo;
         }
     }
@@ -43,7 +43,7 @@ public class Bairro {
     }
 
     public void setTamanho(String tamanho) {
-        if(tamanho != null && tamanho != "" && tamanho.matches("[0-9]+")){
+        if (tamanho != null && tamanho != "" && tamanho.matches("[0-9]+")) {
             this.tamanho = tamanho;
         }
     }
@@ -53,7 +53,7 @@ public class Bairro {
     }
 
     public void setPopulacao(String populacao) {
-        if(populacao != null && populacao != "" && populacao.matches("[0-9]+")){
+        if (populacao != null && populacao != "" && populacao.matches("[0-9]+")) {
             this.populacao = populacao;
         }
     }

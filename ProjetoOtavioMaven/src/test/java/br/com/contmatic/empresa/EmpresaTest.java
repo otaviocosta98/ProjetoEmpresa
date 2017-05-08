@@ -1,10 +1,10 @@
 package br.com.contmatic.empresa;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
+import static org.junit.Assert.*;
+
+import java.util.concurrent.TimeUnit;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -12,7 +12,9 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Ignore;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.Timeout;
 import org.junit.runners.MethodSorters;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -47,6 +49,9 @@ public class EmpresaTest {
     public void tearDown() throws Exception {
         System.out.println("!-Fim Teste-!");
     }
+
+    @Rule
+    public Timeout globalTimeout = Timeout.seconds(5);
 
     /* -------------------------------------------------- <<< SetUps e TearDowns ----------------------------------------------------------- */
 
@@ -85,13 +90,13 @@ public class EmpresaTest {
     @Test
     public void nao_deve_conter_caractere_especial_na_razao_social() {
         empresa.setRazaoSocial("abc@");
-        assertNull(empresa.getRazaoSocial());
+        assertNotEquals("abc@", empresa.getRazaoSocial());
     }
 
     @Test
     public void deve_aceitar_razao_social_alfanumerico() {
         empresa.setRazaoSocial("abc1236");
-        assertNotNull(empresa.getRazaoSocial());
+        assertEquals("abc1236", empresa.getRazaoSocial());
     }
 
     /* -------------------------------------------------- <<< NomeEmpresa ----------------------------------------------------------- */
@@ -107,7 +112,7 @@ public class EmpresaTest {
     @Test
     public void nao_deve_aceitar_ie_vazio() {
         empresa.setIE("");
-        assertNull(empresa.getIE());
+        assertThat(empresa.getIE(), is(not("")));
     }
 
     @Test
@@ -119,7 +124,7 @@ public class EmpresaTest {
     @Test
     public void nao_deve_aceitar_ie_maior_que_12_caracteres() {
         empresa.setIE("0123456789842");
-        assertNull(empresa.getIE());
+        assertNotEquals("0123456789842", empresa.getIE());
     }
 
     @Test
@@ -131,7 +136,7 @@ public class EmpresaTest {
     @Test
     public void deve_conter_somente_numeros_no_ie() {
         empresa.setIE("012345678984");
-        assertNotNull(empresa.getIE());
+        assertEquals("012345678984", empresa.getIE());
     }
 
     @Test
@@ -159,13 +164,13 @@ public class EmpresaTest {
     @Test
     public void deve_aceitar_cnpj_com_14_caracteres() {
         empresa.setCNPJ("91234567898426");
-        assertNotNull(empresa.getCNPJ());
+        assertEquals("91234567898426", empresa.getCNPJ());
     }
 
     @Test
     public void nao_deve_aceitar_cnpj_maior_que_14_caracteres() {
         empresa.setCNPJ("012345678984265");
-        assertNull(empresa.getCNPJ());
+        assertNotEquals("012345678984265", empresa.getCNPJ());
     }
 
     @Test
@@ -177,7 +182,7 @@ public class EmpresaTest {
     @Test
     public void deve_conter_somente_numeros_no_cnpj() {
         empresa.setCNPJ("01234567898420");
-        assertNotNull(empresa.getCNPJ());
+        assertThat("01234567898420", is(empresa.getCNPJ()));
     }
 
     @Test
@@ -199,7 +204,7 @@ public class EmpresaTest {
     @Test
     public void deve_aceitar_endereco_nao_nulo() {
         empresa.setEndereco(endereco);
-        assertNotNull(empresa.getEndereco());
+        assertSame(endereco, empresa.getEndereco());
     }
 
     @Test(expected = NullPointerException.class)
@@ -216,7 +221,7 @@ public class EmpresaTest {
     @Test
     public void nao_deve_aceitar_email_nulo() {
         empresa.setEmail(null);
-        assertNull(empresa.getEmail());
+        assertEquals(null, empresa.getEmail());
     }
 
     @Test
@@ -228,7 +233,7 @@ public class EmpresaTest {
     @Test
     public void deve_conter_algo_antes_do_arroba_no_email() {
         empresa.setEmail("@teste.com");
-        assertNull(empresa.getEmail());
+        assertThat("@teste.com", is(not(empresa.getEmail())));
     }
 
     @Test
@@ -240,13 +245,13 @@ public class EmpresaTest {
     @Test
     public void deve_conter_pelo_menos_1_ponto_apos_arroba_no_email() {
         empresa.setEmail("teste@teste.com");
-        assertNotNull(empresa.getEmail());
+        assertEquals("teste@teste.com", empresa.getEmail());
     }
 
     @Test
     public void nao_deve_faltar_ponto_apos_arroba_no_email() {
         empresa.setEmail("teste@testecom");
-        assertNull(empresa.getEmail());
+        assertNotEquals("teste@testecom", empresa.getEmail());
     }
 
     @Test
@@ -268,7 +273,7 @@ public class EmpresaTest {
     @Test
     public void nao_deve_aceitar_telefone_nulo() {
         empresa.setTelefone(null);
-        assertNull(empresa.getTelefone());
+        assertNotSame(telefone, empresa.getTelefone());
     }
 
     @Test
@@ -284,17 +289,18 @@ public class EmpresaTest {
     @Test
     @Ignore
     public void deve_ignorar_este_Teste() {
-        System.out.println("Ignore");
+        System.out.println("Ignore este teste");
     }
 
     /* -------------------------------------------------- <<< Ignore ----------------------------------------------------------- */
 
     /* -------------------------------------------------- Timeout >>> ----------------------------------------------------------- */
 
-    @Test(timeout = 100)
+    @Test
     public void deve_ter_timeout_de_2_segundos() throws Exception {
-        Thread.sleep(100);
-        System.out.println("Timeout");
+        empresa.setCNPJ("00000000000000");
+        assertEquals("00000000000000", empresa.getCNPJ());
+        TimeUnit.SECONDS.sleep(2);
     }
 
     /* -------------------------------------------------- <<< Timeout ----------------------------------------------------------- */
@@ -304,7 +310,7 @@ public class EmpresaTest {
     @Test
     public void deve_ser_valido_to_string() {
         Empresa empresa2 = new Empresa();
-        assertEquals(empresa.toString(), empresa2.toString());
+        assertThat(empresa.toString(), is(empresa2.toString()));
     }
 
     /* -------------------------------------------------- <<< ToString ----------------------------------------------------------- */
@@ -312,70 +318,70 @@ public class EmpresaTest {
     /* -------------------------------------------------- HashCode >>> ----------------------------------------------------------- */
 
     @Test
-    public void hash_code1() {
+    public void deve_o_hash_code_ser_igual_a_1742810335_para_cnpj_nulo() {
         empresa.setCNPJ(null);
         System.out.println(empresa.hashCode());
         assertEquals(1742810335, empresa.hashCode());
     }
 
     @Test
-    public void hash_code2() {
+    public void deve_o_hash_code_ser_igual_a_12345678910110_para_cnpj_nao_nulo() {
         empresa.setCNPJ("12345678910110");
         System.out.println(empresa.hashCode());
         assertEquals(32880731, empresa.hashCode());
     }
 
     @Test
-    public void hash_code3() {
+    public void deve_o_hash_code_ser_igual_a_1742810335_para_ie_nulo() {
         empresa.setIE(null);
         System.out.println(empresa.hashCode());
         assertEquals(1742810335, empresa.hashCode());
     }
 
     @Test
-    public void hash_code4() {
+    public void deve_o_hash_code_ser_igual_a_80804949_para_ie_nao_nulo() {
         empresa.setIE("012345678905");
         System.out.println(empresa.hashCode());
         assertEquals(80804949, empresa.hashCode());
     }
 
     @Test
-    public void hash_code5() {
+    public void deve_o_hash_code_ser_igual_a_1742810335_para_email_nulo() {
         empresa.setEmail(null);
         System.out.println(empresa.hashCode());
         assertEquals(1742810335, empresa.hashCode());
     }
 
     @Test
-    public void hash_code6() {
+    public void deve_o_hash_code_ser_igual_a_menos_1771062888_para_email_nao_nulo() {
         empresa.setEmail("teste@teste.com");
         System.out.println(empresa.hashCode());
         assertEquals(-1771062888, empresa.hashCode());
     }
 
     @Test
-    public void hash_code7() {
+    public void deve_o_hash_code_ser_igual_a_1742810335_para_nome_nulo() {
         empresa.setNome(null);
         System.out.println(empresa.hashCode());
         assertEquals(1742810335, empresa.hashCode());
     }
 
     @Test
-    public void hash_code8() {
+    public void deve_o_hash_code_ser_igual_a_1160064327_para_nome_nao_nulo() {
         empresa.setNome("Contmatic");
         System.out.println(empresa.hashCode());
         assertEquals(1160064327, empresa.hashCode());
     }
 
     @Test
-    public void hash_code9() {
+    public void deve_o_hash_code_ser_igual_a_1742810335_para_razao_social_nulo() {
         empresa.setRazaoSocial(null);
         System.out.println(empresa.hashCode());
         assertEquals(1742810335, empresa.hashCode());
     }
 
     @Test
-    public void hash_code10() {
+    public void deve_o_hash_code_ser_igual_a_menos_77103241_para_razao_social_nao_nulo() {
         empresa.setRazaoSocial("Contmatic");
         System.out.println(empresa.hashCode());
         assertEquals(-77103241, empresa.hashCode());
@@ -386,25 +392,25 @@ public class EmpresaTest {
     /* -------------------------------------------------- Equals >>> ----------------------------------------------------------- */
 
     @Test
-    public void deve_ser_valido_equals() {
+    public void deve_o_equals_retornar_true_comparando_ele_mesmo() {
         assertTrue(empresa.equals(empresa));
     }
 
     @Test
-    public void deve_ser_valido_equals1() {
+    public void deve_o_equals_retornar_false_comparando_outra_empresa_nula() {
         Empresa empresa2 = new Empresa();
         empresa2 = null;
         assertFalse(empresa.equals(empresa2));
     }
 
     @Test
-    public void deve_ser_valido_equals2() {
+    public void deve_o_equals_retornar_false_comparando_getClass_de_outra_empresa() {
         Empresa empresa2 = new Empresa();
         assertFalse(empresa.equals(empresa2.getClass()));
     }
 
     @Test
-    public void deve_ser_valido_equals3() {
+    public void deve_o_equals_retornar_false_comparando_cnpj_nulo_com_cnpj_nao_nulo_de_outra_empresa() {
         Empresa empresa2 = new Empresa();
         empresa2.setCNPJ("01234567895103");
         empresa.setCNPJ(null);
@@ -412,7 +418,7 @@ public class EmpresaTest {
     }
 
     @Test
-    public void deve_ser_valido_equals4() {
+    public void deve_o_equals_retornar_true_comparando_ambos_cnpj_nulos() {
         Empresa empresa2 = new Empresa();
         empresa2.setCNPJ(null);
         empresa.setCNPJ(null);
@@ -420,7 +426,7 @@ public class EmpresaTest {
     }
 
     @Test
-    public void deve_ser_valido_equals5() {
+    public void deve_o_equals_retornar_false_comparando_cnpj_nao_nulo_com_cnpj_nulo_de_outra_empresa() {
         Empresa empresa2 = new Empresa();
         empresa2.setCNPJ(null);
         empresa.setCNPJ("01234567895103");
@@ -428,7 +434,7 @@ public class EmpresaTest {
     }
 
     @Test
-    public void deve_ser_valido_equals6() {
+    public void deve_o_equals_retornar_true_comparando_ambos_cnpj_nao_nulos() {
         Empresa empresa2 = new Empresa();
         empresa2.setCNPJ("01234567895103");
         empresa.setCNPJ("01234567895103");
@@ -436,7 +442,7 @@ public class EmpresaTest {
     }
 
     @Test
-    public void deve_ser_valido_equals7() {
+    public void deve_o_equals_retornar_false_comparando_ie_nulo_com_ie_nao_nulo_de_outra_empresa() {
         Empresa empresa2 = new Empresa();
         empresa2.setCNPJ(null);
         empresa.setCNPJ(null);
@@ -446,7 +452,7 @@ public class EmpresaTest {
     }
 
     @Test
-    public void deve_ser_valido_equals8() {
+    public void deve_o_equals_retornar_true_comparando_ambos_ie_nulos() {
         Empresa empresa2 = new Empresa();
         empresa2.setCNPJ(null);
         empresa.setCNPJ(null);
@@ -456,7 +462,7 @@ public class EmpresaTest {
     }
 
     @Test
-    public void deve_ser_valido_equals9() {
+    public void deve_o_equals_retornar_false_comparando_ie_nao_nulo_com_ie_nulo_de_outra_empresa() {
         Empresa empresa2 = new Empresa();
         empresa2.setCNPJ(null);
         empresa.setCNPJ(null);
@@ -466,7 +472,7 @@ public class EmpresaTest {
     }
 
     @Test
-    public void deve_ser_valido_equals10() {
+    public void deve_o_equals_retornar_true_comparando_ambos_ie_nao_nulos() {
         Empresa empresa2 = new Empresa();
         empresa2.setCNPJ(null);
         empresa.setCNPJ(null);
@@ -476,7 +482,7 @@ public class EmpresaTest {
     }
 
     @Test
-    public void deve_ser_valido_equals11() {
+    public void deve_o_equals_retornar_false_comparando_email_nulo_com_email_nao_nulo_de_outra_empresa() {
         Empresa empresa2 = new Empresa();
         empresa2.setCNPJ(null);
         empresa.setCNPJ(null);
@@ -488,7 +494,7 @@ public class EmpresaTest {
     }
 
     @Test
-    public void deve_ser_valido_equals12() {
+    public void deve_o_equals_retornar_true_comparando_ambos_emails_nulos() {
         Empresa empresa2 = new Empresa();
         empresa2.setCNPJ(null);
         empresa.setCNPJ(null);
@@ -500,7 +506,7 @@ public class EmpresaTest {
     }
 
     @Test
-    public void deve_ser_valido_equals13() {
+    public void deve_o_equals_retornar_false_comparando_email_nao_nulo_com_email_nulo_de_outra_empresa() {
         Empresa empresa2 = new Empresa();
         empresa2.setCNPJ(null);
         empresa.setCNPJ(null);
@@ -512,7 +518,7 @@ public class EmpresaTest {
     }
 
     @Test
-    public void deve_ser_valido_equals14() {
+    public void deve_o_equals_retornar_true_comparando_ambos_emails_nao_nulos() {
         Empresa empresa2 = new Empresa();
         empresa2.setCNPJ(null);
         empresa.setCNPJ(null);
@@ -524,7 +530,7 @@ public class EmpresaTest {
     }
 
     @Test
-    public void deve_ser_valido_equals15() {
+    public void deve_o_equals_retornar_false_comparando_endereco_nulo_com_endereco_nao_nulo_de_outra_empresa() {
         Empresa empresa2 = new Empresa();
         empresa2.setCNPJ(null);
         empresa.setCNPJ(null);
@@ -538,7 +544,7 @@ public class EmpresaTest {
     }
 
     @Test
-    public void deve_ser_valido_equals16() {
+    public void deve_o_equals_retornar_true_comparando_ambos_enderecos_nulos() {
         Empresa empresa2 = new Empresa();
         empresa2.setCNPJ(null);
         empresa.setCNPJ(null);
@@ -552,7 +558,7 @@ public class EmpresaTest {
     }
 
     @Test
-    public void deve_ser_valido_equals17() {
+    public void deve_o_equals_retornar_false_comparando_endereco_nao_nulo_com_endereco_nulo_de_outra_empresa() {
         Empresa empresa2 = new Empresa();
         empresa2.setCNPJ(null);
         empresa.setCNPJ(null);
@@ -566,7 +572,7 @@ public class EmpresaTest {
     }
 
     @Test
-    public void deve_ser_valido_equals18() {
+    public void deve_o_equals_retornar_true_comparando_ambos_enderecos_nao_nulos() {
         Empresa empresa2 = new Empresa();
         empresa2.setCNPJ(null);
         empresa.setCNPJ(null);
@@ -580,7 +586,7 @@ public class EmpresaTest {
     }
 
     @Test
-    public void deve_ser_valido_equals19() {
+    public void deve_o_equals_retornar_false_comparando_nome_nulo_com_nome_nao_nulo_de_outra_empresa() {
         Empresa empresa2 = new Empresa();
         empresa2.setCNPJ(null);
         empresa.setCNPJ(null);
@@ -596,7 +602,7 @@ public class EmpresaTest {
     }
 
     @Test
-    public void deve_ser_valido_equals20() {
+    public void deve_o_equals_retornar_true_comparando_ambos_nomes_nulos() {
         Empresa empresa2 = new Empresa();
         empresa2.setCNPJ(null);
         empresa.setCNPJ(null);
@@ -612,7 +618,7 @@ public class EmpresaTest {
     }
 
     @Test
-    public void deve_ser_valido_equals21() {
+    public void deve_o_equals_retornar_false_comparando_nome_nao_nulo_com_nome_nulo_de_outra_empresa() {
         Empresa empresa2 = new Empresa();
         empresa2.setCNPJ(null);
         empresa.setCNPJ(null);
@@ -628,7 +634,7 @@ public class EmpresaTest {
     }
 
     @Test
-    public void deve_ser_valido_equals22() {
+    public void deve_o_equals_retornar_true_comparando_ambos_nomes_nao_nulos() {
         Empresa empresa2 = new Empresa();
         empresa2.setCNPJ(null);
         empresa.setCNPJ(null);
@@ -644,7 +650,7 @@ public class EmpresaTest {
     }
 
     @Test
-    public void deve_ser_valido_equals23() {
+    public void deve_o_equals_retornar_false_comparando_razaosocial_nula_com_razaosocial_nao_nula_de_outra_empresa() {
         Empresa empresa2 = new Empresa();
         empresa2.setCNPJ(null);
         empresa.setCNPJ(null);
@@ -662,7 +668,7 @@ public class EmpresaTest {
     }
 
     @Test
-    public void deve_ser_valido_equals24() {
+    public void deve_o_equals_retornar_true_comparando_ambas_razoessociais_nulas() {
         Empresa empresa2 = new Empresa();
         empresa2.setCNPJ(null);
         empresa.setCNPJ(null);
@@ -680,7 +686,7 @@ public class EmpresaTest {
     }
 
     @Test
-    public void deve_ser_valido_equals25() {
+    public void deve_o_equals_retornar_false_comparando_razaosocial_nao_nula_com_razaosocial_nula_de_outra_empresa() {
         Empresa empresa2 = new Empresa();
         empresa2.setCNPJ(null);
         empresa.setCNPJ(null);
@@ -698,7 +704,7 @@ public class EmpresaTest {
     }
 
     @Test
-    public void deve_ser_valido_equals26() {
+    public void deve_o_equals_retornar_true_comparando_ambas_razoessociais_nao_nulas() {
         Empresa empresa2 = new Empresa();
         empresa2.setCNPJ(null);
         empresa.setCNPJ(null);
@@ -716,7 +722,7 @@ public class EmpresaTest {
     }
 
     @Test
-    public void deve_ser_valido_equals27() {
+    public void deve_o_equals_retornar_false_comparando_telefone_nule_com_telefone_nao_nulo_de_outra_empresa() {
         Empresa empresa2 = new Empresa();
         empresa2.setCNPJ(null);
         empresa.setCNPJ(null);
@@ -736,7 +742,7 @@ public class EmpresaTest {
     }
 
     @Test
-    public void deve_ser_valido_equals28() {
+    public void deve_o_equals_retornar_true_comparando_ambos_telefones_nulos() {
         Empresa empresa2 = new Empresa();
         empresa2.setCNPJ(null);
         empresa.setCNPJ(null);
@@ -756,7 +762,7 @@ public class EmpresaTest {
     }
 
     @Test
-    public void deve_ser_valido_equals29() {
+    public void deve_o_equals_retornar_false_comparando_telefone_nao_nulo_com_telefone_nulo_de_outra_empresa() {
         Empresa empresa2 = new Empresa();
         empresa2.setCNPJ(null);
         empresa.setCNPJ(null);
@@ -776,7 +782,7 @@ public class EmpresaTest {
     }
 
     @Test
-    public void deve_ser_valido_equals30() {
+    public void deve_o_equals_retornar_true_comparando_ambos_telefones_nao_nulos() {
         Empresa empresa2 = new Empresa();
         empresa2.setCNPJ(null);
         empresa.setCNPJ(null);

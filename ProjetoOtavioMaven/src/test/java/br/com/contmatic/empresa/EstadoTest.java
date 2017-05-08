@@ -1,5 +1,7 @@
 package br.com.contmatic.empresa;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.*;
 
 import org.junit.After;
@@ -11,7 +13,7 @@ import org.junit.Test;
 public class EstadoTest {
 
     Estado estado;
-    Cidade cidade;
+    Cidade[] cidade;
 
     /* -------------------------------------------------- SetUps e TearDowns >>> ----------------------------------------------------------- */
 
@@ -29,7 +31,7 @@ public class EstadoTest {
     public void setUp() throws Exception {
         System.out.println("!-Começo Teste-!");
         estado = new Estado();
-        cidade = new Cidade();
+        cidade = new Cidade[2];
     }
 
     @After
@@ -52,13 +54,13 @@ public class EstadoTest {
     @Test
     public void nao_deve_aceitar_codigo_vazio() {
         estado.setCodigo("");
-        assertNull(estado.getCodigo());
+        assertNotEquals("", estado.getCodigo());
     }
 
     @Test
     public void deve_aceitar_codigo_numerico() {
         estado.setCodigo("269");
-        assertNotNull(estado.getCodigo());
+        assertThat("269", is(estado.getCodigo()));
     }
 
     @Test
@@ -74,7 +76,7 @@ public class EstadoTest {
     @Test
     public void nao_deve_aceitar_nome_nulo() {
         estado.setNome(null);
-        assertNull(estado.getNome());
+        assertEquals(null, estado.getNome());
     }
 
     @Test
@@ -92,7 +94,7 @@ public class EstadoTest {
     @Test
     public void nao_deve_aceitar_nome_alfa_numerico() {
         estado.setNome("Sao Paulo2");
-        assertNull(estado.getNome());
+        assertNotEquals("Sao Paulo2", estado.getNome());
     }
 
     /* -------------------------------------------------- <<< Nome ----------------------------------------------------------- */
@@ -108,13 +110,13 @@ public class EstadoTest {
     @Test
     public void nao_deve_aceitar_uf_vazio() {
         estado.setUf("");
-        assertNull(estado.getUf());
+        assertEquals(null, estado.getUf());
     }
 
     @Test
     public void deve_aceitar_uf_somente_com_letras() {
         estado.setUf("SP");
-        assertNotNull(estado.getUf());
+        assertThat("SP", is(estado.getUf()));
     }
 
     @Test
@@ -126,13 +128,13 @@ public class EstadoTest {
     @Test
     public void deve_aceitar_uf_somente_com_2_letras() {
         estado.setUf("SP");
-        assertNotNull(estado.getUf());
+        assertEquals("SP", estado.getUf());
     }
 
     @Test
     public void nao_deve_aceitar_uf_maior_que_2() {
         estado.setUf("SPO");
-        assertNull(estado.getUf());
+        assertThat("SPO", is(not(estado.getUf())));
     }
 
     @Test
@@ -144,7 +146,7 @@ public class EstadoTest {
     @Test
     public void nao_deve_aceitar_uf_com_letra_minuscula() {
         estado.setUf("sp");
-        assertNull(estado.getUf());
+        assertNotEquals("sp", estado.getUf());
     }
 
     @Test
@@ -160,7 +162,7 @@ public class EstadoTest {
     @Test
     public void nao_deve_aceitar_tamanho_nulo() {
         estado.setTamanho(null);
-        assertNull(estado.getTamanho());
+        assertEquals(null, estado.getTamanho());
     }
 
     @Test
@@ -178,7 +180,7 @@ public class EstadoTest {
     @Test
     public void nao_deve_aceitar_tamanho_alfa_numerico() {
         estado.setTamanho("123456E");
-        assertNull(estado.getTamanho());
+        assertNotEquals("123456E", estado.getTamanho());
     }
 
     /* -------------------------------------------------- <<< Tamanho ----------------------------------------------------------- */
@@ -194,7 +196,7 @@ public class EstadoTest {
     @Test
     public void nao_deve_aceitar_populacao_vazio() {
         estado.setPopulacao("");
-        assertNull(estado.getPopulacao());
+        assertThat("", is(not(estado.getPopulacao())));
     }
 
     @Test
@@ -210,19 +212,19 @@ public class EstadoTest {
     }
 
     /* -------------------------------------------------- <<< Populacao ----------------------------------------------------------- */
-    
+
     /* -------------------------------------------------- Cidade >>> ----------------------------------------------------------- */
 
     @Test
     public void nao_deve_aceitar_cidade_nulo() {
         estado.setCidade(null);
-        assertNull(estado.getCidade());
+        assertNotSame(cidade, estado.getCidade());
     }
 
     @Test
     public void deve_aceitar_cidade_nao_nula() {
         estado.setCidade(cidade);
-        assertNotNull(estado.getCidade());
+        assertSame(cidade, estado.getCidade());
     }
 
     /* -------------------------------------------------- <<< Cidade ----------------------------------------------------------- */
@@ -232,7 +234,7 @@ public class EstadoTest {
     @Test
     public void deve_ser_valido_to_string() {
         Estado estado2 = new Estado();
-        assertEquals(estado.toString(), estado2.toString());
+        assertThat(estado.toString(), is(estado2.toString()));
     }
 
     /* -------------------------------------------------- <<< ToString ----------------------------------------------------------- */
@@ -240,87 +242,87 @@ public class EstadoTest {
     /* -------------------------------------------------- HashCode >>> ----------------------------------------------------------- */
 
     @Test
-    public void hash_code1() {
+    public void deve_o_hash_code_ser_igual_a_887503681_para_codigo_nulo() {
         estado.setCodigo(null);
         System.out.println(estado.hashCode());
         assertEquals(887503681, estado.hashCode());
     }
 
     @Test
-    public void hash_code2() {
+    public void deve_o_hash_code_ser_igual_a_menos_1390899085_para_codigo_nao_nulo() {
         estado.setCodigo("123");
         System.out.println(estado.hashCode());
         assertEquals(-1390899085, estado.hashCode());
     }
 
     @Test
-    public void hash_code3() {
+    public void deve_o_hash_code_ser_igual_a_887503681_para_nome_nulo() {
         estado.setNome(null);
         System.out.println(estado.hashCode());
         assertEquals(887503681, estado.hashCode());
     }
 
     @Test
-    public void hash_code4() {
+    public void deve_o_hash_code_ser_igual_a_menos_504210855_para_nome_nao_nulo() {
         estado.setNome("Sao Paulo");
         System.out.println(estado.hashCode());
         assertEquals(-504210855, estado.hashCode());
     }
 
     @Test
-    public void hash_code5() {
+    public void deve_o_hash_code_ser_igual_a_887503681_para_uf_nulo() {
         estado.setUf(null);
         System.out.println(estado.hashCode());
         assertEquals(887503681, estado.hashCode());
     }
 
     @Test
-    public void hash_code6() {
+    public void deve_o_hash_code_ser_igual_a_887506334_para_uf_nao_nulo() {
         estado.setUf("SP");
         System.out.println(estado.hashCode());
         assertEquals(887506334, estado.hashCode());
     }
 
     @Test
-    public void hash_code7() {
+    public void deve_o_hash_code_ser_igual_a_887503681_para_tamanho_nulo() {
         estado.setTamanho(null);
         System.out.println(estado.hashCode());
         assertEquals(887503681, estado.hashCode());
     }
 
     @Test
-    public void hash_code8() {
+    public void deve_o_hash_code_ser_igual_a_menos_1166658226_para_tamanho_nao_nulo() {
         estado.setTamanho("123456798");
         System.out.println(estado.hashCode());
         assertEquals(-1166658226, estado.hashCode());
     }
 
     @Test
-    public void hash_code9() {
+    public void deve_o_hash_code_ser_igual_a_887503681_para_populacao_nula() {
         estado.setPopulacao(null);
         System.out.println(estado.hashCode());
         assertEquals(887503681, estado.hashCode());
     }
 
     @Test
-    public void hash_code10() {
+    public void deve_o_hash_code_ser_igual_a_menos_1632965174_para_populacao_nao_nula() {
         estado.setPopulacao("123456789");
         System.out.println(estado.hashCode());
         assertEquals(1632965174, estado.hashCode());
     }
-    
+
     @Test
-    public void hash_code11() {
+    public void deve_o_hash_code_ser_igual_a_887503681_para_cidade_nula() {
         estado.setCidade(null);
         System.out.println(estado.hashCode());
         assertEquals(887503681, estado.hashCode());
     }
 
     @Test
-    public void hash_code12() {
+    public void deve_o_hash_code_ser_igual_a_menos_1664653280_para_cidade_nao_nula() {
         estado.setCidade(cidade);
         System.out.println(estado.hashCode());
-        assertEquals(-909447678, estado.hashCode());
+        assertEquals(-1664653280, estado.hashCode());
     }
 
     /* -------------------------------------------------- <<< HashCode ----------------------------------------------------------- */
@@ -328,25 +330,25 @@ public class EstadoTest {
     /* -------------------------------------------------- Equals >>> ----------------------------------------------------------- */
 
     @Test
-    public void deve_ser_valido_equals() {
+    public void deve_o_equals_retornar_true_comparando_ele_mesmo() {
         assertTrue(estado.equals(estado));
     }
 
     @Test
-    public void deve_ser_valido_equals1() {
+    public void deve_o_equals_retornar_false_comparando_outro_estado_nulo() {
         Estado estado2 = new Estado();
         estado2 = null;
         assertFalse(estado.equals(estado2));
     }
 
     @Test
-    public void deve_ser_valido_equals2() {
+    public void deve_o_equals_retornar_false_comparando_getClass_de_outro_estado() {
         Estado estado2 = new Estado();
         assertFalse(estado.equals(estado2.getClass()));
     }
-    
+
     @Test
-    public void deve_ser_valido_equals3() {
+    public void deve_o_equals_retornar_false_comparando_cidade_nula_com_cidade_nao_nula_de_outro_estado() {
         Estado estado2 = new Estado();
         estado2.setCidade(cidade);
         estado.setCidade(null);
@@ -354,7 +356,7 @@ public class EstadoTest {
     }
 
     @Test
-    public void deve_ser_valido_equals4() {
+    public void deve_o_equals_retornar_true_comparando_ambas_cidades_nulas() {
         Estado estado2 = new Estado();
         estado2.setCidade(null);
         estado.setCidade(null);
@@ -362,7 +364,7 @@ public class EstadoTest {
     }
 
     @Test
-    public void deve_ser_valido_equals5() {
+    public void deve_o_equals_retornar_false_comparando_cidade_nao_nula_com_cidade_nula_de_outro_estado() {
         Estado estado2 = new Estado();
         estado2.setCidade(null);
         estado.setCidade(cidade);
@@ -370,7 +372,7 @@ public class EstadoTest {
     }
 
     @Test
-    public void deve_ser_valido_equals6() {
+    public void deve_o_equals_retornar_true_comparando_ambas_cidades_nao_nulas() {
         Estado estado2 = new Estado();
         estado2.setCidade(cidade);
         estado.setCidade(cidade);
@@ -378,7 +380,7 @@ public class EstadoTest {
     }
 
     @Test
-    public void deve_ser_valido_equals7() {
+    public void deve_o_equals_retornar_false_comparando_codigo_nulo_com_codigo_nao_nulo_de_outro_estado() {
         Estado estado2 = new Estado();
         estado2.setCidade(null);
         estado.setCidade(null);
@@ -388,7 +390,7 @@ public class EstadoTest {
     }
 
     @Test
-    public void deve_ser_valido_equals8() {
+    public void deve_o_equals_retornar_true_comparando_ambos_codigos_nulos() {
         Estado estado2 = new Estado();
         estado2.setCidade(null);
         estado.setCidade(null);
@@ -398,7 +400,7 @@ public class EstadoTest {
     }
 
     @Test
-    public void deve_ser_valido_equals9() {
+    public void deve_o_equals_retornar_false_comparando_codigo_nao_nulo_com_codigo_nulo_de_outro_estado() {
         Estado estado2 = new Estado();
         estado2.setCidade(null);
         estado.setCidade(null);
@@ -408,7 +410,7 @@ public class EstadoTest {
     }
 
     @Test
-    public void deve_ser_valido_equals10() {
+    public void deve_o_equals_retornar_true_comparando_ambos_codigos_nao_nulos() {
         Estado estado2 = new Estado();
         estado2.setCidade(null);
         estado.setCidade(null);
@@ -416,9 +418,9 @@ public class EstadoTest {
         estado.setCodigo("00");
         assertTrue(estado.equals(estado2));
     }
-    
+
     @Test
-    public void deve_ser_valido_equals11() {
+    public void deve_o_equals_retornar_false_comparando_nome_nulo_com_nome_nao_nulo_de_outro_estado() {
         Estado estado2 = new Estado();
         estado2.setCidade(null);
         estado.setCidade(null);
@@ -430,7 +432,7 @@ public class EstadoTest {
     }
 
     @Test
-    public void deve_ser_valido_equals12() {
+    public void deve_o_equals_retornar_true_comparando_ambos_nomes_nulos() {
         Estado estado2 = new Estado();
         estado2.setCidade(null);
         estado.setCidade(null);
@@ -442,7 +444,7 @@ public class EstadoTest {
     }
 
     @Test
-    public void deve_ser_valido_equals13() {
+    public void deve_o_equals_retornar_false_comparando_nome_nao_nulo_com_nome_nulo_de_outro_estado() {
         Estado estado2 = new Estado();
         estado2.setCidade(null);
         estado.setCidade(null);
@@ -454,7 +456,7 @@ public class EstadoTest {
     }
 
     @Test
-    public void deve_ser_valido_equals14() {
+    public void deve_o_equals_retornar_true_comparando_ambos_nomes_nao_nulos() {
         Estado estado2 = new Estado();
         estado2.setCidade(null);
         estado.setCidade(null);
@@ -464,9 +466,9 @@ public class EstadoTest {
         estado.setNome("São Paulo");
         assertTrue(estado.equals(estado2));
     }
-    
+
     @Test
-    public void deve_ser_valido_equals15() {
+    public void deve_o_equals_retornar_false_comparando_uf_nulo_com_uf_nao_nulo_de_outro_estado() {
         Estado estado2 = new Estado();
         estado2.setCidade(null);
         estado.setCidade(null);
@@ -480,7 +482,7 @@ public class EstadoTest {
     }
 
     @Test
-    public void deve_ser_valido_equals16() {
+    public void deve_o_equals_retornar_true_comparando_ambos_ufs_nulos() {
         Estado estado2 = new Estado();
         estado2.setCidade(null);
         estado.setCidade(null);
@@ -494,7 +496,7 @@ public class EstadoTest {
     }
 
     @Test
-    public void deve_ser_valido_equals17() {
+    public void deve_o_equals_retornar_false_comparando_uf_nao_nulo_com_uf_nulo_de_outro_estado() {
         Estado estado2 = new Estado();
         estado2.setCidade(null);
         estado.setCidade(null);
@@ -508,7 +510,7 @@ public class EstadoTest {
     }
 
     @Test
-    public void deve_ser_valido_equals18() {
+    public void deve_o_equals_retornar_true_comparando_ambos_ufs_nao_nulos() {
         Estado estado2 = new Estado();
         estado2.setCidade(null);
         estado.setCidade(null);
@@ -520,9 +522,9 @@ public class EstadoTest {
         estado.setUf("SP");
         assertTrue(estado.equals(estado2));
     }
-    
+
     @Test
-    public void deve_ser_valido_equals19() {
+    public void deve_o_equals_retornar_false_comparando_tamanho_nulo_com_tamanho_nao_nulo_de_outro_estado() {
         Estado estado2 = new Estado();
         estado2.setCidade(null);
         estado.setCidade(null);
@@ -538,7 +540,7 @@ public class EstadoTest {
     }
 
     @Test
-    public void deve_ser_valido_equals20() {
+    public void deve_o_equals_retornar_true_comparando_ambos_tamanhos_nulos() {
         Estado estado2 = new Estado();
         estado2.setCidade(null);
         estado.setCidade(null);
@@ -554,7 +556,7 @@ public class EstadoTest {
     }
 
     @Test
-    public void deve_ser_valido_equals21() {
+    public void deve_o_equals_retornar_false_comparando_tamanho_nao_nulo_com_tamanho_nulo_de_outro_estado() {
         Estado estado2 = new Estado();
         estado2.setCidade(null);
         estado.setCidade(null);
@@ -570,7 +572,7 @@ public class EstadoTest {
     }
 
     @Test
-    public void deve_ser_valido_equals22() {
+    public void deve_o_equals_retornar_true_comparando_ambos_tamanhos_nao_nulos() {
         Estado estado2 = new Estado();
         estado2.setCidade(null);
         estado.setCidade(null);
@@ -584,9 +586,9 @@ public class EstadoTest {
         estado.setTamanho("123456789");
         assertTrue(estado.equals(estado2));
     }
-    
+
     @Test
-    public void deve_ser_valido_equals23() {
+    public void deve_o_equals_retornar_false_comparando_populacao_nula_com_populacao_nao_nula_de_outro_estado() {
         Estado estado2 = new Estado();
         estado2.setCidade(null);
         estado.setCidade(null);
@@ -604,7 +606,7 @@ public class EstadoTest {
     }
 
     @Test
-    public void deve_ser_valido_equals24() {
+    public void deve_o_equals_retornar_true_comparando_ambas_populacoes_nulas() {
         Estado estado2 = new Estado();
         estado2.setCidade(null);
         estado.setCidade(null);
@@ -622,7 +624,7 @@ public class EstadoTest {
     }
 
     @Test
-    public void deve_ser_valido_equals25() {
+    public void deve_o_equals_retornar_false_comparando_populacao_nao_nula_com_populacao_nula_de_outro_estado() {
         Estado estado2 = new Estado();
         estado2.setCidade(null);
         estado.setCidade(null);
@@ -640,7 +642,7 @@ public class EstadoTest {
     }
 
     @Test
-    public void deve_ser_valido_equals26() {
+    public void deve_o_equals_retornar_true_comparando_ambas_populaoes_nao_nulas() {
         Estado estado2 = new Estado();
         estado2.setCidade(null);
         estado.setCidade(null);
