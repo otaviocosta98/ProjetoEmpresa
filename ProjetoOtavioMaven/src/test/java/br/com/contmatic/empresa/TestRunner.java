@@ -8,7 +8,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
-@Suite.SuiteClasses({ BairroTest.class, CidadeTest.class, EmpresaTest.class, EstadoTest.class, TelefoneTest.class, OperadoraTest.class })
+@Suite.SuiteClasses({ BairroTest.class, CidadeTest.class, EmpresaTest.class, EnderecoTest.class, EstadoTest.class, OperadoraTest.class, TelefoneTest.class })
 
 public class TestRunner {
 
