@@ -1,6 +1,5 @@
 package br.com.contmatic.empresa;
 
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 
@@ -98,13 +97,13 @@ public class Empresa {
         }
     }
 
-    public String getDataInicio() {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        return sdf.format(dataInicio);
+    public Date getDataInicio() {
+        return dataInicio;
     }
 
     public void setDataInicio(Date dataInicio) {
-        if(System.currentTimeMillis() > 1494420003098L/*10/05/2017*/){
+        Date data = new Date(1494439457167L);/* 10/05/2017 */
+        if (dataInicio.after(data)) {
             this.dataInicio = dataInicio;
         }
     }
