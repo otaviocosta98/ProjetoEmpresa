@@ -1,6 +1,8 @@
 package br.com.contmatic.empresa;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 
 public class Empresa {
 
@@ -11,6 +13,7 @@ public class Empresa {
     private Endereco[] endereco;
     private Telefone[] telefone;
     private String email;
+    private Date dataInicio;
 
     public Empresa() {
 
@@ -95,10 +98,21 @@ public class Empresa {
         }
     }
 
+    public String getDataInicio() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        return sdf.format(dataInicio);
+    }
+
+    public void setDataInicio(Date dataInicio) {
+        if(System.currentTimeMillis() > 1494420003098L/*10/05/2017*/){
+            this.dataInicio = dataInicio;
+        }
+    }
+
     @Override
     public String toString() {
         return "Empresa [nome=" + nome + ", razaoSocial=" + razaoSocial + ", IE=" + IE + ", CNPJ=" + CNPJ + ", endereco=" + Arrays.toString(endereco) + ", telefone=" + Arrays.toString(telefone) +
-            ", email=" + email + "]";
+            ", email=" + email + ", dataInicio=" + dataInicio + "]";
     }
 
     @Override
@@ -106,12 +120,7 @@ public class Empresa {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((CNPJ == null) ? 0 : CNPJ.hashCode());
-        result = prime * result + ((IE == null) ? 0 : IE.hashCode());
-        result = prime * result + ((email == null) ? 0 : email.hashCode());
-        result = prime * result + Arrays.hashCode(endereco);
-        result = prime * result + ((nome == null) ? 0 : nome.hashCode());
         result = prime * result + ((razaoSocial == null) ? 0 : razaoSocial.hashCode());
-        result = prime * result + Arrays.hashCode(telefone);
         return result;
     }
 
@@ -129,29 +138,10 @@ public class Empresa {
                 return false;
         } else if (!CNPJ.equals(other.CNPJ))
             return false;
-        if (IE == null) {
-            if (other.IE != null)
-                return false;
-        } else if (!IE.equals(other.IE))
-            return false;
-        if (email == null) {
-            if (other.email != null)
-                return false;
-        } else if (!email.equals(other.email))
-            return false;
-        if (!Arrays.equals(endereco, other.endereco))
-            return false;
-        if (nome == null) {
-            if (other.nome != null)
-                return false;
-        } else if (!nome.equals(other.nome))
-            return false;
         if (razaoSocial == null) {
             if (other.razaoSocial != null)
                 return false;
         } else if (!razaoSocial.equals(other.razaoSocial))
-            return false;
-        if (!Arrays.equals(telefone, other.telefone))
             return false;
         return true;
     }

@@ -2,8 +2,17 @@ package br.com.contmatic.empresa;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
+import java.sql.Date;
 import java.util.concurrent.TimeUnit;
 
 import org.junit.After;
@@ -283,6 +292,24 @@ public class EmpresaTest {
     }
 
     /* -------------------------------------------------- <<< Telefone ----------------------------------------------------------- */
+    
+    /* -------------------------------------------------- DataInicio >>> ----------------------------------------------------------- */
+    
+    @Test
+    public void nao_deve_aceitar_data_de_inicio_menor_que_09_05_2017() {
+        Date data = new Date(149442000000L);
+        empresa.setDataInicio(data);
+        assertNotEquals("10/05/2017", empresa.getDataInicio());
+    }
+    
+    @Test
+    public void deve_aceitar_data_de_inicio_maior_ou_igual_a_09_05_2017() {
+        Date data = new Date(1494420003098L);
+        empresa.setDataInicio(data);
+        assertThat("10/05/2017", is(empresa.getDataInicio()));
+    }
+
+    /* -------------------------------------------------- <<< DataInicio ----------------------------------------------------------- */
 
     /* -------------------------------------------------- Ignore >>> ----------------------------------------------------------- */
 

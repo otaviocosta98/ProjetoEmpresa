@@ -13,7 +13,7 @@ public class Bairro {
     }
 
     public void setCodigo(String codigo) {
-        if (codigo != null && codigo != "" && codigo.matches("[0-9]+")) {
+        if (codigo != null && "".equals(codigo) && codigo.matches("[0-9]+")) {
             this.codigo = codigo;
         }
     }
