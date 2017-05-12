@@ -202,73 +202,39 @@ public class EnderecoTest {
     /* -------------------------------------------------- HashCode >>> ----------------------------------------------------------- */
 
     @Test
-    public void deve_o_hash_code_ser_igual_a_28629151_para_logradouro_nulo() {
-        endereco.setLogradouro(null);
-        System.out.println(endereco.hashCode());
-        assertEquals(28629151, endereco.hashCode());
-    }
-
-    @Test
-    public void deve_o_hash_code_ser_igual_a_1071699469_para_logradouro_nao_nulo() {
-        endereco.setLogradouro("Rua Nove");
-        System.out.println(endereco.hashCode());
-        assertEquals(1071699469, endereco.hashCode());
-    }
-
-    @Test
-    public void deve_o_hash_code_ser_igual_a_28629151_para_numero_nulo() {
-        endereco.setNumero(null);
-        System.out.println(endereco.hashCode());
-        assertEquals(28629151, endereco.hashCode());
-    }
-
-    @Test
-    public void deve_o_hash_code_ser_igual_a_28677841_para_numero_nao_nulo() {
+    public void deve_ser_valido_hashcode_de_valores_iguais(){
+        Endereco endereco2 = new Endereco();
+        endereco.setLogradouro("Rua Teste");
         endereco.setNumero("123");
-        System.out.println(endereco.hashCode());
-        assertEquals(28677841, endereco.hashCode());
-    }
-
-    @Test
-    public void deve_o_hash_code_ser_igual_a_28629151_para_complemento_nulo() {
-        endereco.setComplemento(null);
-        System.out.println(endereco.hashCode());
-        assertEquals(28629151, endereco.hashCode());
-    }
-
-    @Test
-    public void deve_o_hash_code_ser_igual_a_1594831394_para_complemento_nao_nulo() {
-        endereco.setComplemento("51y");
-        System.out.println(endereco.hashCode());
-        assertEquals(1594831394, endereco.hashCode());
-    }
-
-    @Test
-    public void deve_o_hash_code_ser_igual_a_28629151_para_estado_nulo() {
-        endereco.setEstado(null);
-        System.out.println(endereco.hashCode());
-        assertEquals(28629151, endereco.hashCode());
-    }
-
-    @Test
-    public void deve_o_hash_code_ser_igual_a_menos_1778825312_para_estado_nao_nulo() {
-        endereco.setEstado(estado);
-        System.out.println(endereco.hashCode());
-        assertEquals(-1778825312, endereco.hashCode());
-    }
-
-    @Test
-    public void deve_o_hash_code_ser_igual_a_28629151_para_cep_nulo() {
-        endereco.setCep(null);
-        System.out.println(endereco.hashCode());
-        assertEquals(28629151, endereco.hashCode());
-    }
-
-    @Test
-    public void deve_o_hash_code_ser_igual_a_1661400867_para_cep_nao_nulo() {
         endereco.setCep("12345678");
-        System.out.println(endereco.hashCode());
-        assertEquals(1661400867, endereco.hashCode());
+        endereco2.setLogradouro("Rua Teste");
+        endereco2.setNumero("123");
+        endereco2.setCep("12345678");
+        assertEquals(endereco.hashCode(), endereco2.hashCode());
+    }
+    
+    @Test
+    public void deve_ser_valido_hashcode_de_objeto_nulo(){
+        Endereco endereco2 = new Endereco();
+        endereco.setLogradouro(null);
+        endereco.setNumero(null);
+        endereco.setCep(null);
+        endereco2.setLogradouro("Rua Teste2");
+        endereco2.setNumero("456");
+        endereco2.setCep("87654321");
+        assertNotEquals(endereco.hashCode(), endereco2.hashCode());
+    }
+    
+    @Test
+    public void nao_deve_ser_valido_hashcode_de_objetos_deferentes(){
+        Endereco endereco2 = new Endereco();
+        endereco.setLogradouro("Rua Teste");
+        endereco.setNumero("123");
+        endereco.setCep("12345678");
+        endereco2.setLogradouro("Rua Teste2");
+        endereco2.setNumero("456");
+        endereco2.setCep("87654321");
+        assertThat(endereco.hashCode(), is(not(endereco2.hashCode())));
     }
 
     /* -------------------------------------------------- <<< HashCode ----------------------------------------------------------- */
@@ -366,120 +332,12 @@ public class EnderecoTest {
     }
 
     @Test
-    public void deve_o_equals_retornar_false_comparando_complemento_nulo_com_complemento_nao_nulo_de_outro_endereco() {
-        Endereco endereco2 = new Endereco();
-        endereco2.setLogradouro(null);
-        endereco.setLogradouro(null);
-        endereco2.setNumero(null);
-        endereco.setNumero(null);
-        endereco2.setComplemento("51y");
-        endereco.setComplemento(null);
-        assertFalse(endereco.equals(endereco2));
-    }
-
-    @Test
-    public void deve_o_equals_retornar_true_comparando_ambos_complementos_nulos() {
-        Endereco endereco2 = new Endereco();
-        endereco2.setLogradouro(null);
-        endereco.setLogradouro(null);
-        endereco2.setNumero(null);
-        endereco.setNumero(null);
-        endereco2.setComplemento(null);
-        endereco.setComplemento(null);
-        assertTrue(endereco.equals(endereco2));
-    }
-
-    @Test
-    public void deve_o_equals_retornar_false_comparando_complemento_nao_nulo_com_complemento_nulo_de_outro_endereco() {
-        Endereco endereco2 = new Endereco();
-        endereco2.setLogradouro(null);
-        endereco.setLogradouro(null);
-        endereco2.setNumero(null);
-        endereco.setNumero(null);
-        endereco2.setComplemento(null);
-        endereco.setComplemento("51y");
-        assertFalse(endereco.equals(endereco2));
-    }
-
-    @Test
-    public void deve_o_equals_retornar_true_comparando_ambos_complementos_nao_nulos() {
-        Endereco endereco2 = new Endereco();
-        endereco2.setLogradouro(null);
-        endereco.setLogradouro(null);
-        endereco2.setNumero(null);
-        endereco.setNumero(null);
-        endereco2.setComplemento("51y");
-        endereco.setComplemento("51y");
-        assertTrue(endereco.equals(endereco2));
-    }
-
-    @Test
-    public void deve_o_equals_retornar_false_comparando_estado_nulo_com_estado_nao_nulo_de_outro_endereco() {
-        Endereco endereco2 = new Endereco();
-        endereco2.setLogradouro(null);
-        endereco.setLogradouro(null);
-        endereco2.setNumero(null);
-        endereco.setNumero(null);
-        endereco2.setComplemento(null);
-        endereco.setComplemento(null);
-        endereco2.setEstado(estado);
-        endereco.setEstado(null);
-        assertFalse(endereco.equals(endereco2));
-    }
-
-    @Test
-    public void deve_o_equals_retornar_true_comparando_ambos_estados_nulos() {
-        Endereco endereco2 = new Endereco();
-        endereco2.setLogradouro(null);
-        endereco.setLogradouro(null);
-        endereco2.setNumero(null);
-        endereco.setNumero(null);
-        endereco2.setComplemento(null);
-        endereco.setComplemento(null);
-        endereco2.setEstado(null);
-        endereco.setEstado(null);
-        assertTrue(endereco.equals(endereco2));
-    }
-
-    @Test
-    public void deve_o_equals_retornar_false_comparando_estado_nao_nulo_com_estado_nulo_de_outro_endereco() {
-        Endereco endereco2 = new Endereco();
-        endereco2.setLogradouro(null);
-        endereco.setLogradouro(null);
-        endereco2.setNumero(null);
-        endereco.setNumero(null);
-        endereco2.setComplemento(null);
-        endereco.setComplemento(null);
-        endereco2.setEstado(null);
-        endereco.setEstado(estado);
-        assertFalse(endereco.equals(endereco2));
-    }
-
-    @Test
-    public void deve_o_equals_retornar_true_comparando_ambos_estados_nao_nulos() {
-        Endereco endereco2 = new Endereco();
-        endereco2.setLogradouro(null);
-        endereco.setLogradouro(null);
-        endereco2.setNumero(null);
-        endereco.setNumero(null);
-        endereco2.setComplemento(null);
-        endereco.setComplemento(null);
-        endereco2.setEstado(estado);
-        endereco.setEstado(estado);
-        assertTrue(endereco.equals(endereco2));
-    }
-
-    @Test
     public void deve_o_equals_retornar_false_comparando_cep_nulo_com_cep_nao_nulo_de_outro_endereco() {
         Endereco endereco2 = new Endereco();
         endereco2.setLogradouro(null);
         endereco.setLogradouro(null);
         endereco2.setNumero(null);
         endereco.setNumero(null);
-        endereco2.setComplemento(null);
-        endereco.setComplemento(null);
-        endereco2.setEstado(null);
-        endereco.setEstado(null);
         endereco2.setCep("12345678");
         endereco.setCep(null);
         assertFalse(endereco.equals(endereco2));
@@ -492,10 +350,6 @@ public class EnderecoTest {
         endereco.setLogradouro(null);
         endereco2.setNumero(null);
         endereco.setNumero(null);
-        endereco2.setComplemento(null);
-        endereco.setComplemento(null);
-        endereco2.setEstado(null);
-        endereco.setEstado(null);
         endereco2.setCep(null);
         endereco.setCep(null);
         assertTrue(endereco.equals(endereco2));
@@ -508,10 +362,6 @@ public class EnderecoTest {
         endereco.setLogradouro(null);
         endereco2.setNumero(null);
         endereco.setNumero(null);
-        endereco2.setComplemento(null);
-        endereco.setComplemento(null);
-        endereco2.setEstado(null);
-        endereco.setEstado(null);
         endereco2.setCep(null);
         endereco.setCep("12345678");
         assertFalse(endereco.equals(endereco2));
@@ -524,10 +374,6 @@ public class EnderecoTest {
         endereco.setLogradouro(null);
         endereco2.setNumero(null);
         endereco.setNumero(null);
-        endereco2.setComplemento(null);
-        endereco.setComplemento(null);
-        endereco2.setEstado(null);
-        endereco.setEstado(null);
         endereco2.setCep("12345678");
         endereco.setCep("12345678");
         assertTrue(endereco.equals(endereco2));

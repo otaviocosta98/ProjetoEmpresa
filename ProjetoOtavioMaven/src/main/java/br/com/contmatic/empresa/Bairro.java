@@ -1,9 +1,5 @@
 package br.com.contmatic.empresa;
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-
 public class Bairro {
 
     private String codigo;
@@ -17,7 +13,7 @@ public class Bairro {
     }
 
     public void setCodigo(String codigo) {
-        if (codigo != null && "".equals(codigo) && codigo.matches("[0-9]+")) {
+        if (codigo != null && !"".equals(codigo) && codigo.matches("[0-9]+")) {
             this.codigo = codigo;
         }
     }
@@ -27,7 +23,7 @@ public class Bairro {
     }
 
     public void setNome(String nome) {
-        if (nome != null && nome != "" && nome.matches("[^0-9]+")) {
+        if (nome != null && !"".equals(nome) && nome.matches("[^0-9]+")) {
             this.nome = nome;
         }
     }
@@ -37,7 +33,7 @@ public class Bairro {
     }
 
     public void setTipo(String tipo) {
-        if (tipo != null && tipo != "" && tipo.matches("[^0-9]+")) {
+        if (tipo != null && !"".equals(tipo) && tipo.matches("[^0-9]+")) {
             this.tipo = tipo;
         }
     }
@@ -47,7 +43,7 @@ public class Bairro {
     }
 
     public void setTamanho(String tamanho) {
-        if (tamanho != null && tamanho != "" && tamanho.matches("[0-9]+")) {
+        if (tamanho != null && !"".equals(tamanho) && tamanho.matches("[0-9]+")) {
             this.tamanho = tamanho;
         }
     }
@@ -57,24 +53,38 @@ public class Bairro {
     }
 
     public void setPopulacao(String populacao) {
-        if (populacao != null && populacao != "" && populacao.matches("[0-9]+")) {
+        if (populacao != null && !"".equals(populacao) && populacao.matches("[0-9]+")) {
             this.populacao = populacao;
         }
     }
 
     @Override
     public String toString() {
-        return ToStringBuilder.reflectionToString(this);
+        return "Bairro [codigo=" + codigo + ", nome=" + nome + ", tipo=" + tipo + ", tamanho=" + tamanho + ", populacao=" + populacao + "]";
     }
 
     @Override
     public int hashCode() {
-        return HashCodeBuilder.reflectionHashCode(this);
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
+        return result;
     }
 
     @Override
     public boolean equals(Object obj) {
-        return EqualsBuilder.reflectionEquals(this, obj);
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Bairro other = (Bairro) obj;
+        if (codigo == null) {
+            if (other.codigo != null)
+                return false;
+        } else if (!codigo.equals(other.codigo))
+            return false;
+        return true;
     }
-
 }

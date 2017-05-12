@@ -14,7 +14,7 @@ public class Telefone {
 
     public void setDdd(String ddd) {
         if (ddd != null) {
-            if (ddd != "" && ddd.matches("[0-9]+") && ddd.length() == 2) {
+            if (!"".equals(ddd) && ddd.matches("[0-9]+") && ddd.length() == 2) {
                 this.ddd = ddd;
             }
         }
@@ -38,7 +38,7 @@ public class Telefone {
 
     public void setNumero(String numero) {
         if (numero != null) {
-            if (numero != "" & numero.matches("[0-9]+")) {
+            if (!"".equals(numero) & numero.matches("[0-9]+")) {
                 if (numero.length() >= 8 && numero.length() <= 9) {
                     this.numero = numero;
                 }
@@ -51,7 +51,7 @@ public class Telefone {
     }
 
     public void setTipo(String tipo) {
-        if (tipo != null && tipo != "" && tipo.matches("[a-zA-Z]+")) {
+        if (tipo != null && !"".equals(tipo) && tipo.matches("[a-zA-Z]+")) {
             this.tipo = tipo;
         }
     }
@@ -61,7 +61,7 @@ public class Telefone {
     }
 
     public void setResponsavel(String responsavel) {
-        if (responsavel != null && responsavel != "" && responsavel.matches("[a-zA-Z]+")) {
+        if (responsavel != null && !"".equals(responsavel) && responsavel.matches("[a-zA-Z]+")) {
             this.responsavel = responsavel;
         }
     }
@@ -85,12 +85,7 @@ public class Telefone {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((ddd == null) ? 0 : ddd.hashCode());
         result = prime * result + ((numero == null) ? 0 : numero.hashCode());
-        result = prime * result + ((operadora == null) ? 0 : operadora.hashCode());
-        result = prime * result + ((ramal == null) ? 0 : ramal.hashCode());
-        result = prime * result + ((responsavel == null) ? 0 : responsavel.hashCode());
-        result = prime * result + ((tipo == null) ? 0 : tipo.hashCode());
         return result;
     }
 
@@ -103,35 +98,10 @@ public class Telefone {
         if (getClass() != obj.getClass())
             return false;
         Telefone other = (Telefone) obj;
-        if (ddd == null) {
-            if (other.ddd != null)
-                return false;
-        } else if (!ddd.equals(other.ddd))
-            return false;
         if (numero == null) {
             if (other.numero != null)
                 return false;
         } else if (!numero.equals(other.numero))
-            return false;
-        if (operadora == null) {
-            if (other.operadora != null)
-                return false;
-        } else if (!operadora.equals(other.operadora))
-            return false;
-        if (ramal == null) {
-            if (other.ramal != null)
-                return false;
-        } else if (!ramal.equals(other.ramal))
-            return false;
-        if (responsavel == null) {
-            if (other.responsavel != null)
-                return false;
-        } else if (!responsavel.equals(other.responsavel))
-            return false;
-        if (tipo == null) {
-            if (other.tipo != null)
-                return false;
-        } else if (!tipo.equals(other.tipo))
             return false;
         return true;
     }

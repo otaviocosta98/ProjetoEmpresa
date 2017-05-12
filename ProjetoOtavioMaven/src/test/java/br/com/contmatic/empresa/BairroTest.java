@@ -194,73 +194,27 @@ public class BairroTest {
     /* -------------------------------------------------- HashCode >>> ----------------------------------------------------------- */
 
     @Test
-    public void deve_o_hash_code_ser_igual_a_28629151_para_codigo_nulo() {
-        bairro.setCodigo(null);
-        System.out.println(bairro.hashCode());
-        assertEquals(28629151, bairro.hashCode());
-    }
-
-    @Test
-    public void deve_o_hash_code_ser_igual_a_2045193681_para_codigo_nao_nulo() {
+    public void deve_ser_valido_hashcode_de_valores_iguais(){
+        Bairro bairro2 = new Bairro();
         bairro.setCodigo("123");
-        System.out.println(bairro.hashCode());
-        assertEquals(2045193681, bairro.hashCode());
+        bairro2.setCodigo("123");
+        assertEquals(bairro.hashCode(), bairro2.hashCode());
     }
-
+    
     @Test
-    public void deve_o_hash_code_ser_igual_a_28629151_para_nome_nulo() {
-        bairro.setNome(null);
-        System.out.println(bairro.hashCode());
-        assertEquals(28629151, bairro.hashCode());
+    public void deve_ser_valido_hashcode_de_objeto_nulo(){
+        Bairro bairro2 = new Bairro();
+        bairro.setCodigo(null);
+        bairro2.setCodigo("123");
+        assertNotEquals(bairro.hashCode(), bairro2.hashCode());
     }
-
+    
     @Test
-    public void deve_o_hash_code_ser_igual_a_menos_663569150_para_nome_nao_nulo() {
-        bairro.setNome("Cohab");
-        System.out.println(bairro.hashCode());
-        assertEquals(-663569150, bairro.hashCode());
-    }
-
-    @Test
-    public void deve_o_hash_code_ser_igual_a_28629151_para_tipo_nulo() {
-        bairro.setTipo(null);
-        System.out.println(bairro.hashCode());
-        assertEquals(28629151, bairro.hashCode());
-    }
-
-    @Test
-    public void deve_o_hash_code_ser_igual_a_320215678_para_tipo_nao_nulo() {
-        bairro.setTipo("Comercial");
-        System.out.println(bairro.hashCode());
-        assertEquals(320215678, bairro.hashCode());
-    }
-
-    @Test
-    public void deve_o_hash_code_ser_igual_a_28629151_para_tamanho_nulo() {
-        bairro.setTamanho(null);
-        System.out.println(bairro.hashCode());
-        assertEquals(28629151, bairro.hashCode());
-    }
-
-    @Test
-    public void deve_o_hash_code_ser_igual_a_menos_2025532756_para_tamanho_nao_nulo() {
-        bairro.setTamanho("123456798");
-        System.out.println(bairro.hashCode());
-        assertEquals(-2025532756, bairro.hashCode());
-    }
-
-    @Test
-    public void deve_o_hash_code_ser_igual_a_28629151_para_populacao_nula() {
-        bairro.setPopulacao(null);
-        System.out.println(bairro.hashCode());
-        assertEquals(28629151, bairro.hashCode());
-    }
-
-    @Test
-    public void deve_o_hash_code_ser_igual_a_774090644_para_populacao_nao_nula() {
-        bairro.setPopulacao("123456789");
-        System.out.println(bairro.hashCode());
-        assertEquals(774090644, bairro.hashCode());
+    public void nao_deve_ser_valido_hashcode_de_objetos_deferentes(){
+        Bairro bairro2 = new Bairro();
+        bairro.setCodigo("456");
+        bairro2.setCodigo("123");
+        assertThat(bairro.hashCode(), is(not(bairro2.hashCode())));
     }
 
     /* -------------------------------------------------- <<< HashCode ----------------------------------------------------------- */
@@ -314,214 +268,6 @@ public class BairroTest {
         Bairro bairro2 = new Bairro();
         bairro2.setCodigo("00");
         bairro.setCodigo("00");
-        assertTrue(bairro.equals(bairro2));
-    }
-
-    @Test
-    public void deve_o_equals_retornar_false_comparando_nome_nulo_com_nome_nao_nulo_de_outro_bairro() {
-        Bairro bairro2 = new Bairro();
-        bairro2.setCodigo(null);
-        bairro.setCodigo(null);
-        bairro2.setNome("Cohab");
-        bairro.setNome(null);
-        assertFalse(bairro.equals(bairro2));
-    }
-
-    @Test
-    public void deve_o_equals_retornar_true_comparando_ambos_nomes_nulos() {
-        Bairro bairro2 = new Bairro();
-        bairro2.setCodigo(null);
-        bairro.setCodigo(null);
-        bairro2.setNome(null);
-        bairro.setNome(null);
-        assertTrue(bairro.equals(bairro2));
-    }
-
-    @Test
-    public void deve_o_equals_retornar_false_comparando_nome_nao_nulo_com_nome_nulo_de_outro_bairro() {
-        Bairro bairro2 = new Bairro();
-        bairro2.setCodigo(null);
-        bairro.setCodigo(null);
-        bairro2.setNome(null);
-        bairro.setNome("Cohab");
-        assertFalse(bairro.equals(bairro2));
-    }
-
-    @Test
-    public void deve_o_equals_retornar_true_comparando_ambos_nomes_nao_nulos() {
-        Bairro bairro2 = new Bairro();
-        bairro2.setCodigo(null);
-        bairro.setCodigo(null);
-        bairro2.setNome("Cohab");
-        bairro.setNome("Cohab");
-        assertTrue(bairro.equals(bairro2));
-    }
-
-    @Test
-    public void deve_o_equals_retornar_false_comparando_populacao_nula_com_populacao_nao_nula_de_outro_bairro() {
-        Bairro bairro2 = new Bairro();
-        bairro2.setCodigo(null);
-        bairro.setCodigo(null);
-        bairro2.setNome(null);
-        bairro.setNome(null);
-        bairro2.setPopulacao("12345798");
-        bairro.setPopulacao(null);
-        assertFalse(bairro.equals(bairro2));
-    }
-
-    @Test
-    public void deve_o_equals_retornar_true_comparando_ambas_populacoes_nulas() {
-        Bairro bairro2 = new Bairro();
-        bairro2.setCodigo(null);
-        bairro.setCodigo(null);
-        bairro2.setNome(null);
-        bairro.setNome(null);
-        bairro2.setPopulacao(null);
-        bairro.setPopulacao(null);
-        assertTrue(bairro.equals(bairro2));
-    }
-
-    @Test
-    public void deve_o_equals_retornar_false_comparando_populacao_nao_nula_com_populacao_nula_de_outro_bairro() {
-        Bairro bairro2 = new Bairro();
-        bairro2.setCodigo(null);
-        bairro.setCodigo(null);
-        bairro2.setNome(null);
-        bairro.setNome(null);
-        bairro2.setPopulacao(null);
-        bairro.setPopulacao("123456789");
-        assertFalse(bairro.equals(bairro2));
-    }
-
-    @Test
-    public void deve_o_equals_retornar_true_comparando_ambas_populacoes_nao_nulas() {
-        Bairro bairro2 = new Bairro();
-        bairro2.setCodigo(null);
-        bairro.setCodigo(null);
-        bairro2.setNome(null);
-        bairro.setNome(null);
-        bairro2.setPopulacao("123456789");
-        bairro.setPopulacao("123456789");
-        assertTrue(bairro.equals(bairro2));
-    }
-
-    @Test
-    public void deve_o_equals_retornar_false_comparando_tamanho_nulo_com_tamanho_nao_nulo_de_outro_bairro() {
-        Bairro bairro2 = new Bairro();
-        bairro2.setCodigo(null);
-        bairro.setCodigo(null);
-        bairro2.setNome(null);
-        bairro.setNome(null);
-        bairro2.setPopulacao(null);
-        bairro.setPopulacao(null);
-        bairro2.setTamanho("123456789");
-        bairro.setTamanho(null);
-        assertFalse(bairro.equals(bairro2));
-    }
-
-    @Test
-    public void deve_o_equals_retornar_true_comparando_ambos_tamanhos_nulos() {
-        Bairro bairro2 = new Bairro();
-        bairro2.setCodigo(null);
-        bairro.setCodigo(null);
-        bairro2.setNome(null);
-        bairro.setNome(null);
-        bairro2.setPopulacao(null);
-        bairro.setPopulacao(null);
-        bairro2.setTamanho(null);
-        bairro.setTamanho(null);
-        assertTrue(bairro.equals(bairro2));
-    }
-
-    @Test
-    public void deve_o_equals_retornar_false_comparando_tamanho_nao_nulo_com_tamanho_nulo_de_outro_bairro() {
-        Bairro bairro2 = new Bairro();
-        bairro2.setCodigo(null);
-        bairro.setCodigo(null);
-        bairro2.setNome(null);
-        bairro.setNome(null);
-        bairro2.setPopulacao(null);
-        bairro.setPopulacao(null);
-        bairro2.setTamanho(null);
-        bairro.setTamanho("123456789");
-        assertFalse(bairro.equals(bairro2));
-    }
-
-    @Test
-    public void deve_o_equals_retornar_true_comparando_ambos_tamanhos_nao_nulos() {
-        Bairro bairro2 = new Bairro();
-        bairro2.setCodigo(null);
-        bairro.setCodigo(null);
-        bairro2.setNome(null);
-        bairro.setNome(null);
-        bairro2.setPopulacao(null);
-        bairro.setPopulacao(null);
-        bairro2.setTamanho("123456789");
-        bairro.setTamanho("123456789");
-        assertTrue(bairro.equals(bairro2));
-    }
-
-    @Test
-    public void deve_o_equals_retornar_false_comparando_tipo_nulo_com_tipo_nao_nulo_de_outro_bairro() {
-        Bairro bairro2 = new Bairro();
-        bairro2.setCodigo(null);
-        bairro.setCodigo(null);
-        bairro2.setNome(null);
-        bairro.setNome(null);
-        bairro2.setPopulacao(null);
-        bairro.setPopulacao(null);
-        bairro2.setTamanho(null);
-        bairro.setTamanho(null);
-        bairro2.setTipo("Comercial");
-        bairro.setTipo(null);
-        assertFalse(bairro.equals(bairro2));
-    }
-
-    @Test
-    public void deve_o_equals_retornar_true_comparando_ambos_tipos_nulos() {
-        Bairro bairro2 = new Bairro();
-        bairro2.setCodigo(null);
-        bairro.setCodigo(null);
-        bairro2.setNome(null);
-        bairro.setNome(null);
-        bairro2.setPopulacao(null);
-        bairro.setPopulacao(null);
-        bairro2.setTamanho(null);
-        bairro.setTamanho(null);
-        bairro2.setTipo(null);
-        bairro.setTipo(null);
-        assertTrue(bairro.equals(bairro2));
-    }
-
-    @Test
-    public void deve_o_equals_retornar_false_comparando_tipo_nao_nulo_com_tipo_nulo_de_outro_bairro() {
-        Bairro bairro2 = new Bairro();
-        bairro2.setCodigo(null);
-        bairro.setCodigo(null);
-        bairro2.setNome(null);
-        bairro.setNome(null);
-        bairro2.setPopulacao(null);
-        bairro.setPopulacao(null);
-        bairro2.setTamanho(null);
-        bairro.setTamanho(null);
-        bairro2.setTipo(null);
-        bairro.setTipo("Comercial");
-        assertFalse(bairro.equals(bairro2));
-    }
-
-    @Test
-    public void deve_o_equals_retornar_true_comparando_ambos_tipos_nao_nulos() {
-        Bairro bairro2 = new Bairro();
-        bairro2.setCodigo(null);
-        bairro.setCodigo(null);
-        bairro2.setNome(null);
-        bairro.setNome(null);
-        bairro2.setPopulacao(null);
-        bairro.setPopulacao(null);
-        bairro2.setTamanho(null);
-        bairro.setTamanho(null);
-        bairro2.setTipo("Comercial");
-        bairro.setTipo("Comercial");
         assertTrue(bairro.equals(bairro2));
     }
 

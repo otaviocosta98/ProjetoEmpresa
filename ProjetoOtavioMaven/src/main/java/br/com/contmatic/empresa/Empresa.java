@@ -23,7 +23,7 @@ public class Empresa {
     }
 
     public void setNome(String nome) {
-        if (nome != null && nome != "") {
+        if (nome != null && !"".equals(nome)) {
             this.nome = nome;
         }
     }
@@ -33,7 +33,7 @@ public class Empresa {
     }
 
     public void setRazaoSocial(String razaoSocial) {
-        if (razaoSocial != null && razaoSocial != "" && razaoSocial.matches("[a-zA-Z0-9]+")) {
+        if (razaoSocial != null && !"".equals(razaoSocial) && razaoSocial.matches("[a-zA-Z0-9]+")) {
             this.razaoSocial = razaoSocial;
         }
     }
@@ -43,7 +43,7 @@ public class Empresa {
     }
 
     public void setIE(String iE) {
-        if (iE != null && iE != "") {
+        if (iE != null && !"".equals(iE)) {
             if (iE.length() == 12 && iE.matches("[0-9]+")) {
                 IE = iE;
             }
@@ -55,7 +55,7 @@ public class Empresa {
     }
 
     public void setCNPJ(String cNPJ) {
-        if (cNPJ != null && cNPJ != "") {
+        if (cNPJ != null && !"".equals(cNPJ)) {
             if (cNPJ.length() == 14 && cNPJ.matches("[0-9]+")) {
                 CNPJ = cNPJ;
             }
@@ -87,7 +87,7 @@ public class Empresa {
     }
 
     public void setEmail(String email) {
-        if (email != null && email != "") {
+        if (email != null && !"".equals(email)) {
             if (email.split("@").length == 2) {
                 String[] aux = email.split("@");
                 if (!aux[0].equals("") && aux[1].contains(".")) {

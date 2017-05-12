@@ -242,87 +242,27 @@ public class EstadoTest {
     /* -------------------------------------------------- HashCode >>> ----------------------------------------------------------- */
 
     @Test
-    public void deve_o_hash_code_ser_igual_a_887503681_para_codigo_nulo() {
-        estado.setCodigo(null);
-        System.out.println(estado.hashCode());
-        assertEquals(887503681, estado.hashCode());
-    }
-
-    @Test
-    public void deve_o_hash_code_ser_igual_a_menos_1390899085_para_codigo_nao_nulo() {
+    public void deve_ser_valido_hashcode_de_valores_iguais(){
+        Estado estado2 = new Estado();
         estado.setCodigo("123");
-        System.out.println(estado.hashCode());
-        assertEquals(-1390899085, estado.hashCode());
+        estado2.setCodigo("123");
+        assertEquals(estado.hashCode(), estado2.hashCode());
     }
-
+    
     @Test
-    public void deve_o_hash_code_ser_igual_a_887503681_para_nome_nulo() {
-        estado.setNome(null);
-        System.out.println(estado.hashCode());
-        assertEquals(887503681, estado.hashCode());
+    public void deve_ser_valido_hashcode_de_objeto_nulo(){
+        Estado estado2 = new Estado();
+        estado.setCodigo(null);
+        estado2.setCodigo("123");
+        assertNotEquals(estado.hashCode(), estado2.hashCode());
     }
-
+    
     @Test
-    public void deve_o_hash_code_ser_igual_a_menos_504210855_para_nome_nao_nulo() {
-        estado.setNome("Sao Paulo");
-        System.out.println(estado.hashCode());
-        assertEquals(-504210855, estado.hashCode());
-    }
-
-    @Test
-    public void deve_o_hash_code_ser_igual_a_887503681_para_uf_nulo() {
-        estado.setUf(null);
-        System.out.println(estado.hashCode());
-        assertEquals(887503681, estado.hashCode());
-    }
-
-    @Test
-    public void deve_o_hash_code_ser_igual_a_887506334_para_uf_nao_nulo() {
-        estado.setUf("SP");
-        System.out.println(estado.hashCode());
-        assertEquals(887506334, estado.hashCode());
-    }
-
-    @Test
-    public void deve_o_hash_code_ser_igual_a_887503681_para_tamanho_nulo() {
-        estado.setTamanho(null);
-        System.out.println(estado.hashCode());
-        assertEquals(887503681, estado.hashCode());
-    }
-
-    @Test
-    public void deve_o_hash_code_ser_igual_a_menos_1166658226_para_tamanho_nao_nulo() {
-        estado.setTamanho("123456798");
-        System.out.println(estado.hashCode());
-        assertEquals(-1166658226, estado.hashCode());
-    }
-
-    @Test
-    public void deve_o_hash_code_ser_igual_a_887503681_para_populacao_nula() {
-        estado.setPopulacao(null);
-        System.out.println(estado.hashCode());
-        assertEquals(887503681, estado.hashCode());
-    }
-
-    @Test
-    public void deve_o_hash_code_ser_igual_a_menos_1632965174_para_populacao_nao_nula() {
-        estado.setPopulacao("123456789");
-        System.out.println(estado.hashCode());
-        assertEquals(1632965174, estado.hashCode());
-    }
-
-    @Test
-    public void deve_o_hash_code_ser_igual_a_887503681_para_cidade_nula() {
-        estado.setCidade(null);
-        System.out.println(estado.hashCode());
-        assertEquals(887503681, estado.hashCode());
-    }
-
-    @Test
-    public void deve_o_hash_code_ser_igual_a_menos_1664653280_para_cidade_nao_nula() {
-        estado.setCidade(cidade);
-        System.out.println(estado.hashCode());
-        assertEquals(-1664653280, estado.hashCode());
+    public void nao_deve_ser_valido_hashcode_de_objetos_deferentes(){
+        Estado estado2 = new Estado();
+        estado.setCodigo("456");
+        estado2.setCodigo("123");
+        assertThat(estado.hashCode(), is(not(estado2.hashCode())));
     }
 
     /* -------------------------------------------------- <<< HashCode ----------------------------------------------------------- */
@@ -348,42 +288,8 @@ public class EstadoTest {
     }
 
     @Test
-    public void deve_o_equals_retornar_false_comparando_cidade_nula_com_cidade_nao_nula_de_outro_estado() {
-        Estado estado2 = new Estado();
-        estado2.setCidade(cidade);
-        estado.setCidade(null);
-        assertFalse(estado.equals(estado2));
-    }
-
-    @Test
-    public void deve_o_equals_retornar_true_comparando_ambas_cidades_nulas() {
-        Estado estado2 = new Estado();
-        estado2.setCidade(null);
-        estado.setCidade(null);
-        assertTrue(estado.equals(estado2));
-    }
-
-    @Test
-    public void deve_o_equals_retornar_false_comparando_cidade_nao_nula_com_cidade_nula_de_outro_estado() {
-        Estado estado2 = new Estado();
-        estado2.setCidade(null);
-        estado.setCidade(cidade);
-        assertFalse(estado.equals(estado2));
-    }
-
-    @Test
-    public void deve_o_equals_retornar_true_comparando_ambas_cidades_nao_nulas() {
-        Estado estado2 = new Estado();
-        estado2.setCidade(cidade);
-        estado.setCidade(cidade);
-        assertTrue(estado.equals(estado2));
-    }
-
-    @Test
     public void deve_o_equals_retornar_false_comparando_codigo_nulo_com_codigo_nao_nulo_de_outro_estado() {
         Estado estado2 = new Estado();
-        estado2.setCidade(null);
-        estado.setCidade(null);
         estado2.setCodigo("11");
         estado.setCodigo(null);
         assertFalse(estado.equals(estado2));
@@ -392,8 +298,6 @@ public class EstadoTest {
     @Test
     public void deve_o_equals_retornar_true_comparando_ambos_codigos_nulos() {
         Estado estado2 = new Estado();
-        estado2.setCidade(null);
-        estado.setCidade(null);
         estado2.setCodigo(null);
         estado.setCodigo(null);
         assertTrue(estado.equals(estado2));
@@ -402,8 +306,6 @@ public class EstadoTest {
     @Test
     public void deve_o_equals_retornar_false_comparando_codigo_nao_nulo_com_codigo_nulo_de_outro_estado() {
         Estado estado2 = new Estado();
-        estado2.setCidade(null);
-        estado.setCidade(null);
         estado2.setCodigo(null);
         estado.setCodigo("00");
         assertFalse(estado.equals(estado2));
@@ -412,250 +314,8 @@ public class EstadoTest {
     @Test
     public void deve_o_equals_retornar_true_comparando_ambos_codigos_nao_nulos() {
         Estado estado2 = new Estado();
-        estado2.setCidade(null);
-        estado.setCidade(null);
         estado2.setCodigo("00");
         estado.setCodigo("00");
-        assertTrue(estado.equals(estado2));
-    }
-
-    @Test
-    public void deve_o_equals_retornar_false_comparando_nome_nulo_com_nome_nao_nulo_de_outro_estado() {
-        Estado estado2 = new Estado();
-        estado2.setCidade(null);
-        estado.setCidade(null);
-        estado2.setCodigo(null);
-        estado.setCodigo(null);
-        estado2.setNome("São Paulo");
-        estado.setNome(null);
-        assertFalse(estado.equals(estado2));
-    }
-
-    @Test
-    public void deve_o_equals_retornar_true_comparando_ambos_nomes_nulos() {
-        Estado estado2 = new Estado();
-        estado2.setCidade(null);
-        estado.setCidade(null);
-        estado2.setCodigo(null);
-        estado.setCodigo(null);
-        estado2.setNome(null);
-        estado.setNome(null);
-        assertTrue(estado.equals(estado2));
-    }
-
-    @Test
-    public void deve_o_equals_retornar_false_comparando_nome_nao_nulo_com_nome_nulo_de_outro_estado() {
-        Estado estado2 = new Estado();
-        estado2.setCidade(null);
-        estado.setCidade(null);
-        estado2.setCodigo(null);
-        estado.setCodigo(null);
-        estado2.setNome(null);
-        estado.setNome("São Paulo");
-        assertFalse(estado.equals(estado2));
-    }
-
-    @Test
-    public void deve_o_equals_retornar_true_comparando_ambos_nomes_nao_nulos() {
-        Estado estado2 = new Estado();
-        estado2.setCidade(null);
-        estado.setCidade(null);
-        estado2.setCodigo(null);
-        estado.setCodigo(null);
-        estado2.setNome("São Paulo");
-        estado.setNome("São Paulo");
-        assertTrue(estado.equals(estado2));
-    }
-
-    @Test
-    public void deve_o_equals_retornar_false_comparando_uf_nulo_com_uf_nao_nulo_de_outro_estado() {
-        Estado estado2 = new Estado();
-        estado2.setCidade(null);
-        estado.setCidade(null);
-        estado2.setCodigo(null);
-        estado.setCodigo(null);
-        estado2.setNome(null);
-        estado.setNome(null);
-        estado2.setUf("SP");
-        estado.setUf(null);
-        assertFalse(estado.equals(estado2));
-    }
-
-    @Test
-    public void deve_o_equals_retornar_true_comparando_ambos_ufs_nulos() {
-        Estado estado2 = new Estado();
-        estado2.setCidade(null);
-        estado.setCidade(null);
-        estado2.setCodigo(null);
-        estado.setCodigo(null);
-        estado2.setNome(null);
-        estado.setNome(null);
-        estado2.setUf(null);
-        estado.setUf(null);
-        assertTrue(estado.equals(estado2));
-    }
-
-    @Test
-    public void deve_o_equals_retornar_false_comparando_uf_nao_nulo_com_uf_nulo_de_outro_estado() {
-        Estado estado2 = new Estado();
-        estado2.setCidade(null);
-        estado.setCidade(null);
-        estado2.setCodigo(null);
-        estado.setCodigo(null);
-        estado2.setNome(null);
-        estado.setNome(null);
-        estado2.setUf(null);
-        estado.setUf("SP");
-        assertFalse(estado.equals(estado2));
-    }
-
-    @Test
-    public void deve_o_equals_retornar_true_comparando_ambos_ufs_nao_nulos() {
-        Estado estado2 = new Estado();
-        estado2.setCidade(null);
-        estado.setCidade(null);
-        estado2.setCodigo(null);
-        estado.setCodigo(null);
-        estado2.setNome(null);
-        estado.setNome(null);
-        estado2.setUf("SP");
-        estado.setUf("SP");
-        assertTrue(estado.equals(estado2));
-    }
-
-    @Test
-    public void deve_o_equals_retornar_false_comparando_tamanho_nulo_com_tamanho_nao_nulo_de_outro_estado() {
-        Estado estado2 = new Estado();
-        estado2.setCidade(null);
-        estado.setCidade(null);
-        estado2.setCodigo(null);
-        estado.setCodigo(null);
-        estado2.setNome(null);
-        estado.setNome(null);
-        estado2.setUf(null);
-        estado.setUf(null);
-        estado2.setTamanho("123456789");
-        estado.setTamanho(null);
-        assertFalse(estado.equals(estado2));
-    }
-
-    @Test
-    public void deve_o_equals_retornar_true_comparando_ambos_tamanhos_nulos() {
-        Estado estado2 = new Estado();
-        estado2.setCidade(null);
-        estado.setCidade(null);
-        estado2.setCodigo(null);
-        estado.setCodigo(null);
-        estado2.setNome(null);
-        estado.setNome(null);
-        estado2.setUf(null);
-        estado.setUf(null);
-        estado2.setTamanho(null);
-        estado.setTamanho(null);
-        assertTrue(estado.equals(estado2));
-    }
-
-    @Test
-    public void deve_o_equals_retornar_false_comparando_tamanho_nao_nulo_com_tamanho_nulo_de_outro_estado() {
-        Estado estado2 = new Estado();
-        estado2.setCidade(null);
-        estado.setCidade(null);
-        estado2.setCodigo(null);
-        estado.setCodigo(null);
-        estado2.setNome(null);
-        estado.setNome(null);
-        estado2.setUf(null);
-        estado.setUf(null);
-        estado2.setTamanho(null);
-        estado.setTamanho("123456789");
-        assertFalse(estado.equals(estado2));
-    }
-
-    @Test
-    public void deve_o_equals_retornar_true_comparando_ambos_tamanhos_nao_nulos() {
-        Estado estado2 = new Estado();
-        estado2.setCidade(null);
-        estado.setCidade(null);
-        estado2.setCodigo(null);
-        estado.setCodigo(null);
-        estado2.setNome(null);
-        estado.setNome(null);
-        estado2.setUf(null);
-        estado.setUf(null);
-        estado2.setTamanho("123456789");
-        estado.setTamanho("123456789");
-        assertTrue(estado.equals(estado2));
-    }
-
-    @Test
-    public void deve_o_equals_retornar_false_comparando_populacao_nula_com_populacao_nao_nula_de_outro_estado() {
-        Estado estado2 = new Estado();
-        estado2.setCidade(null);
-        estado.setCidade(null);
-        estado2.setCodigo(null);
-        estado.setCodigo(null);
-        estado2.setNome(null);
-        estado.setNome(null);
-        estado2.setUf(null);
-        estado.setUf(null);
-        estado2.setTamanho(null);
-        estado.setTamanho(null);
-        estado2.setPopulacao("123456789");
-        estado.setPopulacao(null);
-        assertFalse(estado.equals(estado2));
-    }
-
-    @Test
-    public void deve_o_equals_retornar_true_comparando_ambas_populacoes_nulas() {
-        Estado estado2 = new Estado();
-        estado2.setCidade(null);
-        estado.setCidade(null);
-        estado2.setCodigo(null);
-        estado.setCodigo(null);
-        estado2.setNome(null);
-        estado.setNome(null);
-        estado2.setUf(null);
-        estado.setUf(null);
-        estado2.setTamanho(null);
-        estado.setTamanho(null);
-        estado2.setPopulacao(null);
-        estado.setPopulacao(null);
-        assertTrue(estado.equals(estado2));
-    }
-
-    @Test
-    public void deve_o_equals_retornar_false_comparando_populacao_nao_nula_com_populacao_nula_de_outro_estado() {
-        Estado estado2 = new Estado();
-        estado2.setCidade(null);
-        estado.setCidade(null);
-        estado2.setCodigo(null);
-        estado.setCodigo(null);
-        estado2.setNome(null);
-        estado.setNome(null);
-        estado2.setUf(null);
-        estado.setUf(null);
-        estado2.setTamanho(null);
-        estado.setTamanho(null);
-        estado2.setPopulacao(null);
-        estado.setPopulacao("123456789");
-        assertFalse(estado.equals(estado2));
-    }
-
-    @Test
-    public void deve_o_equals_retornar_true_comparando_ambas_populaoes_nao_nulas() {
-        Estado estado2 = new Estado();
-        estado2.setCidade(null);
-        estado.setCidade(null);
-        estado2.setCodigo(null);
-        estado.setCodigo(null);
-        estado2.setNome(null);
-        estado.setNome(null);
-        estado2.setUf(null);
-        estado.setUf(null);
-        estado2.setTamanho(null);
-        estado.setTamanho(null);
-        estado2.setPopulacao("123456789");
-        estado.setPopulacao("123456789");
         assertTrue(estado.equals(estado2));
     }
 

@@ -10,7 +10,7 @@ public class Operadora {
 
     public void setCodigo(String codigo) {
         if (codigo != null) {
-            if (codigo != "" && codigo.matches("[0-9]+")) {
+            if (!"".equals(codigo) && codigo.matches("[0-9]+")) {
                 this.codigo = codigo;
             }
         }
@@ -21,7 +21,7 @@ public class Operadora {
     }
 
     public void setNome(String nome) {
-        if (nome != null && nome != "") {
+        if (nome != null && !"".equals(nome)) {
             this.nome = nome;
         }
     }
@@ -36,7 +36,6 @@ public class Operadora {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
-        result = prime * result + ((nome == null) ? 0 : nome.hashCode());
         return result;
     }
 
@@ -53,11 +52,6 @@ public class Operadora {
             if (other.codigo != null)
                 return false;
         } else if (!codigo.equals(other.codigo))
-            return false;
-        if (nome == null) {
-            if (other.nome != null)
-                return false;
-        } else if (!nome.equals(other.nome))
             return false;
         return true;
     }

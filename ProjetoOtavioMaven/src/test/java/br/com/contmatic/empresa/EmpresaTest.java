@@ -69,15 +69,27 @@ public class EmpresaTest {
     /* -------------------------------------------------- NomeEmpresa >>> ----------------------------------------------------------- */
 
     @Test
-    public void nao_deve_aceitar_nome_empresaresa_nulo() {
+    public void nao_deve_aceitar_nome_empresa_nulo() {
         empresa.setNome(null);
         assertNull(empresa.getNome());
     }
 
     @Test
-    public void nao_deve_aceitar_nome_empresaresa_vazio() {
+    public void nao_deve_aceitar_nome_empresa_vazio() {
         empresa.setNome("");
         assertNull(empresa.getNome());
+    }
+    
+    @Test
+    public void deve_aceitar_nome_empresa_alfanumerico() {
+        empresa.setNome("Teste22");
+        assertNotNull(empresa.getNome());
+    }
+    
+    @Test
+    public void deve_aceitar_nome_empresa_somente_com_letras() {
+        empresa.setNome("Teste");
+        assertNotNull(empresa.getNome());
     }
 
     /* -------------------------------------------------- <<< NomeEmpresa ----------------------------------------------------------- */
@@ -347,73 +359,33 @@ public class EmpresaTest {
     /* -------------------------------------------------- HashCode >>> ----------------------------------------------------------- */
 
     @Test
-    public void deve_o_hash_code_ser_igual_a_1742810335_para_cnpj_nulo() {
+    public void deve_ser_valido_hashcode_de_valores_iguais(){
+        Empresa empresa2 = new Empresa();
+        empresa.setCNPJ("12345678901234");
+        empresa.setRazaoSocial("Teste");
+        empresa2.setCNPJ("12345678901234");
+        empresa2.setRazaoSocial("Teste");
+        assertEquals(empresa.hashCode(), empresa2.hashCode());
+    }
+    
+    @Test
+    public void deve_ser_valido_hashcode_de_objeto_nulo(){
+        Empresa empresa2 = new Empresa();
         empresa.setCNPJ(null);
-        System.out.println(empresa.hashCode());
-        assertEquals(1742810335, empresa.hashCode());
-    }
-
-    @Test
-    public void deve_o_hash_code_ser_igual_a_12345678910110_para_cnpj_nao_nulo() {
-        empresa.setCNPJ("12345678910110");
-        System.out.println(empresa.hashCode());
-        assertEquals(32880731, empresa.hashCode());
-    }
-
-    @Test
-    public void deve_o_hash_code_ser_igual_a_1742810335_para_ie_nulo() {
-        empresa.setIE(null);
-        System.out.println(empresa.hashCode());
-        assertEquals(1742810335, empresa.hashCode());
-    }
-
-    @Test
-    public void deve_o_hash_code_ser_igual_a_80804949_para_ie_nao_nulo() {
-        empresa.setIE("012345678905");
-        System.out.println(empresa.hashCode());
-        assertEquals(80804949, empresa.hashCode());
-    }
-
-    @Test
-    public void deve_o_hash_code_ser_igual_a_1742810335_para_email_nulo() {
-        empresa.setEmail(null);
-        System.out.println(empresa.hashCode());
-        assertEquals(1742810335, empresa.hashCode());
-    }
-
-    @Test
-    public void deve_o_hash_code_ser_igual_a_menos_1771062888_para_email_nao_nulo() {
-        empresa.setEmail("teste@teste.com");
-        System.out.println(empresa.hashCode());
-        assertEquals(-1771062888, empresa.hashCode());
-    }
-
-    @Test
-    public void deve_o_hash_code_ser_igual_a_1742810335_para_nome_nulo() {
-        empresa.setNome(null);
-        System.out.println(empresa.hashCode());
-        assertEquals(1742810335, empresa.hashCode());
-    }
-
-    @Test
-    public void deve_o_hash_code_ser_igual_a_1160064327_para_nome_nao_nulo() {
-        empresa.setNome("Contmatic");
-        System.out.println(empresa.hashCode());
-        assertEquals(1160064327, empresa.hashCode());
-    }
-
-    @Test
-    public void deve_o_hash_code_ser_igual_a_1742810335_para_razao_social_nulo() {
         empresa.setRazaoSocial(null);
-        System.out.println(empresa.hashCode());
-        assertEquals(1742810335, empresa.hashCode());
+        empresa2.setCNPJ("12345678901234");
+        empresa2.setRazaoSocial("Teste");
+        assertNotEquals(empresa.hashCode(), empresa2.hashCode());
     }
-
+    
     @Test
-    public void deve_o_hash_code_ser_igual_a_menos_77103241_para_razao_social_nao_nulo() {
-        empresa.setRazaoSocial("Contmatic");
-        System.out.println(empresa.hashCode());
-        assertEquals(-77103241, empresa.hashCode());
+    public void nao_deve_ser_valido_hashcode_de_objetos_deferentes(){
+        Empresa empresa2 = new Empresa();
+        empresa.setCNPJ("12345678901234");
+        empresa.setRazaoSocial("Teste");
+        empresa2.setCNPJ("43210987654321");
+        empresa2.setRazaoSocial("Teste2");
+        assertThat(empresa.hashCode(), is(not(empresa2.hashCode())));
     }
 
     /* -------------------------------------------------- <<< HashCode ----------------------------------------------------------- */
@@ -471,226 +443,10 @@ public class EmpresaTest {
     }
 
     @Test
-    public void deve_o_equals_retornar_false_comparando_ie_nulo_com_ie_nao_nulo_de_outra_empresa() {
-        Empresa empresa2 = new Empresa();
-        empresa2.setCNPJ(null);
-        empresa.setCNPJ(null);
-        empresa2.setIE("012345678951");
-        empresa.setIE(null);
-        assertFalse(empresa.equals(empresa2));
-    }
-
-    @Test
-    public void deve_o_equals_retornar_true_comparando_ambos_ie_nulos() {
-        Empresa empresa2 = new Empresa();
-        empresa2.setCNPJ(null);
-        empresa.setCNPJ(null);
-        empresa2.setIE(null);
-        empresa.setIE(null);
-        assertTrue(empresa.equals(empresa2));
-    }
-
-    @Test
-    public void deve_o_equals_retornar_false_comparando_ie_nao_nulo_com_ie_nulo_de_outra_empresa() {
-        Empresa empresa2 = new Empresa();
-        empresa2.setCNPJ(null);
-        empresa.setCNPJ(null);
-        empresa2.setIE(null);
-        empresa.setIE("012345678951");
-        assertFalse(empresa.equals(empresa2));
-    }
-
-    @Test
-    public void deve_o_equals_retornar_true_comparando_ambos_ie_nao_nulos() {
-        Empresa empresa2 = new Empresa();
-        empresa2.setCNPJ(null);
-        empresa.setCNPJ(null);
-        empresa2.setIE("012345678951");
-        empresa.setIE("012345678951");
-        assertTrue(empresa.equals(empresa2));
-    }
-
-    @Test
-    public void deve_o_equals_retornar_false_comparando_email_nulo_com_email_nao_nulo_de_outra_empresa() {
-        Empresa empresa2 = new Empresa();
-        empresa2.setCNPJ(null);
-        empresa.setCNPJ(null);
-        empresa2.setIE(null);
-        empresa.setIE(null);
-        empresa2.setEmail("teste@teste.com");
-        empresa.setEmail(null);
-        assertFalse(empresa.equals(empresa2));
-    }
-
-    @Test
-    public void deve_o_equals_retornar_true_comparando_ambos_emails_nulos() {
-        Empresa empresa2 = new Empresa();
-        empresa2.setCNPJ(null);
-        empresa.setCNPJ(null);
-        empresa2.setIE(null);
-        empresa.setIE(null);
-        empresa2.setEmail(null);
-        empresa.setEmail(null);
-        assertTrue(empresa.equals(empresa2));
-    }
-
-    @Test
-    public void deve_o_equals_retornar_false_comparando_email_nao_nulo_com_email_nulo_de_outra_empresa() {
-        Empresa empresa2 = new Empresa();
-        empresa2.setCNPJ(null);
-        empresa.setCNPJ(null);
-        empresa2.setIE(null);
-        empresa.setIE(null);
-        empresa2.setEmail(null);
-        empresa.setEmail("teste@teste.com");
-        assertFalse(empresa.equals(empresa2));
-    }
-
-    @Test
-    public void deve_o_equals_retornar_true_comparando_ambos_emails_nao_nulos() {
-        Empresa empresa2 = new Empresa();
-        empresa2.setCNPJ(null);
-        empresa.setCNPJ(null);
-        empresa2.setIE(null);
-        empresa.setIE(null);
-        empresa2.setEmail("teste@teste.com");
-        empresa.setEmail("teste@teste.com");
-        assertTrue(empresa.equals(empresa2));
-    }
-
-    @Test
-    public void deve_o_equals_retornar_false_comparando_endereco_nulo_com_endereco_nao_nulo_de_outra_empresa() {
-        Empresa empresa2 = new Empresa();
-        empresa2.setCNPJ(null);
-        empresa.setCNPJ(null);
-        empresa2.setIE(null);
-        empresa.setIE(null);
-        empresa2.setEmail(null);
-        empresa.setEmail(null);
-        empresa2.setEndereco(endereco);
-        empresa.setEndereco(null);
-        assertFalse(empresa.equals(empresa2));
-    }
-
-    @Test
-    public void deve_o_equals_retornar_true_comparando_ambos_enderecos_nulos() {
-        Empresa empresa2 = new Empresa();
-        empresa2.setCNPJ(null);
-        empresa.setCNPJ(null);
-        empresa2.setIE(null);
-        empresa.setIE(null);
-        empresa2.setEmail(null);
-        empresa.setEmail(null);
-        empresa2.setEndereco(null);
-        empresa.setEndereco(null);
-        assertTrue(empresa.equals(empresa2));
-    }
-
-    @Test
-    public void deve_o_equals_retornar_false_comparando_endereco_nao_nulo_com_endereco_nulo_de_outra_empresa() {
-        Empresa empresa2 = new Empresa();
-        empresa2.setCNPJ(null);
-        empresa.setCNPJ(null);
-        empresa2.setIE(null);
-        empresa.setIE(null);
-        empresa2.setEmail(null);
-        empresa.setEmail(null);
-        empresa2.setEndereco(null);
-        empresa.setEndereco(endereco);
-        assertFalse(empresa.equals(empresa2));
-    }
-
-    @Test
-    public void deve_o_equals_retornar_true_comparando_ambos_enderecos_nao_nulos() {
-        Empresa empresa2 = new Empresa();
-        empresa2.setCNPJ(null);
-        empresa.setCNPJ(null);
-        empresa2.setIE(null);
-        empresa.setIE(null);
-        empresa2.setEmail(null);
-        empresa.setEmail(null);
-        empresa2.setEndereco(endereco);
-        empresa.setEndereco(endereco);
-        assertTrue(empresa.equals(empresa2));
-    }
-
-    @Test
-    public void deve_o_equals_retornar_false_comparando_nome_nulo_com_nome_nao_nulo_de_outra_empresa() {
-        Empresa empresa2 = new Empresa();
-        empresa2.setCNPJ(null);
-        empresa.setCNPJ(null);
-        empresa2.setIE(null);
-        empresa.setIE(null);
-        empresa2.setEmail(null);
-        empresa.setEmail(null);
-        empresa2.setEndereco(null);
-        empresa.setEndereco(null);
-        empresa2.setNome("Contmatic");
-        empresa.setNome(null);
-        assertFalse(empresa.equals(empresa2));
-    }
-
-    @Test
-    public void deve_o_equals_retornar_true_comparando_ambos_nomes_nulos() {
-        Empresa empresa2 = new Empresa();
-        empresa2.setCNPJ(null);
-        empresa.setCNPJ(null);
-        empresa2.setIE(null);
-        empresa.setIE(null);
-        empresa2.setEmail(null);
-        empresa.setEmail(null);
-        empresa2.setEndereco(null);
-        empresa.setEndereco(null);
-        empresa2.setNome(null);
-        empresa.setNome(null);
-        assertTrue(empresa.equals(empresa2));
-    }
-
-    @Test
-    public void deve_o_equals_retornar_false_comparando_nome_nao_nulo_com_nome_nulo_de_outra_empresa() {
-        Empresa empresa2 = new Empresa();
-        empresa2.setCNPJ(null);
-        empresa.setCNPJ(null);
-        empresa2.setIE(null);
-        empresa.setIE(null);
-        empresa2.setEmail(null);
-        empresa.setEmail(null);
-        empresa2.setEndereco(null);
-        empresa.setEndereco(null);
-        empresa2.setNome(null);
-        empresa.setNome("Contmatic");
-        assertFalse(empresa.equals(empresa2));
-    }
-
-    @Test
-    public void deve_o_equals_retornar_true_comparando_ambos_nomes_nao_nulos() {
-        Empresa empresa2 = new Empresa();
-        empresa2.setCNPJ(null);
-        empresa.setCNPJ(null);
-        empresa2.setIE(null);
-        empresa.setIE(null);
-        empresa2.setEmail(null);
-        empresa.setEmail(null);
-        empresa2.setEndereco(null);
-        empresa.setEndereco(null);
-        empresa2.setNome("Contmatic");
-        empresa.setNome("Contmatic");
-        assertTrue(empresa.equals(empresa2));
-    }
-
-    @Test
     public void deve_o_equals_retornar_false_comparando_razaosocial_nula_com_razaosocial_nao_nula_de_outra_empresa() {
         Empresa empresa2 = new Empresa();
         empresa2.setCNPJ(null);
         empresa.setCNPJ(null);
-        empresa2.setIE(null);
-        empresa.setIE(null);
-        empresa2.setEmail(null);
-        empresa.setEmail(null);
-        empresa2.setEndereco(null);
-        empresa.setEndereco(null);
-        empresa2.setNome(null);
-        empresa.setNome(null);
         empresa2.setRazaoSocial("Contmatic");
         empresa.setRazaoSocial(null);
         assertFalse(empresa.equals(empresa2));
@@ -701,14 +457,6 @@ public class EmpresaTest {
         Empresa empresa2 = new Empresa();
         empresa2.setCNPJ(null);
         empresa.setCNPJ(null);
-        empresa2.setIE(null);
-        empresa.setIE(null);
-        empresa2.setEmail(null);
-        empresa.setEmail(null);
-        empresa2.setEndereco(null);
-        empresa.setEndereco(null);
-        empresa2.setNome(null);
-        empresa.setNome(null);
         empresa2.setRazaoSocial(null);
         empresa.setRazaoSocial(null);
         assertTrue(empresa.equals(empresa2));
@@ -719,14 +467,6 @@ public class EmpresaTest {
         Empresa empresa2 = new Empresa();
         empresa2.setCNPJ(null);
         empresa.setCNPJ(null);
-        empresa2.setIE(null);
-        empresa.setIE(null);
-        empresa2.setEmail(null);
-        empresa.setEmail(null);
-        empresa2.setEndereco(null);
-        empresa.setEndereco(null);
-        empresa2.setNome(null);
-        empresa.setNome(null);
         empresa2.setRazaoSocial(null);
         empresa.setRazaoSocial("Contmatic");
         assertFalse(empresa.equals(empresa2));
@@ -737,96 +477,8 @@ public class EmpresaTest {
         Empresa empresa2 = new Empresa();
         empresa2.setCNPJ(null);
         empresa.setCNPJ(null);
-        empresa2.setIE(null);
-        empresa.setIE(null);
-        empresa2.setEmail(null);
-        empresa.setEmail(null);
-        empresa2.setEndereco(null);
-        empresa.setEndereco(null);
-        empresa2.setNome(null);
-        empresa.setNome(null);
         empresa2.setRazaoSocial("Contmatic");
         empresa.setRazaoSocial("Contmatic");
-        assertTrue(empresa.equals(empresa2));
-    }
-
-    @Test
-    public void deve_o_equals_retornar_false_comparando_telefone_nule_com_telefone_nao_nulo_de_outra_empresa() {
-        Empresa empresa2 = new Empresa();
-        empresa2.setCNPJ(null);
-        empresa.setCNPJ(null);
-        empresa2.setIE(null);
-        empresa.setIE(null);
-        empresa2.setEmail(null);
-        empresa.setEmail(null);
-        empresa2.setEndereco(null);
-        empresa.setEndereco(null);
-        empresa2.setNome(null);
-        empresa.setNome(null);
-        empresa2.setRazaoSocial(null);
-        empresa.setRazaoSocial(null);
-        empresa2.setTelefone(telefone);
-        empresa.setTelefone(null);
-        assertFalse(empresa.equals(empresa2));
-    }
-
-    @Test
-    public void deve_o_equals_retornar_true_comparando_ambos_telefones_nulos() {
-        Empresa empresa2 = new Empresa();
-        empresa2.setCNPJ(null);
-        empresa.setCNPJ(null);
-        empresa2.setIE(null);
-        empresa.setIE(null);
-        empresa2.setEmail(null);
-        empresa.setEmail(null);
-        empresa2.setEndereco(null);
-        empresa.setEndereco(null);
-        empresa2.setNome(null);
-        empresa.setNome(null);
-        empresa2.setRazaoSocial(null);
-        empresa.setRazaoSocial(null);
-        empresa2.setTelefone(null);
-        empresa.setTelefone(null);
-        assertTrue(empresa.equals(empresa2));
-    }
-
-    @Test
-    public void deve_o_equals_retornar_false_comparando_telefone_nao_nulo_com_telefone_nulo_de_outra_empresa() {
-        Empresa empresa2 = new Empresa();
-        empresa2.setCNPJ(null);
-        empresa.setCNPJ(null);
-        empresa2.setIE(null);
-        empresa.setIE(null);
-        empresa2.setEmail(null);
-        empresa.setEmail(null);
-        empresa2.setEndereco(null);
-        empresa.setEndereco(null);
-        empresa2.setNome(null);
-        empresa.setNome(null);
-        empresa2.setRazaoSocial(null);
-        empresa.setRazaoSocial(null);
-        empresa2.setTelefone(null);
-        empresa.setTelefone(telefone);
-        assertFalse(empresa.equals(empresa2));
-    }
-
-    @Test
-    public void deve_o_equals_retornar_true_comparando_ambos_telefones_nao_nulos() {
-        Empresa empresa2 = new Empresa();
-        empresa2.setCNPJ(null);
-        empresa.setCNPJ(null);
-        empresa2.setIE(null);
-        empresa.setIE(null);
-        empresa2.setEmail(null);
-        empresa.setEmail(null);
-        empresa2.setEndereco(null);
-        empresa.setEndereco(null);
-        empresa2.setNome(null);
-        empresa.setNome(null);
-        empresa2.setRazaoSocial(null);
-        empresa.setRazaoSocial(null);
-        empresa2.setTelefone(telefone);
-        empresa.setTelefone(telefone);
         assertTrue(empresa.equals(empresa2));
     }
 
