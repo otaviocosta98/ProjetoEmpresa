@@ -1,5 +1,7 @@
 package br.com.contmatic.empresa;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 public class Bairro {
 
     private String codigo;
@@ -60,7 +62,8 @@ public class Bairro {
 
     @Override
     public String toString() {
-        return "Bairro [codigo=" + codigo + ", nome=" + nome + ", tipo=" + tipo + ", tamanho=" + tamanho + ", populacao=" + populacao + "]";
+//        return "Bairro [codigo=" + codigo + ", nome=" + nome + ", tipo=" + tipo + ", tamanho=" + tamanho + ", populacao=" + populacao + "]";
+        return ToStringBuilder.reflectionToString(this);
     }
 
     @Override
