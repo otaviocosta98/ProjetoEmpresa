@@ -2,13 +2,24 @@ package br.com.contmatic.empresa;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
+
+import br.com.six2six.fixturefactory.Fixture;
+import br.com.six2six.fixturefactory.loader.FixtureFactoryLoader;
 
 public class BairroTest {
 
@@ -19,6 +30,7 @@ public class BairroTest {
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
         System.out.println("-------------Começo Classe Teste------------->");
+        FixtureFactoryLoader.loadTemplates("br.com.contmatic.template");
     }
 
     @AfterClass
@@ -29,13 +41,17 @@ public class BairroTest {
     @Before
     public void setUp() throws Exception {
         System.out.println("!-Começo Teste-!");
-        bairro = new Bairro();
+        bairro = Fixture.from(Bairro.class).gimme("valid");
+        System.out.println(bairro.toString());
     }
 
     @After
     public void tearDown() throws Exception {
         System.out.println("!-Fim Teste-!");
     }
+    
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
 
     /* -------------------------------------------------- <<< SetUps e TearDowns ----------------------------------------------------------- */
 
@@ -44,27 +60,14 @@ public class BairroTest {
     /* -------------------------------------------------- Codigo >>> ----------------------------------------------------------- */
 
     @Test
-    public void nao_deve_aceitar_codigo_nulo() {
-        bairro.setCodigo(null);
-        assertEquals(null, bairro.getCodigo());
-    }
-
-    @Test
-    public void nao_deve_aceitar_codigo_vazio() {
-        bairro.setCodigo("");
-        assertNull(bairro.getCodigo());
-    }
-
-    @Test
     public void deve_aceitar_codigo_numerico() {
-        bairro.setCodigo("269");
-        assertThat("269", is(bairro.getCodigo()));
     }
 
     @Test
-    public void nao_deve_aceitar_codigo_alfa_numerico() {
-        bairro.setCodigo("269b");
-        assertNull(bairro.getCodigo());
+    public void nao_deve_aceitar_codigo_menor_ou_igual_a_0() {
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("Codigo deve ser maior que 0");
+        bairro.setCodigo(0);
     }
 
     /* -------------------------------------------------- <<< Codigo ----------------------------------------------------------- */
@@ -73,26 +76,29 @@ public class BairroTest {
 
     @Test
     public void nao_deve_aceitar_nome_nulo() {
+        thrown.expect(NullPointerException.class);
+        thrown.expectMessage("Nome não deve ser nulo");
         bairro.setNome(null);
-        assertEquals(null, bairro.getNome());
     }
 
     @Test
     public void nao_deve_aceitar_nome_vazio() {
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("Nome não deve ser vazio");
         bairro.setNome("");
-        assertNull(bairro.getNome());
     }
 
     @Test
     public void deve_aceitar_nome_somente_com_letras() {
-        bairro.setNome("Cohab");
+        bairro.setNome("Cohab um");
         assertNotNull(bairro.getNome());
     }
 
     @Test
     public void nao_deve_aceitar_nome_alfa_numerico() {
-        bairro.setNome("Cohab1");
-        assertNotEquals("Cohab1", bairro.getNome());
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("Nome deve conter somente palavras");
+        bairro.setNome("Cohab 1");
     }
 
     /* -------------------------------------------------- <<< Nome ----------------------------------------------------------- */
@@ -101,26 +107,29 @@ public class BairroTest {
 
     @Test
     public void nao_deve_aceitar_tamanho_nulo() {
+        thrown.expect(NullPointerException.class);
+        thrown.expectMessage("Tamanho não deve ser nulo");
         bairro.setTamanho(null);
-        assertNull(bairro.getTamanho());
     }
 
     @Test
     public void nao_deve_aceitar_tamanho_vazio() {
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("Tamanho não deve ser vazio");
         bairro.setTamanho("");
-        assertNotEquals("", bairro.getTamanho());
     }
 
     @Test
     public void deve_aceitar_tamanho_somente_numerico() {
-        bairro.setTamanho("123456789");
+        bairro.setTamanho("123456.789");
         assertNotNull(bairro.getTamanho());
     }
 
     @Test
     public void nao_deve_aceitar_tamanho_alfa_numerico() {
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("Tamanho deve conter somente numeros");
         bairro.setTamanho("123456E");
-        assertThat("123456E", is(not(bairro.getTamanho())));
     }
 
     /* -------------------------------------------------- <<< Tamanho ----------------------------------------------------------- */
@@ -129,26 +138,29 @@ public class BairroTest {
 
     @Test
     public void nao_deve_aceitar_populacao_nulo() {
+        thrown.expect(NullPointerException.class);
+        thrown.expectMessage("População não deve ser nulo");
         bairro.setPopulacao(null);
-        assertEquals(null, bairro.getPopulacao());
     }
 
     @Test
     public void nao_deve_aceitar_populacao_vazio() {
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("População não deve ser vazio");
         bairro.setPopulacao("");
-        assertNull(bairro.getPopulacao());
     }
 
     @Test
     public void deve_aceitar_populacao_somente_numerico() {
-        bairro.setPopulacao("123456789");
-        assertThat("123456789", is(bairro.getPopulacao()));
+        System.out.println(bairro.toString());
+        assertNotNull(bairro.getPopulacao());
     }
 
     @Test
     public void nao_deve_aceitar_populacao_alfa_numerico() {
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("População deve conter somente numeros");
         bairro.setPopulacao("123456E");
-        assertNull(bairro.getPopulacao());
     }
 
     /* -------------------------------------------------- <<< População ----------------------------------------------------------- */
@@ -157,26 +169,14 @@ public class BairroTest {
 
     @Test
     public void nao_deve_aceitar_tipo_nulo() {
+        thrown.expect(NullPointerException.class);
+        thrown.expectMessage("Tipo não deve ser nulo");
         bairro.setTipo(null);
-        assertNull(bairro.getTipo());
     }
 
     @Test
-    public void nao_deve_aceitar_tipo_vazio() {
-        bairro.setTipo("");
-        assertNull(bairro.getTipo());
-    }
-
-    @Test
-    public void deve_aceitar_tipo_somente_com_letras() {
-        bairro.setTipo("Comercial");
-        assertEquals("Comercial", bairro.getTipo());
-    }
-
-    @Test
-    public void nao_deve_aceitar_tipo_alfa_numerico() {
-        bairro.setTipo("Comercial1");
-        assertNotEquals("Comercial1", bairro.getTipo());
+    public void deve_aceitar_tipo_valido() {
+        assertNotNull(bairro.getTipo());
     }
 
     /* -------------------------------------------------- <<< Tipo ----------------------------------------------------------- */

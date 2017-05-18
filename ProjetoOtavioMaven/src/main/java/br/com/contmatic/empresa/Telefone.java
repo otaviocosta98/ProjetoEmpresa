@@ -1,109 +1,186 @@
 package br.com.contmatic.empresa;
 
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
+import com.google.common.base.Preconditions;
+
+/**
+ * The Class Telefone.
+ */
 public class Telefone {
+
+    /** The ddd. */
     private String ddd;
+
+    /** The numero. */
     private String numero;
+
+    /** The ramal. */
     private String ramal;
-    private String tipo;
+
+    /** The tipo. */
+    private TelefoneType tipo;
+
+    /** The responsavel. */
     private String responsavel;
+
+    /** The operadora. */
     private Operadora operadora;
 
+    /**
+     * Gets the ddd.
+     *
+     * @return the ddd
+     */
     public String getDdd() {
         return ddd;
     }
 
+    /**
+     * Sets the ddd.
+     *
+     * @param ddd the new ddd
+     */
     public void setDdd(String ddd) {
-        if (ddd != null) {
-            if (!"".equals(ddd) && ddd.matches("[0-9]+") && ddd.length() == 2) {
-                this.ddd = ddd;
-            }
-        }
+        Preconditions.checkNotNull(ddd, "DDD não deve ser nulo");
+        Preconditions.checkArgument(StringUtils.isNoneEmpty(ddd), "DDD não deve ser vazio", ddd);
+        Preconditions.checkArgument(ddd.matches("[0-9]+"), "DDD deve conter somente numeros", ddd);
+        Preconditions.checkArgument(ddd.length() == 2, "DDD deve conter somente 2 digitos", ddd);
+        this.ddd = ddd;
     }
 
+    /**
+     * Gets the ramal.
+     *
+     * @return the ramal
+     */
     public String getRamal() {
         return ramal;
     }
 
+    /**
+     * Sets the ramal.
+     *
+     * @param ramal the new ramal
+     */
     public void setRamal(String ramal) {
-        if (ramal == "") {
-            this.ramal = ramal;
-        } else if (ramal != null && ramal.matches("[0-9]+")) {
-            this.ramal = ramal;
-        }
+        Preconditions.checkNotNull(ramal, "Ramal não deve ser nulo");
+        Preconditions.checkArgument(StringUtils.isEmpty(ramal) || ramal.matches("[0-9]+"), "Ramal deve ser vazio ou conter somento numeros", ramal);
+        this.ramal = ramal;
     }
 
+    /**
+     * Gets the numero.
+     *
+     * @return the numero
+     */
     public String getNumero() {
         return numero;
     }
 
+    /**
+     * Sets the numero.
+     *
+     * @param numero the new numero
+     */
     public void setNumero(String numero) {
-        if (numero != null) {
-            if (!"".equals(numero) & numero.matches("[0-9]+")) {
-                if (numero.length() >= 8 && numero.length() <= 9) {
-                    this.numero = numero;
-                }
-            }
-        }
+        Preconditions.checkNotNull(numero, "Numero não deve ser nulo");
+        Preconditions.checkArgument(StringUtils.isNoneEmpty(numero), "Numero não deve ser vazio", numero);
+        Preconditions.checkArgument(numero.matches("[0-9]+"), "Numero deve conter somente numeros", numero);
+        Preconditions.checkArgument(numero.length() == getTipo().getTamanho(), "Quantidade de digitos incorretos para o tipo de telefone informado", numero);
+        this.numero = numero;
     }
 
-    public String getTipo() {
+    /**
+     * Gets the tipo.
+     *
+     * @return the tipo
+     */
+    public TelefoneType getTipo() {
         return tipo;
     }
 
-    public void setTipo(String tipo) {
-        if (tipo != null && !"".equals(tipo) && tipo.matches("[a-zA-Z]+")) {
-            this.tipo = tipo;
-        }
+    /**
+     * Sets the tipo.
+     *
+     * @param tipo the new tipo
+     */
+    public void setTipo(TelefoneType tipo) {
+        Preconditions.checkNotNull(tipo, "Tipo não deve ser nulo");
+        this.tipo = tipo;
     }
 
+    /**
+     * Gets the responsavel.
+     *
+     * @return the responsavel
+     */
     public String getResponsavel() {
         return responsavel;
     }
 
+    /**
+     * Sets the responsavel.
+     *
+     * @param responsavel the new responsavel
+     */
     public void setResponsavel(String responsavel) {
-        if (responsavel != null && !"".equals(responsavel) && responsavel.matches("[a-zA-Z]+")) {
-            this.responsavel = responsavel;
-        }
+        Preconditions.checkNotNull(responsavel, "Responsável não deve ser nulo");
+        Preconditions.checkArgument(StringUtils.isNoneEmpty(responsavel), "Responsável não deve ser vazio", responsavel);
+        Preconditions.checkArgument(responsavel.matches("[a-zA-Z\b]+"), "Responsável deve conter somente palavras", responsavel);
+        this.responsavel = responsavel;
     }
 
+    /**
+     * Gets the operadora.
+     *
+     * @return the operadora
+     */
     public Operadora getOperadora() {
         return operadora;
     }
 
+    /**
+     * Sets the operadora.
+     *
+     * @param operadora the new operadora
+     */
     public void setOperadora(Operadora operadora) {
-        if (operadora != null) {
-            this.operadora = operadora;
-        }
+        Preconditions.checkNotNull(responsavel, "Operadora não deve ser nula");
+        this.operadora = operadora;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
-        return "Telefone [ddd=" + ddd + ", numero=" + numero + ", ramal=" + ramal + ", tipo=" + tipo + ", responsavel=" + responsavel + ", operadora=" + operadora + "]";
+        return ToStringBuilder.reflectionToString(this);
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((numero == null) ? 0 : numero.hashCode());
-        return result;
+        return HashCodeBuilder.reflectionHashCode(this);
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Telefone other = (Telefone) obj;
-        if (numero == null) {
-            if (other.numero != null)
-                return false;
-        } else if (!numero.equals(other.numero))
-            return false;
-        return true;
+        return EqualsBuilder.reflectionEquals(this, obj);
     }
 
 }

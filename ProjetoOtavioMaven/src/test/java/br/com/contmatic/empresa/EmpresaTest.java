@@ -12,9 +12,9 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
-import java.sql.Date;
 import java.util.concurrent.TimeUnit;
 
+import org.joda.time.DateTime;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -79,13 +79,13 @@ public class EmpresaTest {
         empresa.setNome("");
         assertNull(empresa.getNome());
     }
-    
+
     @Test
     public void deve_aceitar_nome_empresa_alfanumerico() {
         empresa.setNome("Teste22");
         assertNotNull(empresa.getNome());
     }
-    
+
     @Test
     public void deve_aceitar_nome_empresa_somente_com_letras() {
         empresa.setNome("Teste");
@@ -304,22 +304,22 @@ public class EmpresaTest {
     }
 
     /* -------------------------------------------------- <<< Telefone ----------------------------------------------------------- */
-    
+
     /* -------------------------------------------------- DataInicio >>> ----------------------------------------------------------- */
-    
+
     @Test
-    public void nao_deve_aceitar_data_de_inicio_menor_que_10_05_2017() {
-        Date data = new Date(149442000000L);
+    public void nao_deve_aceitar_data_de_inicio_menor_que_hoje() {
+        DateTime data = new DateTime();
         System.out.println(data);
-        empresa.setDataInicio(data);
+        empresa.setDataInicio(data.minusDays(1));
         assertNotEquals(data, empresa.getDataInicio());
     }
-    
+
     @Test
-    public void deve_aceitar_data_de_inicio_maior_ou_igual_a_10_05_2017() {
-        Date data = new Date(System.currentTimeMillis());
+    public void deve_aceitar_data_de_inicio_que_hoje() {
+        DateTime data = new DateTime();
         System.out.println(data);
-        empresa.setDataInicio(data);
+        empresa.setDataInicio(data.plusDays(1));
         assertNotNull(empresa.getDataInicio());
     }
 
@@ -359,7 +359,7 @@ public class EmpresaTest {
     /* -------------------------------------------------- HashCode >>> ----------------------------------------------------------- */
 
     @Test
-    public void deve_ser_valido_hashcode_de_valores_iguais(){
+    public void deve_ser_valido_hashcode_de_valores_iguais() {
         Empresa empresa2 = new Empresa();
         empresa.setCNPJ("12345678901234");
         empresa.setRazaoSocial("Teste");
@@ -367,9 +367,9 @@ public class EmpresaTest {
         empresa2.setRazaoSocial("Teste");
         assertEquals(empresa.hashCode(), empresa2.hashCode());
     }
-    
+
     @Test
-    public void deve_ser_valido_hashcode_de_objeto_nulo(){
+    public void deve_ser_valido_hashcode_de_objeto_nulo() {
         Empresa empresa2 = new Empresa();
         empresa.setCNPJ(null);
         empresa.setRazaoSocial(null);
@@ -377,9 +377,9 @@ public class EmpresaTest {
         empresa2.setRazaoSocial("Teste");
         assertNotEquals(empresa.hashCode(), empresa2.hashCode());
     }
-    
+
     @Test
-    public void nao_deve_ser_valido_hashcode_de_objetos_deferentes(){
+    public void nao_deve_ser_valido_hashcode_de_objetos_deferentes() {
         Empresa empresa2 = new Empresa();
         empresa.setCNPJ("12345678901234");
         empresa.setRazaoSocial("Teste");
