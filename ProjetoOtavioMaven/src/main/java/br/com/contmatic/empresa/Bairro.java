@@ -1,11 +1,17 @@
 package br.com.contmatic.empresa;
 
-import org.apache.commons.lang3.StringUtils;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+
+//import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.hibernate.validator.constraints.NotEmpty;
 
-import com.google.common.base.Preconditions;
+//import com.google.common.base.Preconditions;
+
+import javax.validation.constraints.Min;
 
 /**
  * The Class Bairro.
@@ -13,20 +19,30 @@ import com.google.common.base.Preconditions;
 public class Bairro {
 
     /** The codigo. */
+    @NotNull(message="Codigo não pode ser nulo")
+    @Min(value=1,message="Codigo deve ser maior que 0")
     private Integer codigo;
 
     /** The nome. */
+    @NotNull(message="Nome não deve ser nulo")
+    @NotEmpty(message="Nome não deve ser vazio")
+    @Pattern(regexp="[a-zA-Z ]+$", message="Nome deve conter somente palavras")
     private String nome;
 
     /** The tipo. */
+    @NotNull(message="Tipo não deve ser nulo")
     private BairroType tipo;
 
     /** The tamanho. */
+    @NotNull(message="Tamanho não deve ser nulo")
+    @Min(value=1, message="Tamanho deve ser maior que 0")
     private Double tamanho;
 
     /** The populacao. */
-    private Integer populacao;
-
+    @NotNull(message="População não deve ser nulo")
+    @Min(value=1,message="População deve ser maior que 0")
+    private Long populacao;
+    
     /**
      * Gets the codigo.
      *
@@ -42,7 +58,8 @@ public class Bairro {
      * @param codigo the new codigo
      */
     public void setCodigo(Integer codigo) {
-        Preconditions.checkArgument(codigo > 0, "Codigo deve ser maior que 0", codigo);
+//        Preconditions.checkNotNull(codigo, "Codigo não pode ser nulo");
+//        Preconditions.checkArgument(codigo > 0, "Codigo deve ser maior que 0", codigo);
         this.codigo = codigo;
     }
 
@@ -61,9 +78,9 @@ public class Bairro {
      * @param nome the new nome
      */
     public void setNome(String nome) {
-        Preconditions.checkNotNull(nome, "Nome não deve ser nulo");
-        Preconditions.checkArgument(StringUtils.isNotEmpty(nome), "Nome não deve ser vazio", nome);
-        Preconditions.checkArgument(nome.matches("[a-zA-Z ]+"), "Nome deve conter somente palavras", nome);
+//        Preconditions.checkNotNull(nome, "Nome não deve ser nulo");
+//        Preconditions.checkArgument(StringUtils.isNotEmpty(nome), "Nome não deve ser vazio", nome);
+//        Preconditions.checkArgument(nome.matches("[a-zA-Z ]+"), "Nome deve conter somente palavras", nome);
         this.nome = nome;
     }
 
@@ -82,7 +99,7 @@ public class Bairro {
      * @param tipo the new tipo
      */
     public void setTipo(BairroType tipo) {
-        Preconditions.checkNotNull(tipo, "Tipo não deve ser nulo");
+//        Preconditions.checkNotNull(tipo, "Tipo não deve ser nulo");
         this.tipo = tipo;
     }
 
@@ -101,9 +118,8 @@ public class Bairro {
      * @param tamanho the new tamanho
      */
     public void setTamanho(Double tamanho) {
-        Preconditions.checkNotNull(tamanho, "Tamanho não deve ser nulo");
-        Preconditions.checkArgument(StringUtils.isNotEmpty(tamanho.toString()), "Tamanho não deve ser vazio", tamanho);
-        Preconditions.checkArgument(tamanho.toString().matches("[0-9\\.]+"), "Tamanho deve conter somente numeros", tamanho);
+//        Preconditions.checkNotNull(tamanho, "Tamanho não deve ser nulo");
+//        Preconditions.checkArgument(tamanho > 0.0, "Tamanho deve ser maior que 0", tamanho);
         this.tamanho = tamanho;
     }
 
@@ -112,7 +128,7 @@ public class Bairro {
      *
      * @return the populacao
      */
-    public Integer getPopulacao() {
+    public Long getPopulacao() {
         return populacao;
     }
 
@@ -121,10 +137,9 @@ public class Bairro {
      *
      * @param populacao the new populacao
      */
-    public void setPopulacao(Integer populacao) {
-        Preconditions.checkNotNull(populacao, "População não deve ser nulo");
-        Preconditions.checkArgument(StringUtils.isNotEmpty(populacao.toString()), "População não deve ser vazio", populacao);
-        Preconditions.checkArgument(populacao.toString().matches("[0-9]+"), "População deve conter somente numeros", populacao);
+    public void setPopulacao(Long populacao) {
+//        Preconditions.checkNotNull(populacao, "População não deve ser nulo");
+//        Preconditions.checkArgument(populacao > 0, "População deve ser maior que 0", populacao);
         this.populacao = populacao;
     }
 
@@ -145,7 +160,7 @@ public class Bairro {
      */
     @Override
     public int hashCode() {
-        return HashCodeBuilder.reflectionHashCode(this);
+        return new HashCodeBuilder().append(codigo).toHashCode();
     }
 
     /*
@@ -155,6 +170,10 @@ public class Bairro {
      */
     @Override
     public boolean equals(Object obj) {
-        return EqualsBuilder.reflectionEquals(this, obj);
+        if(!(obj instanceof Bairro)){
+            return false;
+        }
+        Bairro other = (Bairro) obj;
+        return new EqualsBuilder().append(this.getCodigo(), other.getCodigo()).build();
     }
 }

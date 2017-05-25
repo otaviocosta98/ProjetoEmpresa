@@ -13,13 +13,13 @@ import com.google.common.base.Preconditions;
 public class Telefone {
 
     /** The ddd. */
-    private String ddd;
+    private Integer ddd;
 
     /** The numero. */
-    private String numero;
+    private Integer numero;
 
     /** The ramal. */
-    private String ramal;
+    private Integer ramal;
 
     /** The tipo. */
     private TelefoneType tipo;
@@ -35,7 +35,7 @@ public class Telefone {
      *
      * @return the ddd
      */
-    public String getDdd() {
+    public Integer getDdd() {
         return ddd;
     }
 
@@ -44,11 +44,10 @@ public class Telefone {
      *
      * @param ddd the new ddd
      */
-    public void setDdd(String ddd) {
+    public void setDdd(Integer ddd) {
         Preconditions.checkNotNull(ddd, "DDD não deve ser nulo");
-        Preconditions.checkArgument(StringUtils.isNoneEmpty(ddd), "DDD não deve ser vazio", ddd);
-        Preconditions.checkArgument(ddd.matches("[0-9]+"), "DDD deve conter somente numeros", ddd);
-        Preconditions.checkArgument(ddd.length() == 2, "DDD deve conter somente 2 digitos", ddd);
+        Preconditions.checkArgument(ddd > 0, "DDD não deve ser vazio", ddd);
+        Preconditions.checkArgument(ddd.toString().length() == 2, "DDD deve conter somente 2 digitos", ddd);
         this.ddd = ddd;
     }
 
@@ -57,7 +56,7 @@ public class Telefone {
      *
      * @return the ramal
      */
-    public String getRamal() {
+    public Integer getRamal() {
         return ramal;
     }
 
@@ -66,9 +65,7 @@ public class Telefone {
      *
      * @param ramal the new ramal
      */
-    public void setRamal(String ramal) {
-        Preconditions.checkNotNull(ramal, "Ramal não deve ser nulo");
-        Preconditions.checkArgument(StringUtils.isEmpty(ramal) || ramal.matches("[0-9]+"), "Ramal deve ser vazio ou conter somento numeros", ramal);
+    public void setRamal(Integer ramal) {
         this.ramal = ramal;
     }
 
@@ -77,7 +74,7 @@ public class Telefone {
      *
      * @return the numero
      */
-    public String getNumero() {
+    public Integer getNumero() {
         return numero;
     }
 
@@ -86,11 +83,10 @@ public class Telefone {
      *
      * @param numero the new numero
      */
-    public void setNumero(String numero) {
+    public void setNumero(Integer numero) {
         Preconditions.checkNotNull(numero, "Numero não deve ser nulo");
-        Preconditions.checkArgument(StringUtils.isNoneEmpty(numero), "Numero não deve ser vazio", numero);
-        Preconditions.checkArgument(numero.matches("[0-9]+"), "Numero deve conter somente numeros", numero);
-        Preconditions.checkArgument(numero.length() == getTipo().getTamanho(), "Quantidade de digitos incorretos para o tipo de telefone informado", numero);
+        Preconditions.checkArgument(numero > 0, "Numero não deve ser vazio", numero);
+        Preconditions.checkArgument(numero.toString().length() == getTipo().getTamanho(), "Quantidade de digitos incorretos para o tipo de telefone informado", numero);
         this.numero = numero;
     }
 

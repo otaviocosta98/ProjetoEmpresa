@@ -22,7 +22,7 @@ public class Empresa {
     private String razaoSocial;
 
     /** The ie. */
-    private String IE;
+    private Long IE;
 
     /** The cnpj. */
     private String CNPJ;
@@ -92,7 +92,7 @@ public class Empresa {
      *
      * @return the ie
      */
-    public String getIE() {
+    public Long getIE() {
         return IE;
     }
 
@@ -101,11 +101,10 @@ public class Empresa {
      *
      * @param iE the new ie
      */
-    public void setIE(String iE) {
+    public void setIE(Long iE) {
         Preconditions.checkNotNull(iE, "Inscrição Social não deve ser nula");
-        Preconditions.checkArgument(StringUtils.isNotEmpty(iE), "Inscrição Social não deve ser vazia", iE);
-        Preconditions.checkArgument(iE.matches("[0-9]+"), "Inscrição Social deve conter somente numeros", iE);
-        Preconditions.checkArgument(iE.length() == 12, "Inscrição Social deve contem 12 digitos", iE);
+        Preconditions.checkArgument(iE > 0, "Inscrição Social deve ser maior que zero", iE);
+        Preconditions.checkArgument(iE.toString().length() == 12, "Inscrição Social deve ter 12 digitos", iE);
         IE = iE;
     }
 
@@ -184,11 +183,9 @@ public class Empresa {
      * @param email the new email
      */
     public void setEmail(String email) {
-        Preconditions.checkNotNull(email, "Eamil não deve ser nulo");
-        Preconditions.checkArgument(StringUtils.isNotEmpty(email), "Eamil não deve ser vazia", email);
-        Preconditions.checkArgument(email.split("@").length == 2, "Email deve conter algo antes depois do arroba(@)", email);
-        String[] aux = email.split("@");
-        Preconditions.checkArgument(!aux[0].equals("") && aux[1].contains("."), "Email deve conter '.' depois do arroba(@)", email);
+        Preconditions.checkNotNull(email, "Email não deve ser nulo");
+        Preconditions.checkArgument(StringUtils.isNotEmpty(email), "Email não deve ser vazio", email);
+        Preconditions.checkArgument(email.matches("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)* @[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$;"), "Email deve ser válido", email);
         this.email = email;
     }
 
@@ -228,7 +225,7 @@ public class Empresa {
      */
     @Override
     public int hashCode() {
-        return HashCodeBuilder.reflectionHashCode(this);
+        return new HashCodeBuilder().append(razaoSocial).toHashCode();
     }
 
     /*
@@ -238,7 +235,11 @@ public class Empresa {
      */
     @Override
     public boolean equals(Object obj) {
-        return EqualsBuilder.reflectionEquals(this, obj);
+        if (!(obj instanceof Empresa)) {
+            return false;
+        }
+        Empresa other = (Empresa) obj;
+        return EqualsBuilder.reflectionEquals(this.getRazaoSocial(), other.getRazaoSocial());
     }
 
 }

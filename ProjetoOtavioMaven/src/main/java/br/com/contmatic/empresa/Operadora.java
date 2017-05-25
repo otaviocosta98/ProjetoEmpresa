@@ -13,7 +13,7 @@ import com.google.common.base.Preconditions;
 public class Operadora {
 
     /** The codigo. */
-    private String codigo;
+    private Integer codigo;
 
     /** The nome. */
     private String nome;
@@ -23,7 +23,7 @@ public class Operadora {
      *
      * @return the codigo
      */
-    public String getCodigo() {
+    public Integer getCodigo() {
         return codigo;
     }
 
@@ -32,10 +32,9 @@ public class Operadora {
      *
      * @param codigo the new codigo
      */
-    public void setCodigo(String codigo) {
+    public void setCodigo(Integer codigo) {
         Preconditions.checkNotNull(codigo, "Codigo não deve ser nulo");
-        Preconditions.checkArgument(StringUtils.isNotEmpty(codigo), "Codigo não deve ser vazio", codigo);
-        Preconditions.checkArgument(codigo.matches("[0-9]+"), "Codigo deve conter somente numeros", codigo);
+        Preconditions.checkArgument(codigo > 0, "Codigo não deve ser vazio", codigo);
         this.codigo = codigo;
     }
 

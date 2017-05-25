@@ -13,7 +13,7 @@ import com.google.common.base.Preconditions;
 public class Estado {
 
     /** The codigo. */
-    private String codigo;
+    private Integer codigo;
 
     /** The nome. */
     private String nome;
@@ -22,10 +22,10 @@ public class Estado {
     private UfType uf;
 
     /** The tamanho. */
-    private String tamanho;
+    private Double tamanho;
 
     /** The populacao. */
-    private String populacao;
+    private Long populacao;
 
     /** The cidade. */
     private Cidade[] cidade;
@@ -35,7 +35,7 @@ public class Estado {
      *
      * @return the codigo
      */
-    public String getCodigo() {
+    public Integer getCodigo() {
         return codigo;
     }
 
@@ -44,10 +44,9 @@ public class Estado {
      *
      * @param codigo the new codigo
      */
-    public void setCodigo(String codigo) {
+    public void setCodigo(Integer codigo) {
         Preconditions.checkNotNull(codigo, "Codigo não deve ser nulo");
-        Preconditions.checkArgument(StringUtils.isNoneEmpty(codigo), "Codigo não deve ser vazio", codigo);
-        Preconditions.checkArgument(codigo.matches("[0-9]+"), "Codigo deve conter somente numeros", codigo);
+        Preconditions.checkArgument(codigo > 0, "Codigo não deve ser vazio", codigo);
         this.codigo = codigo;
     }
 
@@ -96,7 +95,7 @@ public class Estado {
      *
      * @return the tamanho
      */
-    public String getTamanho() {
+    public Double getTamanho() {
         return tamanho;
     }
 
@@ -105,10 +104,9 @@ public class Estado {
      *
      * @param tamanho the new tamanho
      */
-    public void setTamanho(String tamanho) {
+    public void setTamanho(Double tamanho) {
         Preconditions.checkNotNull(tamanho, "Tamanho não deve ser nulo");
-        Preconditions.checkArgument(StringUtils.isNoneEmpty(tamanho), "Tamanho não deve ser vazio", tamanho);
-        Preconditions.checkArgument(tamanho.matches("[0-9\\.]+"), "Tamanho deve conter somente numeros", tamanho);
+        Preconditions.checkArgument(tamanho > 0, "Tamanho não deve ser vazio", tamanho);
         this.tamanho = tamanho;
     }
 
@@ -117,7 +115,7 @@ public class Estado {
      *
      * @return the populacao
      */
-    public String getPopulacao() {
+    public Long getPopulacao() {
         return populacao;
     }
 
@@ -126,10 +124,9 @@ public class Estado {
      *
      * @param populacao the new populacao
      */
-    public void setPopulacao(String populacao) {
+    public void setPopulacao(Long populacao) {
         Preconditions.checkNotNull(populacao, "População não deve ser nulo");
-        Preconditions.checkArgument(StringUtils.isNoneEmpty(populacao), "População não deve ser vazia", populacao);
-        Preconditions.checkArgument(populacao.matches("[0-9]+"), "População deve conter somente numeros", populacao);
+        Preconditions.checkArgument(populacao > 0, "População não deve ser vazia", populacao);
         this.populacao = populacao;
     }
 

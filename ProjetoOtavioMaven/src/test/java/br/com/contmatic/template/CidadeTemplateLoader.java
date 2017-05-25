@@ -1,24 +1,23 @@
 package br.com.contmatic.template;
 
 import br.com.contmatic.empresa.Bairro;
-import br.com.contmatic.empresa.BairroType;
+import br.com.contmatic.empresa.Cidade;
 import br.com.six2six.fixturefactory.Fixture;
 import br.com.six2six.fixturefactory.Rule;
 import br.com.six2six.fixturefactory.loader.TemplateLoader;
 
-public class BairroTemplateLoader implements TemplateLoader {
+public class CidadeTemplateLoader implements TemplateLoader {
 
     public void load() {
 
-        Fixture.of(Bairro.class).addTemplate("valid", new Rule() {
+        Fixture.of(Cidade.class).addTemplate("valid", new Rule() {
             {
                 add("codigo", random(Integer.class, range(1, 1000)));
-                add("nome", random("Artur Alvim", "Tatuapé", "Penha", "Carrão", "Itaquera"));
-                add("tipo", random(BairroType.values()));
+                add("nome", random("São Paulo", "Rio de Janeiro", "Florianópolis", "Santos", "Franca"));
                 add("tamanho", random(Double.class, range(1000.00, 10000.00)));
                 add("populacao", random(Long.class, range(1000, 10000)));
+                add("bairro", random(Bairro.class));
             }
         });
     }
-
 }

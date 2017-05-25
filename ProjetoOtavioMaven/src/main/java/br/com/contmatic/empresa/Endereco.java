@@ -47,7 +47,7 @@ public class Endereco {
     public void setLogradouro(String logradouro) {
         Preconditions.checkNotNull(logradouro, "Logradouro não deve ser nulo");
         Preconditions.checkArgument(StringUtils.isNotEmpty(logradouro), "Logradouro não deve ser vazio", logradouro);
-        Preconditions.checkArgument(logradouro.matches("[a-zA-Z\b]+"), "Logradouro deve conter somente palavras", logradouro);
+        Preconditions.checkArgument(logradouro.matches("[a-zA-Z ]+"), "Logradouro deve conter somente palavras", logradouro);
         this.logradouro = logradouro;
     }
 
@@ -129,7 +129,7 @@ public class Endereco {
     public void setCep(String cep) {
         Preconditions.checkNotNull(cep, "CEP não deve ser nulo");
         Preconditions.checkArgument(StringUtils.isNotEmpty(cep), "CEP não deve ser vazio", cep);
-        Preconditions.checkArgument(cep.matches("[0-9]+"), "CEP deve conter somente numeros", cep);
+        Preconditions.checkArgument(cep.matches("[0-9]+"), "CEP não deve ser alfa numerico", cep);
         Preconditions.checkArgument(cep.length() == 8, "CEP deve conter somente 8 digitos", cep);
         this.cep = cep;
     }
@@ -170,7 +170,7 @@ public class Endereco {
      */
     @Override
     public int hashCode() {
-        return HashCodeBuilder.reflectionHashCode(this);
+        return new HashCodeBuilder().append("logradouro").append("numero").append("cep").hashCode();
     }
 
     /*
@@ -180,7 +180,11 @@ public class Endereco {
      */
     @Override
     public boolean equals(Object obj) {
-        return EqualsBuilder.reflectionEquals(this, obj);
+        if(!(obj instanceof Endereco)){
+            return false;
+        }
+        Endereco other = (Endereco) obj;
+        return new EqualsBuilder().append(this.getLogradouro(), other.getLogradouro()).append(this.getNumero(), other.getNumero()).append(this.getCep(), other.getCep()).build();
     }
 
 }
