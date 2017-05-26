@@ -60,23 +60,20 @@ public class EnderecoTest {
 
     @Test
     public void nao_deve_aceitar_logradouro_nulo() {
-        thrown.expect(NullPointerException.class);
-        thrown.expectMessage("Logradouro não deve ser nulo");
         endereco.setLogradouro(null);
+        assertFalse(ValidatorAnnotations.isValid(endereco, "Logradouro não deve ser nulo"));
     }
 
     @Test
     public void nao_deve_aceitar_logradouro_vazio() {
-        thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("Logradouro não deve ser vazio");
         endereco.setLogradouro("");
+        assertFalse(ValidatorAnnotations.isValid(endereco, "Logradouro não deve ser vazio"));
     }
 
     @Test
     public void nao_deve_aceitar_logradouro_alfanumerico() {
-        thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("Logradouro deve conter somente palavras");
         endereco.setLogradouro("Rua 9");
+        assertFalse(ValidatorAnnotations.isValid(endereco, "Logradouro deve conter somente palavras"));
     }
 
     @Test
@@ -90,23 +87,20 @@ public class EnderecoTest {
 
     @Test
     public void nao_deve_aceitar_complemento_nulo() {
-        thrown.expect(NullPointerException.class);
-        thrown.expectMessage("Complemento não deve ser nulo");
         endereco.setComplemento(null);
+        assertFalse(ValidatorAnnotations.isValid(endereco, "Complemento não deve ser nulo"));
     }
 
     @Test
     public void nao_deve_aceitar_complemento_vazio() {
-        thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("Complemento não deve ser vazio");
         endereco.setComplemento("");
+        assertFalse(ValidatorAnnotations.isValid(endereco, "Complemento não deve ser vazio"));
     }
     
     @Test
     public void nao_deve_aceitar_complemento_com_caracteres_especiais() {
-        thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("Complemento deve ser somente alfa-numerico");
         endereco.setComplemento("110!");
+        assertFalse(ValidatorAnnotations.isValid(endereco, "Complemento deve ser somente alfa-numerico"));
     }
 
     @Test
@@ -120,23 +114,14 @@ public class EnderecoTest {
 
     @Test
     public void nao_deve_aceitar_numero_nulo() {
-        thrown.expect(NullPointerException.class);
-        thrown.expectMessage("Numero não deve ser nulo");
         endereco.setNumero(null);
+        assertFalse(ValidatorAnnotations.isValid(endereco, "Numero não deve ser nulo"));
     }
 
     @Test
     public void nao_deve_aceitar_numero_vazio() {
-        thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("Numero não deve ser vazio");
-        endereco.setNumero("");
-    }
-    
-    @Test
-    public void nao_deve_aceitar_numero_com_caracteres_especiais() {
-        thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("Numero deve ser somente alfa-numerico");
-        endereco.setNumero("5!b!");
+        endereco.setNumero(0);
+        assertFalse(ValidatorAnnotations.isValid(endereco, "Numero deve ser maior que 0"));
     }
 
     @Test
@@ -150,9 +135,8 @@ public class EnderecoTest {
 
     @Test
     public void deve_aceitar_estado_nao_nulo() {
-        thrown.expect(NullPointerException.class);
-        thrown.expectMessage("Estado não deve ser nulo");
         endereco.setEstado(null);
+        assertFalse(ValidatorAnnotations.isValid(endereco, "Estado não deve ser nulo"));
     }
 
     @Test
@@ -166,23 +150,20 @@ public class EnderecoTest {
 
     @Test
     public void nao_deve_aceitar_cep_nulo() {
-        thrown.expect(NullPointerException.class);
-        thrown.expectMessage("CEP não deve ser nulo");
         endereco.setCep(null);
+        assertFalse(ValidatorAnnotations.isValid(endereco, "CEP não deve ser nulo"));
     }
 
     @Test
     public void nao_deve_aceitar_cep_menor_ou_igual_a_zero() {
-        thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("CEP não deve ser vazio");
         endereco.setCep("");
+        assertFalse(ValidatorAnnotations.isValid(endereco, "CEP não deve ser vazio"));
     }
     
     @Test
-    public void nao_deve_cep_alfa_numerico() {
-        thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("CEP não deve ser alfa numerico");
-        endereco.setCep("0359101o");
+    public void nao_deve_aceitar_cep_alfa_numerico() {
+        endereco.setCep("0359-11o");
+        assertFalse(ValidatorAnnotations.isValid(endereco, "CEP deve conter somente 8 digitos"));
     }
 
     @Test
@@ -217,14 +198,8 @@ public class EnderecoTest {
     }
     
     @Test
-    public void nao_deve_ser_valido_hashcode_de_objetos_deferentes(){
+    public void nao_deve_ser_valido_hashcode_de_objetos_diferentes(){
         Endereco endereco2 = new Endereco();
-        endereco.setLogradouro("Rua Um");
-        endereco2.setLogradouro("Rua Dois");
-        endereco.setNumero("123");
-        endereco2.setNumero("456");
-        endereco.setCep("03591048");
-        endereco2.setCep("03588790");
         assertThat(endereco.hashCode(), is(not(endereco2.hashCode())));
     }
 

@@ -14,11 +14,11 @@ public class EstadoTemplateLoader implements TemplateLoader {
         Fixture.of(Estado.class).addTemplate("valid", new Rule() {
             {
                 add("codigo", random(Integer.class, range(1, 1000)));
-                add("nome", "Teste");
+                add("nome", random("São Paulo","Rio de Janeiro","Santa Catarina","Paraíba","Rio grando do Sul"));
                 add("uf", random(UfType.values()));
                 add("tamanho", random(Double.class, range(1.0, 10000.0)));
                 add("populacao", random(Long.class, range(1, 10000)));
-                add("cidade", random(Cidade.class));
+                add("cidade", has(3).of(Cidade.class, "valid"));
             }
         });
     }

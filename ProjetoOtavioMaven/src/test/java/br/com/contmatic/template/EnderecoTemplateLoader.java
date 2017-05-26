@@ -14,10 +14,10 @@ public class EnderecoTemplateLoader implements TemplateLoader {
         Fixture.of(Endereco.class).addTemplate("valid", new Rule() {
             {
                 add("logradouro", random("Rua Teste", "Avenida Teste", "Viaduto Teste", "Rodovia Teste"));
-                add("numero", random(range(1, 999) + ""));
-                add("complemento", random(range(1, 55) + "b"));
+                add("numero", random(Integer.class, range(1, 999)));
+                add("complemento", random("11a","12b","13c","14d","21e"));
                 add("estado", one(Estado.class, "valid"));
-                add("cep", regex("\\d{8}"));
+                add("cep", regex("(\\d{5}-\\d{3})"));
                 add("regiao", random(RegiaoType.values()));
             }
 

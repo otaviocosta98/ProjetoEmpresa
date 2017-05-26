@@ -1,11 +1,18 @@
 package br.com.contmatic.empresa;
 
-import org.apache.commons.lang3.StringUtils;
+import java.util.Set;
+
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+
+//import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.hibernate.validator.constraints.NotBlank;
 
-import com.google.common.base.Preconditions;
+//import com.google.common.base.Preconditions;
 
 /**
  * The Class Estado.
@@ -13,22 +20,33 @@ import com.google.common.base.Preconditions;
 public class Estado {
 
     /** The codigo. */
+    @NotNull(message = "Codigo não deve ser nulo")
+    @Min(value = 1, message = "Codigo deve ser maior que 0")
     private Integer codigo;
 
     /** The nome. */
+    @NotNull(message = "Nome não deve ser nulo")
+    @NotBlank(message = "Nome não deve ser vazio")
+    @Pattern(regexp = "[a-zA-Z ]+", message = "Nome deve conter somente palavras")
     private String nome;
 
     /** The uf. */
+    @NotNull(message = "UF não deve ser nulo")
     private UfType uf;
 
     /** The tamanho. */
+    @NotNull(message = "Tamanho não deve ser nulo")
+    @Min(value = 1, message = "Tamanho deve ser maior que 0")
     private Double tamanho;
 
     /** The populacao. */
+    @NotNull(message = "População não deve ser nulo")
+    @Min(value = 1, message = "População deve ser maior que 0")
     private Long populacao;
 
     /** The cidade. */
-    private Cidade[] cidade;
+    @NotNull(message = "Cidade não deve ser nula")
+    private Set<Cidade> cidade;
 
     /**
      * Gets the codigo.
@@ -45,8 +63,8 @@ public class Estado {
      * @param codigo the new codigo
      */
     public void setCodigo(Integer codigo) {
-        Preconditions.checkNotNull(codigo, "Codigo não deve ser nulo");
-        Preconditions.checkArgument(codigo > 0, "Codigo não deve ser vazio", codigo);
+        // Preconditions.checkNotNull(codigo, "Codigo não deve ser nulo");
+        // Preconditions.checkArgument(codigo > 0, "Codigo não deve ser vazio", codigo);
         this.codigo = codigo;
     }
 
@@ -65,9 +83,9 @@ public class Estado {
      * @param nome the new nome
      */
     public void setNome(String nome) {
-        Preconditions.checkNotNull(nome, "Nome não deve ser nulo");
-        Preconditions.checkArgument(StringUtils.isNoneEmpty(nome), "Nome não deve ser vazio", nome);
-        Preconditions.checkArgument(nome.matches("[a-zA-Z\b]+"), "Nome deve conter somente palavras", nome);
+        // Preconditions.checkNotNull(nome, "Nome não deve ser nulo");
+        // Preconditions.checkArgument(StringUtils.isNoneEmpty(nome), "Nome não deve ser vazio", nome);
+        // Preconditions.checkArgument(nome.matches("[a-zA-Z ]+"), "Nome deve conter somente palavras", nome);
         this.nome = nome;
     }
 
@@ -86,7 +104,7 @@ public class Estado {
      * @param uf the new uf
      */
     public void setUf(UfType uf) {
-        Preconditions.checkNotNull(uf, "UF não deve ser nulo");
+        // Preconditions.checkNotNull(uf, "UF não deve ser nulo");
         this.uf = uf;
     }
 
@@ -105,8 +123,8 @@ public class Estado {
      * @param tamanho the new tamanho
      */
     public void setTamanho(Double tamanho) {
-        Preconditions.checkNotNull(tamanho, "Tamanho não deve ser nulo");
-        Preconditions.checkArgument(tamanho > 0, "Tamanho não deve ser vazio", tamanho);
+        // Preconditions.checkNotNull(tamanho, "Tamanho não deve ser nulo");
+        // Preconditions.checkArgument(tamanho > 0, "Tamanho não deve ser vazio", tamanho);
         this.tamanho = tamanho;
     }
 
@@ -125,8 +143,8 @@ public class Estado {
      * @param populacao the new populacao
      */
     public void setPopulacao(Long populacao) {
-        Preconditions.checkNotNull(populacao, "População não deve ser nulo");
-        Preconditions.checkArgument(populacao > 0, "População não deve ser vazia", populacao);
+        // Preconditions.checkNotNull(populacao, "População não deve ser nulo");
+        // Preconditions.checkArgument(populacao > 0, "População não deve ser vazia", populacao);
         this.populacao = populacao;
     }
 
@@ -135,7 +153,7 @@ public class Estado {
      *
      * @return the cidade
      */
-    public Cidade[] getCidade() {
+    public Set<Cidade> getCidade() {
         return cidade;
     }
 
@@ -144,8 +162,8 @@ public class Estado {
      *
      * @param cidade the new cidade
      */
-    public void setCidade(Cidade[] cidade) {
-        Preconditions.checkNotNull(cidade, "Cidade não deve ser nula");
+    public void setCidade(Set<Cidade> cidade) {
+        // Preconditions.checkNotNull(cidade, "Cidade não deve ser nula");
         this.cidade = cidade;
     }
 
@@ -166,7 +184,7 @@ public class Estado {
      */
     @Override
     public int hashCode() {
-        return HashCodeBuilder.reflectionHashCode(this);
+        return new HashCodeBuilder().append(codigo).toHashCode();
     }
 
     /*
@@ -176,7 +194,11 @@ public class Estado {
      */
     @Override
     public boolean equals(Object obj) {
-        return EqualsBuilder.reflectionEquals(this, obj);
+        if (!(obj instanceof Estado)) {
+            return false;
+        }
+        Estado other = (Estado) obj;
+        return new EqualsBuilder().append(this.getCodigo(), other.getCodigo()).build();
     }
 
 }

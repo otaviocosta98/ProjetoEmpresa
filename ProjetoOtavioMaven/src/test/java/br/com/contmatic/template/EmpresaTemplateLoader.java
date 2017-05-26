@@ -14,12 +14,13 @@ public class EmpresaTemplateLoader implements TemplateLoader {
     public void load(){
         Fixture.of(Empresa.class).addTemplate("valid", new Rule(){
             {
+                add("codigo", random(Integer.class, range(1,1000)));
                 add("nome", random("Teste1", "Teste2", "Teste3", "Teste4", "Teste5"));
                 add("razaoSocial", random("Empresa de Testes", "Empresa de fornecimento de testes", "Especialização em TDD"));
                 add("IE", random(Long.class, range(111111111111L, 999999999999L)));
                 add("CNPJ", cnpj());
-                add("endereco", random(Endereco.class));
-                add("telefone", random(Telefone.class));
+                add("endereco", has(2).of(Endereco.class, "valid"));
+                add("telefone", has(3).of(Telefone.class, "valid"));
                 add("email", random("teste1@teste.com", "teste2@teste.com.br", "teste3@teste.org", "teste4@teste.net", "teste5@teste.com"));
                 add("dataInicio", DateTime.now().plusDays((int)Math.ceil((Math.random()))));
             }

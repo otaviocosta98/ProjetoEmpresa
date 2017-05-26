@@ -10,16 +10,19 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import br.com.six2six.fixturefactory.Fixture;
+import br.com.six2six.fixturefactory.loader.FixtureFactoryLoader;
+
 public class EstadoTest {
 
     Estado estado;
-    Cidade[] cidade;
-
+    
     /* -------------------------------------------------- SetUps e TearDowns >>> ----------------------------------------------------------- */
 
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
         System.out.println("-------------Começo Classe Teste------------->");
+        FixtureFactoryLoader.loadTemplates("br.com.contmatic.template");
     }
 
     @AfterClass
@@ -30,8 +33,8 @@ public class EstadoTest {
     @Before
     public void setUp() throws Exception {
         System.out.println("!-Começo Teste-!");
-        estado = new Estado();
-        cidade = new Cidade[2];
+        estado = Fixture.from(Estado.class).gimme("valid");
+        System.out.println(estado.toString());
     }
 
     @After
@@ -48,25 +51,18 @@ public class EstadoTest {
     @Test
     public void nao_deve_aceitar_codigo_nulo() {
         estado.setCodigo(null);
-        assertNull(estado.getCodigo());
+        assertFalse(ValidatorAnnotations.isValid(estado, "Codigo não deve ser nulo"));
     }
 
     @Test
-    public void nao_deve_aceitar_codigo_vazio() {
-        estado.setCodigo("");
-        assertNotEquals("", estado.getCodigo());
+    public void nao_deve_aceitar_codigo_menor_ou_igual_a_0() {
+        estado.setCodigo(0);
+        assertFalse(ValidatorAnnotations.isValid(estado, "Codigo deve ser maior que 0"));
     }
 
     @Test
     public void deve_aceitar_codigo_numerico() {
-        estado.setCodigo("269");
-        assertThat("269", is(estado.getCodigo()));
-    }
-
-    @Test
-    public void nao_deve_aceitar_codigo_alfa_numerico() {
-        estado.setCodigo("269b");
-        assertNull(estado.getCodigo());
+        assertNotNull(estado.getCodigo());
     }
 
     /* -------------------------------------------------- <<< Codigo ----------------------------------------------------------- */
@@ -76,25 +72,24 @@ public class EstadoTest {
     @Test
     public void nao_deve_aceitar_nome_nulo() {
         estado.setNome(null);
-        assertEquals(null, estado.getNome());
+        assertFalse(ValidatorAnnotations.isValid(estado, "Nome não deve ser nulo"));
     }
 
     @Test
     public void nao_deve_aceitar_nome_vazio() {
         estado.setNome("");
-        assertNull(estado.getNome());
+        assertFalse(ValidatorAnnotations.isValid(estado, "Nome não deve ser vazio"));
+    }
+    
+    @Test
+    public void nao_deve_aceitar_nome_alfa_numerico() {
+        estado.setNome("Sao Paulo2");
+        assertFalse(ValidatorAnnotations.isValid(estado, "Nome deve conter somente palavras"));
     }
 
     @Test
     public void deve_aceitar_nome_somente_com_letras() {
-        estado.setNome("Sao Paulo");
         assertNotNull(estado.getNome());
-    }
-
-    @Test
-    public void nao_deve_aceitar_nome_alfa_numerico() {
-        estado.setNome("Sao Paulo2");
-        assertNotEquals("Sao Paulo2", estado.getNome());
     }
 
     /* -------------------------------------------------- <<< Nome ----------------------------------------------------------- */
@@ -104,54 +99,11 @@ public class EstadoTest {
     @Test
     public void nao_deve_aceitar_uf_nulo() {
         estado.setUf(null);
-        assertNull(estado.getUf());
+        assertFalse(ValidatorAnnotations.isValid(estado, "UF não deve ser nulo"));
     }
 
     @Test
-    public void nao_deve_aceitar_uf_vazio() {
-        estado.setUf("");
-        assertEquals(null, estado.getUf());
-    }
-
-    @Test
-    public void deve_aceitar_uf_somente_com_letras() {
-        estado.setUf("SP");
-        assertThat("SP", is(estado.getUf()));
-    }
-
-    @Test
-    public void nao_deve_aceitar_uf_alfa_numerico() {
-        estado.setUf("SP2");
-        assertNull(estado.getUf());
-    }
-
-    @Test
-    public void deve_aceitar_uf_somente_com_2_letras() {
-        estado.setUf("SP");
-        assertEquals("SP", estado.getUf());
-    }
-
-    @Test
-    public void nao_deve_aceitar_uf_maior_que_2() {
-        estado.setUf("SPO");
-        assertThat("SPO", is(not(estado.getUf())));
-    }
-
-    @Test
-    public void nao_deve_aceitar_uf_menor_que_2() {
-        estado.setUf("S");
-        assertNull(estado.getUf());
-    }
-
-    @Test
-    public void nao_deve_aceitar_uf_com_letra_minuscula() {
-        estado.setUf("sp");
-        assertNotEquals("sp", estado.getUf());
-    }
-
-    @Test
-    public void deve_aceitar_uf_com_letra_maiuscula() {
-        estado.setUf("SP");
+    public void deve_aceitar_uf_valido() {
         assertNotNull(estado.getUf());
     }
 
@@ -162,25 +114,18 @@ public class EstadoTest {
     @Test
     public void nao_deve_aceitar_tamanho_nulo() {
         estado.setTamanho(null);
-        assertEquals(null, estado.getTamanho());
+        assertFalse(ValidatorAnnotations.isValid(estado, "Tamanho não deve ser nulo"));
     }
 
     @Test
-    public void nao_deve_aceitar_tamanho_vazio() {
-        estado.setTamanho("");
-        assertNull(estado.getTamanho());
+    public void nao_deve_aceitar_tamanho_menor_ou_igual_a_0() {
+        estado.setTamanho(0.0);
+        assertFalse(ValidatorAnnotations.isValid(estado, "Tamanho deve ser maior que 0"));
     }
 
     @Test
     public void deve_aceitar_tamanho_somente_numerico() {
-        estado.setTamanho("123456789");
         assertNotNull(estado.getTamanho());
-    }
-
-    @Test
-    public void nao_deve_aceitar_tamanho_alfa_numerico() {
-        estado.setTamanho("123456E");
-        assertNotEquals("123456E", estado.getTamanho());
     }
 
     /* -------------------------------------------------- <<< Tamanho ----------------------------------------------------------- */
@@ -190,25 +135,18 @@ public class EstadoTest {
     @Test
     public void nao_deve_aceitar_populacao_nulo() {
         estado.setPopulacao(null);
-        assertNull(estado.getPopulacao());
+        assertFalse(ValidatorAnnotations.isValid(estado, "População não deve ser nulo"));
     }
 
     @Test
-    public void nao_deve_aceitar_populacao_vazio() {
-        estado.setPopulacao("");
-        assertThat("", is(not(estado.getPopulacao())));
+    public void nao_deve_aceitar_populacao_menor_ou_igual_a_0() {
+        estado.setPopulacao(0L);
+        assertFalse(ValidatorAnnotations.isValid(estado, "População deve ser maior que 0"));
     }
 
     @Test
     public void deve_aceitar_populacao_somente_numerico() {
-        estado.setPopulacao("123456789");
         assertNotNull(estado.getPopulacao());
-    }
-
-    @Test
-    public void nao_deve_aceitar_populacao_alfa_numerico() {
-        estado.setPopulacao("123456E");
-        assertNull(estado.getPopulacao());
     }
 
     /* -------------------------------------------------- <<< Populacao ----------------------------------------------------------- */
@@ -218,13 +156,12 @@ public class EstadoTest {
     @Test
     public void nao_deve_aceitar_cidade_nulo() {
         estado.setCidade(null);
-        assertNotSame(cidade, estado.getCidade());
+        assertFalse(ValidatorAnnotations.isValid(estado, "Cidade não deve ser nula"));
     }
 
     @Test
     public void deve_aceitar_cidade_nao_nula() {
-        estado.setCidade(cidade);
-        assertSame(cidade, estado.getCidade());
+        assertNotNull(estado.getCidade());
     }
 
     /* -------------------------------------------------- <<< Cidade ----------------------------------------------------------- */
@@ -232,9 +169,15 @@ public class EstadoTest {
     /* -------------------------------------------------- ToString >>> ----------------------------------------------------------- */
 
     @Test
-    public void deve_ser_valido_to_string() {
+    public void deve_ser_valido_to_string_para_objetos_iguais() {
+        Estado estado2 = estado;
+        assertEquals(estado.toString(), estado2.toString());
+    }
+    
+    @Test
+    public void deve_ser_invalido_to_string_para_objetos_diferentes() {
         Estado estado2 = new Estado();
-        assertThat(estado.toString(), is(estado2.toString()));
+        assertNotEquals(estado.toString(), estado2.toString());
     }
 
     /* -------------------------------------------------- <<< ToString ----------------------------------------------------------- */
@@ -243,25 +186,15 @@ public class EstadoTest {
 
     @Test
     public void deve_ser_valido_hashcode_de_valores_iguais(){
-        Estado estado2 = new Estado();
-        estado.setCodigo("123");
-        estado2.setCodigo("123");
+        Estado estado2 = estado;
         assertEquals(estado.hashCode(), estado2.hashCode());
-    }
-    
-    @Test
-    public void deve_ser_valido_hashcode_de_objeto_nulo(){
-        Estado estado2 = new Estado();
-        estado.setCodigo(null);
-        estado2.setCodigo("123");
-        assertNotEquals(estado.hashCode(), estado2.hashCode());
     }
     
     @Test
     public void nao_deve_ser_valido_hashcode_de_objetos_deferentes(){
         Estado estado2 = new Estado();
-        estado.setCodigo("456");
-        estado2.setCodigo("123");
+        estado.setCodigo(456);
+        estado2.setCodigo(123);
         assertThat(estado.hashCode(), is(not(estado2.hashCode())));
     }
 
@@ -270,53 +203,26 @@ public class EstadoTest {
     /* -------------------------------------------------- Equals >>> ----------------------------------------------------------- */
 
     @Test
+    public void deve_o_equals_retornar_false_comparando_estado_a_outro_objeto_que_não_seja_da_clase_estado() {
+        Cidade cidade = new Cidade();
+        assertFalse(estado.equals(cidade));
+    }
+    
+    @Test
     public void deve_o_equals_retornar_true_comparando_ele_mesmo() {
         assertTrue(estado.equals(estado));
     }
 
     @Test
-    public void deve_o_equals_retornar_false_comparando_outro_estado_nulo() {
-        Estado estado2 = new Estado();
-        estado2 = null;
-        assertFalse(estado.equals(estado2));
-    }
-
-    @Test
-    public void deve_o_equals_retornar_false_comparando_getClass_de_outro_estado() {
-        Estado estado2 = new Estado();
-        assertFalse(estado.equals(estado2.getClass()));
-    }
-
-    @Test
-    public void deve_o_equals_retornar_false_comparando_codigo_nulo_com_codigo_nao_nulo_de_outro_estado() {
-        Estado estado2 = new Estado();
-        estado2.setCodigo("11");
-        estado.setCodigo(null);
-        assertFalse(estado.equals(estado2));
-    }
-
-    @Test
-    public void deve_o_equals_retornar_true_comparando_ambos_codigos_nulos() {
-        Estado estado2 = new Estado();
-        estado2.setCodigo(null);
-        estado.setCodigo(null);
+    public void deve_o_equals_retornar_true_comparando_outro_estado_igual() {
+        Estado estado2 = estado;
         assertTrue(estado.equals(estado2));
     }
 
     @Test
-    public void deve_o_equals_retornar_false_comparando_codigo_nao_nulo_com_codigo_nulo_de_outro_estado() {
+    public void deve_o_equals_retornar_false_comparando_outro_estado_diferente() {
         Estado estado2 = new Estado();
-        estado2.setCodigo(null);
-        estado.setCodigo("00");
         assertFalse(estado.equals(estado2));
-    }
-
-    @Test
-    public void deve_o_equals_retornar_true_comparando_ambos_codigos_nao_nulos() {
-        Estado estado2 = new Estado();
-        estado2.setCodigo("00");
-        estado.setCodigo("00");
-        assertTrue(estado.equals(estado2));
     }
 
     /* -------------------------------------------------- <<< Equals ----------------------------------------------------------- */

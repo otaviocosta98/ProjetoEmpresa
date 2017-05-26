@@ -1,5 +1,7 @@
 package br.com.contmatic.empresa;
 
+import java.util.Set;
+
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -40,7 +42,7 @@ public class Cidade {
 
     /** The bairro. */
     @NotNull(message="Bairro não deve ser nulo")
-    private Bairro[] bairro;
+    private Set<Bairro> bairro;
 
     /**
      * Gets the codigo.
@@ -128,7 +130,7 @@ public class Cidade {
      *
      * @return the bairro
      */
-    public Bairro[] getBairro() {
+    public Set<Bairro> getBairro() {
         return bairro;
     }
 
@@ -137,7 +139,7 @@ public class Cidade {
      *
      * @param bairro the new bairro
      */
-    public void setBairro(Bairro[] bairro) {
+    public void setBairro(Set<Bairro> bairro) {
 //        Preconditions.checkNotNull(bairro, "Bairro não deve ser nulo");
         this.bairro = bairro;
     }

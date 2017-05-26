@@ -1,11 +1,15 @@
 package br.com.contmatic.empresa;
 
-import org.apache.commons.lang3.StringUtils;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+
+//import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.hibernate.validator.constraints.NotBlank;
 
-import com.google.common.base.Preconditions;
+//import com.google.common.base.Preconditions;
 
 /**
  * The Class Operadora.
@@ -13,9 +17,13 @@ import com.google.common.base.Preconditions;
 public class Operadora {
 
     /** The codigo. */
+    @NotNull(message="Codigo não deve ser nulo")
+    @Min(value=1,message="Codigo deve maior que 0")
     private Integer codigo;
 
     /** The nome. */
+    @NotNull(message="Nome não deve ser nulo")
+    @NotBlank(message="Nome não deve ser vazio")
     private String nome;
 
     /**
@@ -33,8 +41,8 @@ public class Operadora {
      * @param codigo the new codigo
      */
     public void setCodigo(Integer codigo) {
-        Preconditions.checkNotNull(codigo, "Codigo não deve ser nulo");
-        Preconditions.checkArgument(codigo > 0, "Codigo não deve ser vazio", codigo);
+//        Preconditions.checkNotNull(codigo, "Codigo não deve ser nulo");
+//        Preconditions.checkArgument(codigo > 0, "Codigo deve maior que 0", codigo);
         this.codigo = codigo;
     }
 
@@ -53,8 +61,8 @@ public class Operadora {
      * @param nome the new nome
      */
     public void setNome(String nome) {
-        Preconditions.checkNotNull(nome, "Nome não deve ser nulo");
-        Preconditions.checkArgument(StringUtils.isNotEmpty(nome), "Nome não deve ser vazio", nome);
+//        Preconditions.checkNotNull(nome, "Nome não deve ser nulo");
+//        Preconditions.checkArgument(StringUtils.isNotEmpty(nome), "Nome não deve ser vazio", nome);
         this.nome = nome;
     }
 
@@ -75,7 +83,7 @@ public class Operadora {
      */
     @Override
     public int hashCode() {
-        return HashCodeBuilder.reflectionHashCode(this);
+        return new HashCodeBuilder().append(codigo).toHashCode();
     }
 
     /*
@@ -85,7 +93,11 @@ public class Operadora {
      */
     @Override
     public boolean equals(Object obj) {
-        return EqualsBuilder.reflectionEquals(this, obj);
+        if(!(obj instanceof Operadora)){
+            return false;
+        }
+        Operadora other = (Operadora) obj;
+        return new EqualsBuilder().append(this.getCodigo(), other.getCodigo()).build();
     }
 
 }

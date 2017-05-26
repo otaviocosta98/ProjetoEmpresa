@@ -16,7 +16,7 @@ public class CidadeTemplateLoader implements TemplateLoader {
                 add("nome", random("São Paulo", "Rio de Janeiro", "Florianópolis", "Santos", "Franca"));
                 add("tamanho", random(Double.class, range(1000.00, 10000.00)));
                 add("populacao", random(Long.class, range(1000, 10000)));
-                add("bairro", random(Bairro.class));
+                add("bairro", has(3).of(Bairro.class, "valid"));
             }
         });
     }

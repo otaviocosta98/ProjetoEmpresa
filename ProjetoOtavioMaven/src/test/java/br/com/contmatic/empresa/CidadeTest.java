@@ -18,7 +18,6 @@ import br.com.six2six.fixturefactory.loader.FixtureFactoryLoader;
 public class CidadeTest {
 
     Cidade cidade;
-    Bairro bairro;
 
     /* -------------------------------------------------- SetUps e TearDowns >>> ----------------------------------------------------------- */
 

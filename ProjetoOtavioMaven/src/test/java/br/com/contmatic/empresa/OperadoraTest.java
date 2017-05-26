@@ -10,6 +10,9 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import br.com.six2six.fixturefactory.Fixture;
+import br.com.six2six.fixturefactory.loader.FixtureFactoryLoader;
+
 public class OperadoraTest {
 
     Operadora operadora;
@@ -18,6 +21,7 @@ public class OperadoraTest {
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
         System.out.println("-------------Começo Classe Teste------------->");
+        FixtureFactoryLoader.loadTemplates("br.com.contmatic.template");
     }
 
     @AfterClass
@@ -28,7 +32,8 @@ public class OperadoraTest {
     @Before
     public void setUp() throws Exception {
         System.out.println("!-Começo Teste-!");
-        operadora = new Operadora();
+        operadora = Fixture.from(Operadora.class).gimme("valid");
+        System.out.println(operadora.toString());
     }
 
     @After
@@ -44,25 +49,18 @@ public class OperadoraTest {
     @Test
     public void nao_deve_aceitar_codigo_nulo() {
         operadora.setCodigo(null);
-        assertNull(operadora.getCodigo());
+        assertFalse(ValidatorAnnotations.isValid(operadora, "Codigo não deve ser nulo"));
     }
 
     @Test
     public void nao_deve_aceitar_codigo_vazio() {
-        operadora.setCodigo("");
-        assertNull(operadora.getCodigo());
+        operadora.setCodigo(0);
+        assertFalse(ValidatorAnnotations.isValid(operadora, "Codigo deve maior que 0"));
     }
 
     @Test
     public void deve_aceitar_somente_numeros_no_codigo() {
-        operadora.setCodigo("021");
-        assertEquals("021", operadora.getCodigo());
-    }
-
-    @Test
-    public void nao_deve_aceitar_letras_no_codigo() {
-        operadora.setCodigo("021b");
-        assertNotEquals("021b", operadora.getCodigo());
+        assertNotNull(operadora.getCodigo());
     }
 
     /* -------------------------------------------------- <<< Codigo ----------------------------------------------------------- */
@@ -72,25 +70,18 @@ public class OperadoraTest {
     @Test
     public void nao_deve_aceitar_nome_nulo() {
         operadora.setNome(null);
-        assertNull(operadora.getNome());
+        assertFalse(ValidatorAnnotations.isValid(operadora, "Nome não deve ser nulo"));
     }
 
     @Test
     public void nao_deve_aceitar_nome_vazio() {
         operadora.setNome("");
-        assertThat("", is(not(operadora.getNome())));
-    }
-    
-    @Test
-    public void deve_aceitar_nome_somente_com_letras() {
-        operadora.setNome("Oi");
-        assertNotNull(operadora.getNome());
+        assertFalse(ValidatorAnnotations.isValid(operadora, "Nome não deve ser vazio"));
     }
 
     @Test
     public void deve_aceitar_nome_alfa_numerico() {
-        operadora.setNome("Oi98");
-        assertNotEquals("Cohab1", operadora.getNome());
+        assertNotNull(operadora.getNome());
     }
 
     /* -------------------------------------------------- <<< Nome ----------------------------------------------------------- */
@@ -98,9 +89,15 @@ public class OperadoraTest {
     /* -------------------------------------------------- ToString >>> ----------------------------------------------------------- */
 
     @Test
-    public void deve_ser_valido_to_string() {
-        Operadora operadora2 = new Operadora();
+    public void deve_ser_valido_to_string_para_objetos_iguais() {
+        Operadora operadora2 = operadora;
         assertEquals(operadora.toString(), operadora2.toString());
+    }
+    
+    @Test
+    public void deve_ser_invalido_to_string_para_objetos_diferentes() {
+        Operadora operadora2 = new Operadora();
+        assertNotEquals(operadora.toString(), operadora2.toString());
     }
 
     /* -------------------------------------------------- <<< ToString ----------------------------------------------------------- */
@@ -109,25 +106,13 @@ public class OperadoraTest {
 
     @Test
     public void deve_ser_valido_hashcode_de_valores_iguais(){
-        Operadora operadora2 = new Operadora();
-        operadora.setCodigo("123");
-        operadora2.setCodigo("123");
+        Operadora operadora2 = operadora;
         assertEquals(operadora.hashCode(), operadora2.hashCode());
-    }
-    
-    @Test
-    public void deve_ser_valido_hashcode_de_objeto_nulo(){
-        Operadora operadora2 = new Operadora();
-        operadora.setCodigo(null);
-        operadora2.setCodigo("123");
-        assertNotEquals(operadora.hashCode(), operadora2.hashCode());
     }
     
     @Test
     public void nao_deve_ser_valido_hashcode_de_objetos_deferentes(){
         Operadora operadora2 = new Operadora();
-        operadora.setCodigo("456");
-        operadora2.setCodigo("123");
         assertThat(operadora.hashCode(), is(not(operadora2.hashCode())));
     }
 
@@ -136,52 +121,26 @@ public class OperadoraTest {
     /* -------------------------------------------------- equals >>> ----------------------------------------------------------- */
 
     @Test
+    public void deve_o_equals_retornar_false_comparando_operadora_a_outro_objeto_que_não_seja_da_clase_operadora() {
+        Cidade cidade = new Cidade();
+        assertFalse(operadora.equals(cidade));
+    }
+    
+    @Test
     public void deve_o_equals_retornar_true_comparando_ele_mesmo() {
         assertTrue(operadora.equals(operadora));
     }
 
     @Test
-    public void deve_o_equals_retornar_false_comparando_outra_operadora_nula() {
-        Operadora operadora2 = null;
-        assertFalse(operadora.equals(operadora2));
-    }
-
-    @Test
-    public void deve_o_equals_retornar_false_comparando_getClass_de_outra_operadora() {
-        Operadora operadora2 = new Operadora();
-        assertFalse(operadora.equals(operadora2.getClass()));
-    }
-
-    @Test
-    public void deve_o_equals_retornar_false_comparando_codigo_nulo_com_codigo_nao_nulo_de_outra_operadora() {
-        Operadora operadora2 = new Operadora();
-        operadora2.setCodigo("0");
-        operadora.setCodigo(null);
-        assertFalse(operadora.equals(operadora2));
-    }
-
-    @Test
-    public void deve_o_equals_retornar_true_comparando_ambos_codigos_nulos() {
-        Operadora operadora2 = new Operadora();
-        operadora2.setCodigo(null);
-        operadora.setCodigo(null);
+    public void deve_o_equals_retornar_true_comparando_outro_operadora_igual() {
+        Operadora operadora2 = operadora;
         assertTrue(operadora.equals(operadora2));
     }
 
     @Test
-    public void deve_o_equals_retornar_false_comparando_codigo_nao_nulo_com_codigo_nulo_de_outra_operadora() {
+    public void deve_o_equals_retornar_false_comparando_outro_operadora_diferente() {
         Operadora operadora2 = new Operadora();
-        operadora2.setCodigo(null);
-        operadora.setCodigo("0");
         assertFalse(operadora.equals(operadora2));
-    }
-
-    @Test
-    public void deve_o_equals_retornar_true_comparando_ambos_codigos_nao_nulos() {
-        Operadora operadora2 = new Operadora();
-        operadora2.setCodigo("0");
-        operadora.setCodigo("0");
-        assertTrue(operadora.equals(operadora2));
     }
 
     /* -------------------------------------------------- <<< equals ----------------------------------------------------------- */

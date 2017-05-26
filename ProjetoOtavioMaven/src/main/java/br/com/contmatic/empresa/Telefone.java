@@ -1,11 +1,16 @@
 package br.com.contmatic.empresa;
 
-import org.apache.commons.lang3.StringUtils;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+
+//import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.Range;
 
-import com.google.common.base.Preconditions;
+//import com.google.common.base.Preconditions;
 
 /**
  * The Class Telefone.
@@ -13,21 +18,31 @@ import com.google.common.base.Preconditions;
 public class Telefone {
 
     /** The ddd. */
+    @NotNull(message = "DDD não deve ser nulo")
+    @Range(min = 11, max = 99, message = "DDD deve ser entre {min} e {max}")
     private Integer ddd;
 
     /** The numero. */
+    @NotNull(message = "Numero não deve ser nulo")
+    @Range(min = 10000000, max = 999999999, message = "Quantidade de digitos incorretos")
     private Integer numero;
 
     /** The ramal. */
+    @NotNull(message = "Ramal não deve ser nulo")
     private Integer ramal;
 
     /** The tipo. */
+    @NotNull(message = "Tipo não deve ser nulo")
     private TelefoneType tipo;
 
     /** The responsavel. */
+    @NotNull(message = "Responsável não deve ser nulo")
+    @NotBlank(message = "Responsável não deve ser vazio")
+    @Pattern(regexp = "[a-zA-Z ]+", message = "Responsável deve conter somente palavras")
     private String responsavel;
 
     /** The operadora. */
+    @NotNull(message = "Operadora não deve ser nula")
     private Operadora operadora;
 
     /**
@@ -45,9 +60,8 @@ public class Telefone {
      * @param ddd the new ddd
      */
     public void setDdd(Integer ddd) {
-        Preconditions.checkNotNull(ddd, "DDD não deve ser nulo");
-        Preconditions.checkArgument(ddd > 0, "DDD não deve ser vazio", ddd);
-        Preconditions.checkArgument(ddd.toString().length() == 2, "DDD deve conter somente 2 digitos", ddd);
+        // Preconditions.checkNotNull(ddd, "DDD não deve ser nulo");
+        // Preconditions.checkArgument(ddd >= 11 || ddd <= 99, "DDD deve ser entre 11 e 99", ddd);
         this.ddd = ddd;
     }
 
@@ -66,6 +80,7 @@ public class Telefone {
      * @param ramal the new ramal
      */
     public void setRamal(Integer ramal) {
+        // Preconditions.checkNotNull(ramal, "Ramal não deve ser nulo");
         this.ramal = ramal;
     }
 
@@ -84,9 +99,9 @@ public class Telefone {
      * @param numero the new numero
      */
     public void setNumero(Integer numero) {
-        Preconditions.checkNotNull(numero, "Numero não deve ser nulo");
-        Preconditions.checkArgument(numero > 0, "Numero não deve ser vazio", numero);
-        Preconditions.checkArgument(numero.toString().length() == getTipo().getTamanho(), "Quantidade de digitos incorretos para o tipo de telefone informado", numero);
+        // Preconditions.checkNotNull(numero, "Numero não deve ser nulo");
+        // Preconditions.checkArgument(numero > 0, "Numero não deve ser vazio", numero);
+        // Preconditions.checkArgument(numero.toString().length() == getTipo().getTamanho(), "Quantidade de digitos incorretos para o tipo de telefone informado", numero);
         this.numero = numero;
     }
 
@@ -105,7 +120,7 @@ public class Telefone {
      * @param tipo the new tipo
      */
     public void setTipo(TelefoneType tipo) {
-        Preconditions.checkNotNull(tipo, "Tipo não deve ser nulo");
+        // Preconditions.checkNotNull(tipo, "Tipo não deve ser nulo");
         this.tipo = tipo;
     }
 
@@ -124,9 +139,9 @@ public class Telefone {
      * @param responsavel the new responsavel
      */
     public void setResponsavel(String responsavel) {
-        Preconditions.checkNotNull(responsavel, "Responsável não deve ser nulo");
-        Preconditions.checkArgument(StringUtils.isNoneEmpty(responsavel), "Responsável não deve ser vazio", responsavel);
-        Preconditions.checkArgument(responsavel.matches("[a-zA-Z\b]+"), "Responsável deve conter somente palavras", responsavel);
+        // Preconditions.checkNotNull(responsavel, "Responsável não deve ser nulo");
+        // Preconditions.checkArgument(StringUtils.isNoneEmpty(responsavel), "Responsável não deve ser vazio", responsavel);
+        // Preconditions.checkArgument(responsavel.matches("[a-zA-Z\b]+"), "Responsável deve conter somente palavras", responsavel);
         this.responsavel = responsavel;
     }
 
@@ -145,7 +160,7 @@ public class Telefone {
      * @param operadora the new operadora
      */
     public void setOperadora(Operadora operadora) {
-        Preconditions.checkNotNull(responsavel, "Operadora não deve ser nula");
+        // Preconditions.checkNotNull(responsavel, "Operadora não deve ser nula");
         this.operadora = operadora;
     }
 
@@ -166,7 +181,7 @@ public class Telefone {
      */
     @Override
     public int hashCode() {
-        return HashCodeBuilder.reflectionHashCode(this);
+        return new HashCodeBuilder().append(numero).toHashCode();
     }
 
     /*
@@ -176,7 +191,11 @@ public class Telefone {
      */
     @Override
     public boolean equals(Object obj) {
-        return EqualsBuilder.reflectionEquals(this, obj);
+        if (!(obj instanceof Telefone)) {
+            return false;
+        }
+        Telefone other = (Telefone) obj;
+        return new EqualsBuilder().append(this.getNumero(), other.getNumero()).build();
     }
 
 }
