@@ -20,28 +20,28 @@ import org.hibernate.validator.constraints.NotBlank;
 public class Cidade {
 
     /** The codigo. */
-    @NotNull(message="Codigo não deve ser nulo")
-    @Min(value=1,message="Codigo deve ser maior que 0")
+    @NotNull(message = "Codigo não deve ser nulo")
+    @Min(value = 1, message = "Codigo deve ser maior que 0")
     private Integer codigo;
 
     /** The nome. */
-    @NotNull(message="Nome não deve ser nulo")
-    @NotBlank(message="Nome não deve ser vazio")
-    @Pattern(regexp="[a-zA-Z ]+$", message="Nome deve conter somente palavras")
+    @NotNull(message = "Nome não deve ser nulo")
+    @NotBlank(message = "Nome não deve ser vazio")
+    @Pattern(regexp = "[a-zA-Z ]+$", message = "Nome deve conter somente palavras")
     private String nome;
 
     /** The tamanho. */
-    @NotNull(message="Tamanho não deve ser nulo")
-    @Min(value=1,message="Tamanho deve ser maior que 0")
+    @NotNull(message = "Tamanho não deve ser nulo")
+    @Min(value = 1, message = "Tamanho deve ser maior que 0")
     private Double tamanho;
 
     /** The populacao. */
-    @NotNull(message="População não deve ser nulo")
-    @Min(value=1,message="População deve ser maior que 0")
+    @NotNull(message = "População não deve ser nulo")
+    @Min(value = 1, message = "População deve ser maior que 0")
     private Long populacao;
 
     /** The bairro. */
-    @NotNull(message="Bairro não deve ser nulo")
+    @NotNull(message = "Bairro não deve ser nulo")
     private Set<Bairro> bairro;
 
     /**
@@ -59,8 +59,8 @@ public class Cidade {
      * @param codigo the new codigo
      */
     public void setCodigo(Integer codigo) {
-//        Preconditions.checkNotNull(codigo, "Codigo não deve ser nulo");
-//        Preconditions.checkArgument(codigo > 0, "Codigo deve ser maior que 0", codigo);
+        // Preconditions.checkNotNull(codigo, "Codigo não deve ser nulo");
+        // Preconditions.checkArgument(codigo > 0, "Codigo deve ser maior que 0", codigo);
         this.codigo = codigo;
     }
 
@@ -79,9 +79,9 @@ public class Cidade {
      * @param nome the new nome
      */
     public void setNome(String nome) {
-//        Preconditions.checkNotNull(nome, "Nome não deve ser nulo");
-//        Preconditions.checkArgument(StringUtils.isNotEmpty(nome), "Nome não deve ser vazio", nome);
-//        Preconditions.checkArgument(nome.matches("[a-zA-Z\\w ]+$"), "Nome deve conter somente palavras", nome);
+        // Preconditions.checkNotNull(nome, "Nome não deve ser nulo");
+        // Preconditions.checkArgument(StringUtils.isNotEmpty(nome), "Nome não deve ser vazio", nome);
+        // Preconditions.checkArgument(nome.matches("[a-zA-Z\\w ]+$"), "Nome deve conter somente palavras", nome);
         this.nome = nome;
     }
 
@@ -100,8 +100,8 @@ public class Cidade {
      * @param tamanho the new tamanho
      */
     public void setTamanho(Double tamanho) {
-//        Preconditions.checkNotNull(tamanho, "Tamanho não deve ser nulo");
-//        Preconditions.checkArgument(tamanho > 0, "Tamanho deve ser maior que 0", tamanho);
+        // Preconditions.checkNotNull(tamanho, "Tamanho não deve ser nulo");
+        // Preconditions.checkArgument(tamanho > 0, "Tamanho deve ser maior que 0", tamanho);
         this.tamanho = tamanho;
     }
 
@@ -120,8 +120,8 @@ public class Cidade {
      * @param populacao the new populacao
      */
     public void setPopulacao(Long populacao) {
-//        Preconditions.checkNotNull(populacao, "População não deve ser nulo");
-//        Preconditions.checkArgument(populacao > 0, "População deve ser maior que 0", populacao);
+        // Preconditions.checkNotNull(populacao, "População não deve ser nulo");
+        // Preconditions.checkArgument(populacao > 0, "População deve ser maior que 0", populacao);
         this.populacao = populacao;
     }
 
@@ -140,7 +140,7 @@ public class Cidade {
      * @param bairro the new bairro
      */
     public void setBairro(Set<Bairro> bairro) {
-//        Preconditions.checkNotNull(bairro, "Bairro não deve ser nulo");
+        // Preconditions.checkNotNull(bairro, "Bairro não deve ser nulo");
         this.bairro = bairro;
     }
 
@@ -171,7 +171,7 @@ public class Cidade {
      */
     @Override
     public boolean equals(Object obj) {
-        if(!(obj instanceof Cidade)){
+        if (!(obj instanceof Cidade)) {
             return false;
         }
         Cidade other = (Cidade) obj;

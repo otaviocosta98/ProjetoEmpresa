@@ -7,22 +7,33 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
+/**
+ * The Class ValidatorAnnotations.
+ */
 public class ValidatorAnnotations {
-    
+
+    /** The validator. */
     private static Validator validator;
-    
-    public static boolean isValid(Object obj, String msg){
-        
+
+    /**
+     * Checks if is valid.
+     *
+     * @param obj the obj
+     * @param msg the msg
+     * @return true, if is valid
+     */
+    public static boolean isValid(Object obj, String msg) {
+
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         validator = factory.getValidator();
-        Set<ConstraintViolation<Object>> constraintViolations = validator.validate( obj );
+        Set<ConstraintViolation<Object>> constraintViolations = validator.validate(obj);
         for(ConstraintViolation<Object> constraintViolation : constraintViolations) {
-            if(msg.equals(constraintViolation.getMessage())){
+            if (msg.equals(constraintViolation.getMessage())) {
                 return false;
             }
         }
         return true;
-        
+
     }
 
 }

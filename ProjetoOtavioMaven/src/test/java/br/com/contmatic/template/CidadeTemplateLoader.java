@@ -6,8 +6,16 @@ import br.com.six2six.fixturefactory.Fixture;
 import br.com.six2six.fixturefactory.Rule;
 import br.com.six2six.fixturefactory.loader.TemplateLoader;
 
+/**
+ * The Class CidadeTemplateLoader.
+ */
 public class CidadeTemplateLoader implements TemplateLoader {
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see br.com.six2six.fixturefactory.loader.TemplateLoader#load()
+     */
     public void load() {
 
         Fixture.of(Cidade.class).addTemplate("valid", new Rule() {

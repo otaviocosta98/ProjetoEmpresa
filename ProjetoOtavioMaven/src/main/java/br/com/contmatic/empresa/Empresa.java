@@ -70,7 +70,7 @@ public class Empresa {
 
     /** The data inicio. */
     @NotNull(message = "Data de Início não deve ser nula")
-    @Future(message="Data de Início deve ser maior que hoje")
+    @Future(message = "Data de Início deve ser maior que hoje")
     private DateTime dataInicio;
 
     /**

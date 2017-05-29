@@ -17,13 +17,13 @@ import org.hibernate.validator.constraints.NotBlank;
 public class Operadora {
 
     /** The codigo. */
-    @NotNull(message="Codigo não deve ser nulo")
-    @Min(value=1,message="Codigo deve maior que 0")
+    @NotNull(message = "Codigo não deve ser nulo")
+    @Min(value = 1, message = "Codigo deve maior que 0")
     private Integer codigo;
 
     /** The nome. */
-    @NotNull(message="Nome não deve ser nulo")
-    @NotBlank(message="Nome não deve ser vazio")
+    @NotNull(message = "Nome não deve ser nulo")
+    @NotBlank(message = "Nome não deve ser vazio")
     private String nome;
 
     /**
@@ -41,8 +41,8 @@ public class Operadora {
      * @param codigo the new codigo
      */
     public void setCodigo(Integer codigo) {
-//        Preconditions.checkNotNull(codigo, "Codigo não deve ser nulo");
-//        Preconditions.checkArgument(codigo > 0, "Codigo deve maior que 0", codigo);
+        // Preconditions.checkNotNull(codigo, "Codigo não deve ser nulo");
+        // Preconditions.checkArgument(codigo > 0, "Codigo deve maior que 0", codigo);
         this.codigo = codigo;
     }
 
@@ -61,8 +61,8 @@ public class Operadora {
      * @param nome the new nome
      */
     public void setNome(String nome) {
-//        Preconditions.checkNotNull(nome, "Nome não deve ser nulo");
-//        Preconditions.checkArgument(StringUtils.isNotEmpty(nome), "Nome não deve ser vazio", nome);
+        // Preconditions.checkNotNull(nome, "Nome não deve ser nulo");
+        // Preconditions.checkArgument(StringUtils.isNotEmpty(nome), "Nome não deve ser vazio", nome);
         this.nome = nome;
     }
 
@@ -93,7 +93,7 @@ public class Operadora {
      */
     @Override
     public boolean equals(Object obj) {
-        if(!(obj instanceof Operadora)){
+        if (!(obj instanceof Operadora)) {
             return false;
         }
         Operadora other = (Operadora) obj;
