@@ -1,8 +1,9 @@
 package br.com.contmatic.empresa;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -12,6 +13,8 @@ import org.junit.Test;
 
 import br.com.six2six.fixturefactory.Fixture;
 import br.com.six2six.fixturefactory.loader.FixtureFactoryLoader;
+import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
 
 /**
  * The Class EstadoTest.
@@ -263,68 +266,17 @@ public class EstadoTest {
 
     /* -------------------------------------------------- <<< ToString ----------------------------------------------------------- */
 
-    /* -------------------------------------------------- HashCode >>> ----------------------------------------------------------- */
+    /* -------------------------------------------------- Equals & HashCode >>> ----------------------------------------------------------- */
 
     /**
-     * Deve ser valido hashcode de valores iguais.
+     * Deve ser valido equals e hashcode para campo codigo.
      */
     @Test
-    public void deve_ser_valido_hashcode_de_valores_iguais() {
-        Estado estado2 = estado;
-        assertEquals(estado.hashCode(), estado2.hashCode());
+    public void deve_ser_valido_equals_e_hashcode_para_campo_codigo() {
+        EqualsVerifier.forClass(Estado.class).withOnlyTheseFields("codigo").suppress(Warning.NONFINAL_FIELDS).verify();
     }
 
-    /**
-     * Nao deve ser valido hashcode de objetos deferentes.
-     */
-    @Test
-    public void nao_deve_ser_valido_hashcode_de_objetos_deferentes() {
-        Estado estado2 = new Estado();
-        estado.setCodigo(456);
-        estado2.setCodigo(123);
-        assertThat(estado.hashCode(), is(not(estado2.hashCode())));
-    }
-
-    /* -------------------------------------------------- <<< HashCode ----------------------------------------------------------- */
-
-    /* -------------------------------------------------- Equals >>> ----------------------------------------------------------- */
-
-    /**
-     * Deve o equals retornar false comparando estado a outro objeto que não seja da clase estado.
-     */
-    @Test
-    public void deve_o_equals_retornar_false_comparando_estado_a_outro_objeto_que_não_seja_da_clase_estado() {
-        Cidade cidade = new Cidade();
-        assertFalse(estado.equals(cidade));
-    }
-
-    /**
-     * Deve o equals retornar true comparando ele mesmo.
-     */
-    @Test
-    public void deve_o_equals_retornar_true_comparando_ele_mesmo() {
-        assertTrue(estado.equals(estado));
-    }
-
-    /**
-     * Deve o equals retornar true comparando outro estado igual.
-     */
-    @Test
-    public void deve_o_equals_retornar_true_comparando_outro_estado_igual() {
-        Estado estado2 = estado;
-        assertTrue(estado.equals(estado2));
-    }
-
-    /**
-     * Deve o equals retornar false comparando outro estado diferente.
-     */
-    @Test
-    public void deve_o_equals_retornar_false_comparando_outro_estado_diferente() {
-        Estado estado2 = new Estado();
-        assertFalse(estado.equals(estado2));
-    }
-
-    /* -------------------------------------------------- <<< Equals ----------------------------------------------------------- */
+    /* -------------------------------------------------- <<< Equals & HashCode ----------------------------------------------------------- */
 
     /* -------------------------------------------------- <<< Testes ----------------------------------------------------------- */
 

@@ -22,7 +22,7 @@ public class BairroTemplateLoader implements TemplateLoader {
             {
                 add("codigo", random(Integer.class, range(1, 1000)));
                 add("nome", random("Artur Alvim", "Tatuapé", "Penha", "Carrão", "Itaquera"));
-                add("tipo", random(BairroType.values()));
+                add("tipo", random((Object[]) BairroType.values()));
                 add("tamanho", random(Double.class, range(1000.00, 10000.00)));
                 add("populacao", random(Long.class, range(1000, 10000)));
             }

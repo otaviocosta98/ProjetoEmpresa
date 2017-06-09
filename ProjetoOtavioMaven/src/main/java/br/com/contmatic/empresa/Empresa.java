@@ -278,7 +278,7 @@ public class Empresa {
      * @see java.lang.Object#hashCode()
      */
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         return new HashCodeBuilder().append(codigo).toHashCode();
     }
 
@@ -288,7 +288,7 @@ public class Empresa {
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override
-    public boolean equals(Object obj) {
+    public final boolean equals(Object obj) {
         if (!(obj instanceof Empresa)) {
             return false;
         }

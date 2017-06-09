@@ -26,7 +26,7 @@ public class EnderecoTemplateLoader implements TemplateLoader {
                 add("complemento", random("11a", "12b", "13c", "14d", "21e"));
                 add("estado", one(Estado.class, "valid"));
                 add("cep", regex("(\\d{5}-\\d{3})"));
-                add("regiao", random(RegiaoType.values()));
+                add("regiao", random((Object[]) RegiaoType.values()));
             }
 
         });

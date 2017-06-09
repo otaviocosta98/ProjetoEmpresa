@@ -24,7 +24,7 @@ public class TelefoneTemplateLoader implements TemplateLoader {
                 add("ddd", random(Integer.class, range(11, 99)));
                 add("numero", random(Integer.class, range(11111111, 999999999)));
                 add("ramal", random(Integer.class, range(100, 1000)));
-                add("tipo", random(TelefoneType.values()));
+                add("tipo", random((Object[]) TelefoneType.values()));
                 add("responsavel", random("Eu", "Tu", "Ele", "Nós", "Vós", "Eles"));
                 add("operadora", one(Operadora.class, "valid"));
             }

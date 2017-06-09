@@ -1,13 +1,9 @@
 package br.com.contmatic.empresa;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -17,6 +13,8 @@ import org.junit.Test;
 
 import br.com.six2six.fixturefactory.Fixture;
 import br.com.six2six.fixturefactory.loader.FixtureFactoryLoader;
+import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
 
 /**
  * The Class TelefoneTest.
@@ -259,68 +257,17 @@ public class TelefoneTest {
 
     /* -------------------------------------------------- <<< ToString ----------------------------------------------------------- */
 
-    /* -------------------------------------------------- hashCode >>> ----------------------------------------------------------- */
+    /* -------------------------------------------------- Equals & HashCode >>> ----------------------------------------------------------- */
 
     /**
-     * Deve ser valido hashcode de valores iguais.
+     * Deve ser valido equals e hashcode para campo codigo.
      */
     @Test
-    public void deve_ser_valido_hashcode_de_valores_iguais() {
-        Telefone telefone2 = telefone;
-        assertEquals(telefone.hashCode(), telefone2.hashCode());
+    public void deve_ser_valido_equals_e_hashcode_para_campo_codigo() {
+        EqualsVerifier.forClass(Telefone.class).withOnlyTheseFields("numero").suppress(Warning.NONFINAL_FIELDS).verify();
     }
 
-    /**
-     * Nao deve ser valido hashcode de objetos diferentes.
-     */
-    @Test
-    public void nao_deve_ser_valido_hashcode_de_objetos_diferentes() {
-        Telefone telefone2 = new Telefone();
-        telefone.setNumero(12345678);
-        telefone2.setNumero(123456789);
-        assertThat(telefone.hashCode(), is(not(telefone2.hashCode())));
-    }
-
-    /* -------------------------------------------------- <<< hashCode ----------------------------------------------------------- */
-
-    /* -------------------------------------------------- equals >>> ----------------------------------------------------------- */
-
-    /**
-     * Deve o equals retornar false comparando telefone a outro objeto que não seja da clase telefone.
-     */
-    @Test
-    public void deve_o_equals_retornar_false_comparando_telefone_a_outro_objeto_que_não_seja_da_clase_telefone() {
-        Cidade cidade = new Cidade();
-        assertFalse(telefone.equals(cidade));
-    }
-
-    /**
-     * Deve o equals retornar true comparando ele mesmo.
-     */
-    @Test
-    public void deve_o_equals_retornar_true_comparando_ele_mesmo() {
-        assertTrue(telefone.equals(telefone));
-    }
-
-    /**
-     * Deve o equals retornar true comparando outro telefone igual.
-     */
-    @Test
-    public void deve_o_equals_retornar_true_comparando_outro_telefone_igual() {
-        Telefone telefone2 = telefone;
-        assertTrue(telefone.equals(telefone2));
-    }
-
-    /**
-     * Deve o equals retornar false comparando outro telefone diferente.
-     */
-    @Test
-    public void deve_o_equals_retornar_false_comparando_outro_telefone_diferente() {
-        Telefone telefone2 = new Telefone();
-        assertFalse(telefone.equals(telefone2));
-    }
-
-    /* -------------------------------------------------- equals >>> ----------------------------------------------------------- */
+    /* -------------------------------------------------- Equals & HashCode >>> ----------------------------------------------------------- */
 
     /* -------------------------------------------------- <<< Testes ----------------------------------------------------------- */
 

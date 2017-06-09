@@ -2,6 +2,7 @@ package br.com.contmatic.empresa;
 
 import java.util.Set;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -41,6 +42,7 @@ public class Cidade {
     private Long populacao;
 
     /** The bairro. */
+    @Valid
     @NotNull(message = "Bairro não deve ser nulo")
     private Set<Bairro> bairro;
 
@@ -160,7 +162,7 @@ public class Cidade {
      * @see java.lang.Object#hashCode()
      */
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         return new HashCodeBuilder().append(codigo).toHashCode();
     }
 
@@ -170,7 +172,7 @@ public class Cidade {
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override
-    public boolean equals(Object obj) {
+    public final boolean equals(Object obj) {
         if (!(obj instanceof Cidade)) {
             return false;
         }

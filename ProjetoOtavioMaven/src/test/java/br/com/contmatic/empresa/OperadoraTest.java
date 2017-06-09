@@ -1,8 +1,9 @@
 package br.com.contmatic.empresa;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -12,6 +13,8 @@ import org.junit.Test;
 
 import br.com.six2six.fixturefactory.Fixture;
 import br.com.six2six.fixturefactory.loader.FixtureFactoryLoader;
+import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
 
 /**
  * The Class OperadoraTest.
@@ -150,66 +153,17 @@ public class OperadoraTest {
 
     /* -------------------------------------------------- <<< ToString ----------------------------------------------------------- */
 
-    /* -------------------------------------------------- hashCode >>> ----------------------------------------------------------- */
+    /* -------------------------------------------------- Equals & HashCode >>> ----------------------------------------------------------- */
 
     /**
-     * Deve ser valido hashcode de valores iguais.
+     * Deve ser valido equals e hashcode para campo codigo.
      */
     @Test
-    public void deve_ser_valido_hashcode_de_valores_iguais() {
-        Operadora operadora2 = operadora;
-        assertEquals(operadora.hashCode(), operadora2.hashCode());
+    public void deve_ser_valido_equals_e_hashcode_para_campo_codigo() {
+        EqualsVerifier.forClass(Operadora.class).withOnlyTheseFields("codigo").suppress(Warning.NONFINAL_FIELDS).verify();
     }
 
-    /**
-     * Nao deve ser valido hashcode de objetos deferentes.
-     */
-    @Test
-    public void nao_deve_ser_valido_hashcode_de_objetos_deferentes() {
-        Operadora operadora2 = new Operadora();
-        assertThat(operadora.hashCode(), is(not(operadora2.hashCode())));
-    }
-
-    /* -------------------------------------------------- <<< hashCode ----------------------------------------------------------- */
-
-    /* -------------------------------------------------- equals >>> ----------------------------------------------------------- */
-
-    /**
-     * Deve o equals retornar false comparando operadora a outro objeto que não seja da clase operadora.
-     */
-    @Test
-    public void deve_o_equals_retornar_false_comparando_operadora_a_outro_objeto_que_não_seja_da_clase_operadora() {
-        Cidade cidade = new Cidade();
-        assertFalse(operadora.equals(cidade));
-    }
-
-    /**
-     * Deve o equals retornar true comparando ele mesmo.
-     */
-    @Test
-    public void deve_o_equals_retornar_true_comparando_ele_mesmo() {
-        assertTrue(operadora.equals(operadora));
-    }
-
-    /**
-     * Deve o equals retornar true comparando outro operadora igual.
-     */
-    @Test
-    public void deve_o_equals_retornar_true_comparando_outro_operadora_igual() {
-        Operadora operadora2 = operadora;
-        assertTrue(operadora.equals(operadora2));
-    }
-
-    /**
-     * Deve o equals retornar false comparando outro operadora diferente.
-     */
-    @Test
-    public void deve_o_equals_retornar_false_comparando_outro_operadora_diferente() {
-        Operadora operadora2 = new Operadora();
-        assertFalse(operadora.equals(operadora2));
-    }
-
-    /* -------------------------------------------------- <<< equals ----------------------------------------------------------- */
+    /* -------------------------------------------------- <<< Equals & HashCode ----------------------------------------------------------- */
 
     /* -------------------------------------------------- <<< Testes ----------------------------------------------------------- */
 

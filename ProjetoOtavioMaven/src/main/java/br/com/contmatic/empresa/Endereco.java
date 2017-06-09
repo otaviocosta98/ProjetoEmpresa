@@ -186,7 +186,7 @@ public class Endereco {
      * @see java.lang.Object#hashCode()
      */
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         return new HashCodeBuilder().append(logradouro).append(numero).append(cep).toHashCode();
     }
 
@@ -196,7 +196,7 @@ public class Endereco {
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override
-    public boolean equals(Object obj) {
+    public final boolean equals(Object obj) {
         if (!(obj instanceof Endereco)) {
             return false;
         }

@@ -1,13 +1,9 @@
 package br.com.contmatic.empresa;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -19,6 +15,8 @@ import org.junit.rules.ExpectedException;
 
 import br.com.six2six.fixturefactory.Fixture;
 import br.com.six2six.fixturefactory.loader.FixtureFactoryLoader;
+import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
 
 /**
  * The Class EnderecoTest.
@@ -250,6 +248,27 @@ public class EnderecoTest {
 
     /* -------------------------------------------------- <<< CEP ----------------------------------------------------------- */
 
+    /* -------------------------------------------------- Região >>> ----------------------------------------------------------- */
+
+    /**
+     * Nao deve aceitar regiao nula.
+     */
+    @Test
+    public void nao_deve_aceitar_regiao_nula() {
+        endereco.setRegiao(null);
+        assertFalse(ValidatorAnnotations.isValid(endereco, "Região não deve ser nulo"));
+    }
+
+    /**
+     * Deve aceitar regiao valida.
+     */
+    @Test
+    public void deve_aceitar_regiao_valida() {
+        assertNotNull(endereco.getRegiao());
+    }
+
+    /* -------------------------------------------------- <<< Região ----------------------------------------------------------- */
+
     /* -------------------------------------------------- ToString >>> ----------------------------------------------------------- */
 
     /**
@@ -272,66 +291,17 @@ public class EnderecoTest {
 
     /* -------------------------------------------------- <<< ToString ----------------------------------------------------------- */
 
-    /* -------------------------------------------------- HashCode >>> ----------------------------------------------------------- */
+    /* -------------------------------------------------- Equals & HashCode >>> ----------------------------------------------------------- */
 
     /**
-     * Deve ser valido hashcode de valores iguais.
+     * Deve ser valido equals e hashcode para campo codigo.
      */
     @Test
-    public void deve_ser_valido_hashcode_de_valores_iguais() {
-        Endereco endereco2 = endereco;
-        assertEquals(endereco.hashCode(), endereco2.hashCode());
+    public void deve_ser_valido_equals_e_hashcode_para_campo_codigo() {
+        EqualsVerifier.forClass(Endereco.class).withOnlyTheseFields("logradouro", "numero", "cep").suppress(Warning.NONFINAL_FIELDS).verify();
     }
 
-    /**
-     * Nao deve ser valido hashcode de objetos diferentes.
-     */
-    @Test
-    public void nao_deve_ser_valido_hashcode_de_objetos_diferentes() {
-        Endereco endereco2 = new Endereco();
-        assertThat(endereco.hashCode(), is(not(endereco2.hashCode())));
-    }
-
-    /* -------------------------------------------------- <<< HashCode ----------------------------------------------------------- */
-
-    /* -------------------------------------------------- Equals >>> ----------------------------------------------------------- */
-
-    /**
-     * Deve o equals retornar false comparando endereco a outro objeto que não seja da clase endereco.
-     */
-    @Test
-    public void deve_o_equals_retornar_false_comparando_endereco_a_outro_objeto_que_não_seja_da_clase_endereco() {
-        Cidade cidade = new Cidade();
-        assertFalse(endereco.equals(cidade));
-    }
-
-    /**
-     * Deve o equals retornar true comparando ele mesmo.
-     */
-    @Test
-    public void deve_o_equals_retornar_true_comparando_ele_mesmo() {
-        assertTrue(endereco.equals(endereco));
-    }
-
-    /**
-     * Deve o equals retornar true comparando outro endereco igual.
-     */
-    @Test
-    public void deve_o_equals_retornar_true_comparando_outro_endereco_igual() {
-        Endereco endereco2 = endereco;
-        assertTrue(endereco.equals(endereco2));
-    }
-
-    /**
-     * Deve o equals retornar false comparando outro endereco diferente.
-     */
-    @Test
-    public void deve_o_equals_retornar_false_comparando_outro_endereco_diferente() {
-        Endereco endereco2 = new Endereco();
-        assertFalse(endereco.equals(endereco2));
-    }
-
-    /* -------------------------------------------------- <<< Equals ----------------------------------------------------------- */
+    /* -------------------------------------------------- <<< Equals & HashCode ----------------------------------------------------------- */
 
     /* -------------------------------------------------- <<< Testes ----------------------------------------------------------- */
 

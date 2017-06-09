@@ -23,7 +23,7 @@ public class EstadoTemplateLoader implements TemplateLoader {
             {
                 add("codigo", random(Integer.class, range(1, 1000)));
                 add("nome", random("São Paulo", "Rio de Janeiro", "Santa Catarina", "Paraíba", "Rio grando do Sul"));
-                add("uf", random(UfType.values()));
+                add("uf", random((Object[]) UfType.values()));
                 add("tamanho", random(Double.class, range(1.0, 10000.0)));
                 add("populacao", random(Long.class, range(1, 10000)));
                 add("cidade", has(3).of(Cidade.class, "valid"));

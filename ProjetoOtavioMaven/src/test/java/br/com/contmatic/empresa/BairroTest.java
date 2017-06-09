@@ -1,13 +1,9 @@
 package br.com.contmatic.empresa;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -19,6 +15,8 @@ import org.junit.rules.ExpectedException;
 
 import br.com.six2six.fixturefactory.Fixture;
 import br.com.six2six.fixturefactory.loader.FixtureFactoryLoader;
+import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
 
 /**
  * The Class BairroTest.
@@ -252,68 +250,17 @@ public class BairroTest {
 
     /* -------------------------------------------------- <<< ToString ----------------------------------------------------------- */
 
-    /* -------------------------------------------------- HashCode >>> ----------------------------------------------------------- */
+    /* -------------------------------------------------- Equals & HashCode>>> ----------------------------------------------------------- */
 
     /**
-     * Deve ser valido hashcode de valores iguais.
+     * Deve ser valido equals e hashcode para campo codigo.
      */
     @Test
-    public void deve_ser_valido_hashcode_de_valores_iguais() {
-        Bairro bairro2 = bairro;
-        assertEquals(bairro.hashCode(), bairro2.hashCode());
+    public void deve_ser_valido_equals_e_hashcode_para_campo_codigo() {
+        EqualsVerifier.forClass(Bairro.class).withOnlyTheseFields("codigo").suppress(Warning.NONFINAL_FIELDS).verify();
     }
 
-    /**
-     * Nao deve ser valido hashcode de objetos deferentes.
-     */
-    @Test
-    public void nao_deve_ser_valido_hashcode_de_objetos_deferentes() {
-        Bairro bairro2 = new Bairro();
-        bairro.setCodigo(456);
-        bairro2.setCodigo(123);
-        assertThat(bairro.hashCode(), is(not(bairro2.hashCode())));
-    }
-
-    /* -------------------------------------------------- <<< HashCode ----------------------------------------------------------- */
-
-    /* -------------------------------------------------- Equals >>> ----------------------------------------------------------- */
-
-    /**
-     * Deve o equals retornar false comparando bairro a outro objeto que não seja da clase bairro.
-     */
-    @Test
-    public void deve_o_equals_retornar_false_comparando_bairro_a_outro_objeto_que_não_seja_da_clase_bairro() {
-        Cidade cidade = new Cidade();
-        assertFalse(bairro.equals(cidade));
-    }
-
-    /**
-     * Deve o equals retornar true comparando ele mesmo.
-     */
-    @Test
-    public void deve_o_equals_retornar_true_comparando_ele_mesmo() {
-        assertTrue(bairro.equals(bairro));
-    }
-
-    /**
-     * Deve o equals retornar true comparando outro bairro igual.
-     */
-    @Test
-    public void deve_o_equals_retornar_true_comparando_outro_bairro_igual() {
-        Bairro bairro2 = bairro;
-        assertTrue(bairro.equals(bairro2));
-    }
-
-    /**
-     * Deve o equals retornar false comparando outro bairro diferente.
-     */
-    @Test
-    public void deve_o_equals_retornar_false_comparando_outro_bairro_diferente() {
-        Bairro bairro2 = new Bairro();
-        assertFalse(bairro.equals(bairro2));
-    }
-
-    /* -------------------------------------------------- <<< Equals ----------------------------------------------------------- */
+    /* -------------------------------------------------- <<< Equals & HashCode ----------------------------------------------------------- */
 
     /* -------------------------------------------------- <<< Testes ----------------------------------------------------------- */
 
